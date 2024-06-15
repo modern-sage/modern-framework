@@ -1,0 +1,10 @@
+*/target/
+*.iml
+.idea/*
+/out/
+*.log
+/logs/
+*/env/*
+.run/*
+.vscode/*
+**/.flattened-pom.xml
