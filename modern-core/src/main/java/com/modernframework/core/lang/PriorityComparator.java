@@ -1,5 +1,7 @@
 package com.modernframework.core.lang;
 
+import com.modernframework.core.utils.AnnotationUtils;
+
 import javax.annotation.Priority;
 import java.util.Comparator;
 import java.util.Objects;

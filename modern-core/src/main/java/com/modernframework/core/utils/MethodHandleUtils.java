@@ -1,6 +1,7 @@
 package com.modernframework.core.utils;
 
 import com.modernframework.core.lang.Asserts;
+import com.modernframework.core.lang.LookupFactory;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -218,7 +219,7 @@ public class MethodHandleUtils {
 			}
 			return (T) handle.invokeWithArguments(args);
 		} catch (Throwable e) {
-			throw new UtilException(e);
+			throw new RuntimeException(e);
 		}
 	}
 }

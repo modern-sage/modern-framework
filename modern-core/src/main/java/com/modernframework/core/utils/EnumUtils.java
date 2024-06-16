@@ -1,9 +1,9 @@
 package com.modernframework.core.utils;
 
 import com.modernframework.core.func.Predicates;
+import com.modernframework.core.func.SerialFunction;
 
 import java.util.Arrays;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -75,7 +75,7 @@ public abstract class EnumUtils {
      * @param <C>       字段类型
      * @return 对应枚举 ，获取不到时为 {@code null}
      */
-    public static <E extends Enum<E>, C> E getBy(Function<E, C> condition, C value) {
+    public static <E extends Enum<E>, C> E getBy(SerialFunction<E, C> condition, C value) {
         Class<E> implClass = LambdaUtils.getRealClass(condition);
         if (Enum.class.equals(implClass)) {
             implClass = LambdaUtils.getRealClass(condition);

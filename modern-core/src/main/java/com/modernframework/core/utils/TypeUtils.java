@@ -469,6 +469,26 @@ public abstract class TypeUtils {
         return unmodifiableList(actualTypeArguments);
     }
 
+    public static List<Type> findActualTypeArguments(Type type, Class<?> interfaceClass) {
+        return findActualTypeArguments(type, false, interfaceClass);
+    }
+
+    public static List<Type> findActualTypeArguments(Type type, boolean sortParentToSun, Class<?> interfaceClass) {
+        List<Type> actualTypeArguments = new LinkedList<>();
+        getAllGenericParameterizedTypes(type, sortParentToSun, t -> ClassUtils.isAssignableFrom(interfaceClass, getRawClass(t)))
+                .forEach(parameterizedType -> {
+                    Class<?> rawClass = getRawClass(parameterizedType);
+                    Type[] typeArguments = parameterizedType.getActualTypeArguments();
+                    actualTypeArguments.addAll(asList(typeArguments));
+                    Class<?> superClass = rawClass.getSuperclass();
+                    if (superClass != null) {
+                        actualTypeArguments.addAll(findActualTypeArguments(superClass, interfaceClass));
+                    }
+                });
+
+        return unmodifiableList(actualTypeArguments);
+    }
+
     /**
      * Get all generic types(including super classes and interfaces) that are assignable from {@link ParameterizedType} interface
      *

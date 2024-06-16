@@ -35,7 +35,7 @@ public abstract class ResourceUtils {
      * @param resource 资源（相对Classpath的路径）
      * @return 资源URL
      */
-    public static URL getResource(String resource) throws IORuntimeException {
+    public static URL getResource(String resource) {
         return getResource(resource, null);
     }
 

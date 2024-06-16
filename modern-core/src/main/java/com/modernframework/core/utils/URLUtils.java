@@ -164,7 +164,12 @@ public class URLUtils {
             return null;
         }
 
-        return toURI(url.toString(), isEncode);
+        try {
+            return toURI(url.toString(), isEncode);
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /**
@@ -174,7 +179,11 @@ public class URLUtils {
      * @return URI
      */
     public static URI toURI(String location) {
-        return toURI(location, false);
+        try {
+            return toURI(location, false);
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
