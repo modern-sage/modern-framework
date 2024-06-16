@@ -13,6 +13,7 @@
     <groupId>com.modernframework</groupId>
     <artifactId>modern-base</artifactId>
     <packaging>jar</packaging>
+    <name>modern-base:${revision}</name>
 
     <dependencies>
         <dependency>

@@ -13,6 +13,7 @@
     <groupId>com.modernframework</groupId>
     <artifactId>modern-orm</artifactId>
     <packaging>pom</packaging>
+    <name>modern-orm:${revision}</name>
 
     <modules>
         <module>modern-orm-api</module>

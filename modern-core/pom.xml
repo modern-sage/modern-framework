@@ -13,6 +13,7 @@
     <groupId>com.modernframework</groupId>
     <artifactId>modern-core</artifactId>
     <packaging>jar</packaging>
+    <name>modern-core:${revision}</name>
 
     <dependencies>
 
