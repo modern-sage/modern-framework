@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.modernframework</groupId>
-    <artifactId>modern-data-orm-api</artifactId>
+    <artifactId>modern-orm-api</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

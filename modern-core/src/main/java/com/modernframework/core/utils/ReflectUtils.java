@@ -343,7 +343,6 @@ public abstract class ReflectUtils {
      *
      * @param clazz 类
      * @return 方法列表
-     * @since 1.0.0s
      */
     private static List<Method> getDefaultMethodsFromInterface(Class<?> clazz) {
         List<Method> result = new ArrayList<>();

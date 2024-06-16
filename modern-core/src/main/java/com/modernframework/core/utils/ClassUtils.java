@@ -595,7 +595,6 @@ public abstract class ClassUtils {
      * @return the corresponding primitive type if <code>cls</code> is a
      * wrapper class, <b>null</b> otherwise
      * @see #primitiveToWrapper(Class)
-     * @since 2.4
      */
     public static Class wrapperToPrimitive(Class cls) {
         return (Class) WRAPPER_PRIMITIVE_MAP.get(cls);

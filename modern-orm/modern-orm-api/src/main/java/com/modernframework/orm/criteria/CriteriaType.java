@@ -1,6 +1,7 @@
 package com.modernframework.orm.criteria;
 
 
+import com.modernframework.core.utils.EnumUtils;
 import com.modernframework.core.utils.StringUtils;
 
 /**

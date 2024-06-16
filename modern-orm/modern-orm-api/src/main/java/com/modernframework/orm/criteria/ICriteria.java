@@ -1,7 +1,7 @@
 package com.modernframework.orm.criteria;
 
 
-import com.modern.core.util.StringUtils;
+import com.modernframework.core.utils.StringUtils;
 
 import java.io.Serializable;
 

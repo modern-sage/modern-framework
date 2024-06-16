@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @see Priority
- * @since 0.0.1
+ * @since 1.0.0
  */
 public class PriorityComparator implements Comparator<Object> {
 

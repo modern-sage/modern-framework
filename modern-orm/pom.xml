@@ -15,8 +15,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>modern-data-orm-api</module>
-        <module>modern-data-orm-mp</module>
+        <module>modern-orm-api</module>
+        <module>modern-orm-mp</module>
     </modules>
 
     <dependencyManagement>

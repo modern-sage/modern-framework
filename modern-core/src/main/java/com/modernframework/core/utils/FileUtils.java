@@ -331,7 +331,6 @@ public class FileUtils extends PathUtils {
      * @param directory 父目录
      * @param names     元素名（多层目录名），由外到内依次传入
      * @return the file 文件
-     * @since 4.0.6
      */
     public static File file(File directory, String... names) {
         Asserts.notNull(directory, "directory must not be null");
@@ -355,7 +354,6 @@ public class FileUtils extends PathUtils {
      *
      * @param names 多层文件的文件名，由外到内依次传入
      * @return the file 文件
-     * @since 4.0.6
      */
     public static File file(String... names) {
         if (ArrayUtils.isEmpty(names)) {

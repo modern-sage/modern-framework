@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.modernframework</groupId>
-    <artifactId>modern-data-orm-mp</artifactId>
+    <artifactId>modern-orm-mp</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
 
