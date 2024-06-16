@@ -86,7 +86,7 @@ public abstract class ClassUtils {
      * @param superType  the super type
      * @param targetType the target type
      * @return see {@link Class#isAssignableFrom(Class)}
-     * @since 0.0.1
+     * @since 1.0.0
      */
     public static boolean isAssignableFrom(Class<?> superType, Class<?> targetType) {
         // any argument is null
@@ -312,7 +312,7 @@ public abstract class ClassUtils {
      * @param targetType the target type
      * @param superTypes the super types
      * @return see {@link Class#isAssignableFrom(Class)}
-     * @since 0.0.1
+     * @since 1.0.0
      */
     public static boolean isDerived(Class<?> targetType, Class<?>... superTypes) {
         // any argument is null
@@ -337,7 +337,7 @@ public abstract class ClassUtils {
      * @param type             the specified type
      * @param interfaceFilters the filters for interfaces
      * @return non-null read-only {@link Set}
-     * @since 0.0.1
+     * @since 1.0.0
      */
     public static Set<Class<?>> getAllInterfaces(Class<?> type, Predicate<Class<?>>... interfaceFilters) {
         if (type == null || type.isPrimitive()) {
@@ -423,7 +423,7 @@ public abstract class ClassUtils {
      * @param type         the specified type
      * @param classFilters the filters for classes
      * @return non-null read-only {@link Set}
-     * @since 0.0.1
+     * @since 1.0.0
      */
     public static Set<Class<?>> getAllSuperClasses(Class<?> type, Predicate<Class<?>>... classFilters) {
         return getAllClasses(type, false, classFilters);
@@ -508,7 +508,7 @@ public abstract class ClassUtils {
      * @param classLoader {@link ClassLoader}
      * @return If can't be resolved , return <code>null</code>
      * @see #loadClass(String, boolean)
-     * @since 0.0.1
+     * @since 1.0.0
      */
     @Deprecated
     public static <T> Class<T> resolveClass(String className, ClassLoader classLoader) {
@@ -526,7 +526,7 @@ public abstract class ClassUtils {
      * @param className the name of {@link Class}
      * @return If can't be resolved , return <code>null</code>
      * @see #loadClass(String)
-     * @since 0.1.0
+     * @since 1.0.0
      */
     @Deprecated
     public static <T> Class<T> resolveClass(String className) {

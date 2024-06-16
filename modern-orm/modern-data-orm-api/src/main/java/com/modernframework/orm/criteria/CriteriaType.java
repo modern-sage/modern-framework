@@ -6,7 +6,7 @@ import com.modernframework.core.utils.StringUtils;
 /**
  * 查询条件类型
  *
- * @author jjz
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  */
 public enum CriteriaType {
     /**

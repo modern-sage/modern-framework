@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 查询条件接口参数
  *
- * @author liwei
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  */
 public interface ICriteria<T> extends Serializable {
 

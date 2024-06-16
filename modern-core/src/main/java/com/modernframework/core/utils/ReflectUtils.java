@@ -1,6 +1,7 @@
 package com.modernframework.core.utils;
 
 
+import com.modernframework.core.convert.ConvertUtils;
 import com.modernframework.core.func.Streams;
 import com.modernframework.core.lang.Asserts;
 import com.modernframework.core.map.WeakConcurrentMap;
@@ -100,7 +101,7 @@ public abstract class ReflectUtils {
      * @param withMethodFromObject 是否包括Object中的方法
      * @return 方法列表
      * @throws SecurityException 安全检查异常
-     * @since 0.0.5
+     * @since 1.0.0
      */
     public static Method[] getMethodsDirectly(Class<?> beanClass, boolean withSupers, boolean withMethodFromObject) throws SecurityException {
         Asserts.notNull(beanClass);
@@ -143,7 +144,7 @@ public abstract class ReflectUtils {
      * @param beanClass 类，非{@code null}
      * @return 方法列表
      * @throws SecurityException 安全检查异常
-     * @since 0.0.5
+     * @since 1.0.0
      */
     public static Method[] getMethods(Class<?> beanClass) throws SecurityException {
         Asserts.notNull(beanClass);
@@ -158,7 +159,7 @@ public abstract class ReflectUtils {
      * @param filters 过滤器
      * @return 过滤后的方法列表
      * @throws SecurityException 安全异常
-     * @since 0.0.5
+     * @since 1.0.0
      */
     public static Method[] getMethods(Class<?> clazz, Predicate<Method>... filters) throws SecurityException {
         if (null == clazz) {
@@ -319,7 +320,7 @@ public abstract class ReflectUtils {
      *
      * @param method 方法
      * @return 方法唯一键
-     * @since 0.0.5
+     * @since 1.0.0
      */
     private static String getMethodUniqueKey(Method method) {
         final StringBuilder sb = new StringBuilder();
@@ -342,7 +343,7 @@ public abstract class ReflectUtils {
      *
      * @param clazz 类
      * @return 方法列表
-     * @since 0.0.5s
+     * @since 1.0.0s
      */
     private static List<Method> getDefaultMethodsFromInterface(Class<?> clazz) {
         List<Method> result = new ArrayList<>();
@@ -455,13 +456,14 @@ public abstract class ReflectUtils {
      * @param args       参数列表
      * @return 执行结果
      */
-    public static <T> T invoke(Object obj, String methodName, Object... args) throws UtilException {
+    public static <T> T invoke(Object obj, String methodName, Object... args) {
         Asserts.notNull(obj, "Object to get method must be not null!");
         Asserts.notBlank(methodName, "Method name must be not blank!");
 
         final Method method = getMethodOfObj(obj, methodName, args);
         if (null == method) {
-            throw new UtilException("No such method: [{}] from [{}]", methodName, obj.getClass());
+            throw new RuntimeException(StringUtils.format("No such method: [{}] from [{}]",
+                    methodName, obj.getClass()));
         }
         return invoke(obj, method, args);
     }

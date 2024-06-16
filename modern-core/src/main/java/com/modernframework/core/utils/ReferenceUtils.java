@@ -53,7 +53,7 @@ public class ReferenceUtils {
     /**
      * 引用类型
      *
-     * @author looly
+     * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
      */
     public enum ReferenceType {
         /**

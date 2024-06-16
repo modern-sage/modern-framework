@@ -16,10 +16,12 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.modernframework.core.constant.CharConstant.SLASH;
+
 /**
  * 文件工具类
  *
- * @author looly
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  */
 public class FileUtils extends PathUtils {
 
@@ -436,10 +438,10 @@ public class FileUtils extends PathUtils {
         fileName = fileName.replace('\\', '/');
         if (!isWindows()
                 // 检查文件名中是否包含"/"，不考虑以"/"结尾的情况
-                && fileName.lastIndexOf(CharPool.SLASH, fileName.length() - 2) > 0) {
+                && fileName.lastIndexOf(SLASH, fileName.length() - 2) > 0) {
             // 在Linux下多层目录创建存在问题，/会被当成文件名的一部分，此处做处理
             // 使用/拆分路径（zip中无\），级联创建父目录
-            final List<String> pathParts = StringUtils.split(fileName, '/', false, true);
+            final List<String> pathParts = StringUtils.split(fileName, "/", false, true);
             final int lastPartIndex = pathParts.size() - 1;//目录个数
             for (int i = 0; i < lastPartIndex; i++) {
                 //由于路径拆分，slip不检查，在最后一步检查

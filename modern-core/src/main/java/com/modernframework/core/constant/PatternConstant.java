@@ -224,7 +224,7 @@ public class PatternConstant {
     /**
      * 正则表达式和正则标识位的包装
      *
-     * @author Looly
+     * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
      */
     private static class RegexWithFlag {
         private final String regex;

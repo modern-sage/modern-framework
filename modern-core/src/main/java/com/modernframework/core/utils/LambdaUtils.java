@@ -1,11 +1,12 @@
 package com.modernframework.core.utils;
 
+import com.modernframework.core.func.SerialFunction;
+import com.modernframework.core.func.SerialSupplier;
 import com.modernframework.core.map.WeakConcurrentMap;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandleInfo;
 import java.lang.invoke.SerializedLambda;
-import java.util.function.Supplier;
 
 /**
  * Lambda相关工具类
@@ -48,9 +49,8 @@ public abstract class LambdaUtils {
      * @param <R>  类型
      * @return lambda实现类
      * @throws IllegalArgumentException 如果是不支持的方法引用，抛出该异常，见{@link LambdaUtils#checkLambdaTypeCanGetClass}
-     * @author VampireAchao
      */
-    public static <R> Class<R> getRealClass(Supplier<?> supplier) {
+    public static <R> Class<R> getRealClass(SerialSupplier<?> supplier) {
         final SerializedLambda lambda = resolve(supplier);
         checkLambdaTypeCanGetClass(lambda.getImplMethodKind());
         return ClassUtils.loadClass(lambda.getImplClass());
@@ -64,7 +64,7 @@ public abstract class LambdaUtils {
      * @param func 需要解析的 lambda 对象（无参方法）
      * @return 返回解析后的结果
      */
-    public static <T> SerializedLambda resolve(Func1<T, ?> func) {
+    public static <T> SerializedLambda resolve(SerialFunction<T, ?> func) {
         return _resolve(func);
     }
 
@@ -76,8 +76,8 @@ public abstract class LambdaUtils {
      * @param supplier 需要解析的 lambda 对象（无参方法）
      * @return 返回解析后的结果
      */
-    public static <R> SerializedLambda resolve(Supplier<R> supplier) {
-        return _resolve(func);
+    public static <R> SerializedLambda resolve(SerialSupplier<R> supplier) {
+        return _resolve(supplier);
     }
 
     /**
@@ -87,7 +87,7 @@ public abstract class LambdaUtils {
      * @param func 函数（无参方法）
      * @return 函数名称
      */
-    public static <P> String getMethodName(Func1<P, ?> func) {
+    public static <P> String getMethodName(SerialFunction<P, ?> func) {
         return resolve(func).getImplMethodName();
     }
 
@@ -97,9 +97,9 @@ public abstract class LambdaUtils {
      * @param <R>  Lambda返回类型
      * @param func 函数（无参方法）
      * @return 函数名称
-     * @since 5.7.23
+     * @since 1.0.0
      */
-    public static <R> String getMethodName(Func0<R> func) {
+    public static <R> String getMethodName(SerialSupplier<R> func) {
         return resolve(func).getImplMethodName();
     }
 
@@ -122,9 +122,9 @@ public abstract class LambdaUtils {
      * @param <R>  返回值类型
      * @return lambda实现类
      * @throws IllegalArgumentException 如果是不支持的方法引用，抛出该异常，见{@link LambdaUtils#checkLambdaTypeCanGetClass}
-     * @author VampireAchao
+     * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
      */
-    public static <P, R> Class<P> getRealClass(Func1<P, R> func) {
+    public static <P, R> Class<P> getRealClass(SerialFunction<P, R> func) {
         final SerializedLambda lambda = resolve(func);
         checkLambdaTypeCanGetClass(lambda.getImplMethodKind());
         final String instantiatedMethodType = lambda.getInstantiatedMethodType();
@@ -145,7 +145,7 @@ public abstract class LambdaUtils {
      * @return 方法名称
      * @throws IllegalArgumentException 非Getter或Setter方法
      */
-    public static <T> String getFieldName(Func1<T, ?> func) throws IllegalArgumentException {
+    public static <T> String getFieldName(SerialFunction<T, ?> func) throws IllegalArgumentException {
         return BeanUtils.getFieldName(getMethodName(func));
     }
 
@@ -163,7 +163,7 @@ public abstract class LambdaUtils {
      * @return 方法名称
      * @throws IllegalArgumentException 非Getter或Setter方法
      */
-    public static <T> String getFieldName(Func0<T> func) throws IllegalArgumentException {
+    public static <T> String getFieldName(SerialSupplier<T> func) throws IllegalArgumentException {
         return BeanUtils.getFieldName(getMethodName(func));
     }
 
@@ -197,5 +197,4 @@ public abstract class LambdaUtils {
     private static SerializedLambda _resolve(Serializable func) {
         return cache.computeIfAbsent(func.getClass().getName(), (key) -> ReflectUtils.invoke(func, "writeReplace"));
     }
-    //endregion
 }
