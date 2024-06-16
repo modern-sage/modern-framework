@@ -131,6 +131,11 @@
                 <artifactId>modern-base</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>com.modernframework</groupId>
+                <artifactId>modern-orm-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <!-- modern starter -->
             <dependency>
