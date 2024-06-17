@@ -136,6 +136,11 @@
                 <artifactId>modern-orm-api</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>com.modernframework</groupId>
+                <artifactId>modern-orm-mp</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <!-- modern starter -->
             <dependency>
@@ -532,6 +537,7 @@
         <module>modern-core</module>
         <module>modern-base</module>
         <module>modern-orm</module>
+        <module>modern-boot</module>
     </modules>
 
     <build>

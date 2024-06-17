@@ -1,7 +1,7 @@
 package com.modernframework.base.exception;
 
 
-import com.modernframework.base.constant.BizOpConstant;
+import com.modernframework.base.constant.BizOpCode;
 import com.modernframework.core.utils.StringUtils;
 import lombok.Getter;
 
@@ -18,12 +18,12 @@ public class BizException extends RuntimeException {
 
     public BizException(Throwable cause) {
         super(cause);
-        this.code = BizOpConstant.FAIL.getCode();
+        this.code = BizOpCode.FAIL.getCode();
     }
 
     public BizException(String message) {
         super(message);
-        this.code = BizOpConstant.FAIL.getCode();
+        this.code = BizOpCode.FAIL.getCode();
     }
 
     public BizException(String messageFormat, Object... args) {

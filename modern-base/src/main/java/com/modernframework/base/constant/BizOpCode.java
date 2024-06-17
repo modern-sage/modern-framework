@@ -13,7 +13,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum BizOpConstant {
+public enum BizOpCode {
 
     /**
      * 成功
