@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出 -->
+<!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数 -->
+<configuration monitorInterval="5" status="info">
+	<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+
+	<!--变量配置 -->
+	<Properties>
+		<!-- 日志文件目录 -->
+		<property name="LOG_HOME" value="logs" />
+
+		<!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符 -->
+		<!-- %logger{36} 表示 Logger 名字最长36个字符 -->
+		<property name="LOG_PATTERN_BAK" value="%d %p %C{} [%t] %m%n" />
+		<property name="LOG_PATTERN" value="%d %p %c{9.9.9.1}(%L) [%t] %m%n" />
+		<property name="FILE_NAME" value="tp-default-app" />
+	</Properties>
+
+	<appenders>
+		<!--*********************控制台日志***********************-->
+		<console name="consoleAppender" target="SYSTEM_OUT">
+			<!--输出日志的格式 -->
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</console>
+
+<!--		&lt;!&ndash;*********************输出到数据库***********************&ndash;&gt;-->
+<!--		<JDBC name="jdbcAppender" tableName="tp_logs">-->
+<!--			<DriverManager-->
+<!--					connectionString="jdbc:mysql://rm-bp1gk090hhq2z6hx3xo.mysql.rds.aliyuncs.com:3306/iknown-platform-dev"-->
+<!--					userName="iknown_platform_dev"-->
+<!--					password="I2K0n2o1wn"-->
+<!--					driverClassName="com.mysql.cj.jdbc.Driver"-->
+<!--			/>-->
+<!--			<Column name="date_time" isEventTimestamp="true" />-->
+<!--			<Column name="clazz" pattern="%logger" />-->
+<!--			<Column name="level" pattern="%level" />-->
+<!--			<Column name="message" pattern="%message" />-->
+<!--			<Column name="exception" pattern="%ex{full}" isClob="true"/>-->
+<!--		</JDBC>-->
+
+		<!--*********************文件日志***********************-->
+		<!--all级别日志-->
+		<RollingRandomAccessFile name="allFileAppender"
+								 fileName="${LOG_HOME}/all.log"
+								 filePattern="${LOG_HOME}/$${date:yyyy-MM}/all-%d{yyyy-MM-dd}-%i.log.gz">
+			<!--设置日志格式-->
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<!-- 设置日志文件切分参数 -->
+				<!--<OnStartupTriggeringPolicy/>-->
+				<!--设置日志基础文件大小，超过该大小就触发日志文件滚动更新-->
+				<SizeBasedTriggeringPolicy size="10MB"/>
+				<!--设置日志文件滚动更新的时间，依赖于文件命名filePattern的设置-->
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+			<!--设置日志的文件个数上限，不设置默认为7个，超过大小后会被覆盖；依赖于filePattern中的%i-->
+			<DefaultRolloverStrategy max="15"/>
+		</RollingRandomAccessFile>
+
+		<!--debug级别日志-->
+		<RollingRandomAccessFile name="debugFileAppender"
+								 fileName="${LOG_HOME}/debug.log"
+								 filePattern="${LOG_HOME}/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log.gz">
+			<Filters>
+				<!--过滤掉info及更高级别日志-->
+				<ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+			</Filters>
+			<!--设置日志格式-->
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<!-- 设置日志文件切分参数 -->
+				<!--<OnStartupTriggeringPolicy/>-->
+				<!--设置日志基础文件大小，超过该大小就触发日志文件滚动更新-->
+				<SizeBasedTriggeringPolicy size="10MB"/>
+				<!--设置日志文件滚动更新的时间，依赖于文件命名filePattern的设置-->
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+			<!--设置日志的文件个数上限，不设置默认为7个，超过大小后会被覆盖；依赖于filePattern中的%i-->
+			<DefaultRolloverStrategy max="15"/>
+		</RollingRandomAccessFile>
+
+		<!--info级别日志-->
+		<RollingRandomAccessFile name="infoFileAppender"
+								 fileName="${LOG_HOME}/info.log"
+								 filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz">
+			<Filters>
+				<!--过滤掉warn及更高级别日志-->
+				<ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+			</Filters>
+			<!--设置日志格式-->
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<!-- 设置日志文件切分参数 -->
+				<!--<OnStartupTriggeringPolicy/>-->
+				<!--设置日志基础文件大小，超过该大小就触发日志文件滚动更新-->
+				<SizeBasedTriggeringPolicy size="10MB"/>
+				<!--设置日志文件滚动更新的时间，依赖于文件命名filePattern的设置-->
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+			<!--设置日志的文件个数上限，不设置默认为7个，超过大小后会被覆盖；依赖于filePattern中的%i-->
+			<DefaultRolloverStrategy max="15"/>
+		</RollingRandomAccessFile>
+
+		<!--warn级别日志-->
+		<RollingRandomAccessFile name="warnFileAppender"
+								 fileName="${LOG_HOME}/warn.log"
+								 filePattern="${LOG_HOME}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.gz">
+			<Filters>
+				<!--过滤掉error及更高级别日志-->
+				<ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+			</Filters>
+			<!--设置日志格式-->
+			<PatternLayout pattern="${LOG_PATTERN}" />
+			<Policies>
+				<!-- 设置日志文件切分参数 -->
+				<!--<OnStartupTriggeringPolicy/>-->
+				<!--设置日志基础文件大小，超过该大小就触发日志文件滚动更新-->
+				<SizeBasedTriggeringPolicy size="10MB"/>
+				<!--设置日志文件滚动更新的时间，依赖于文件命名filePattern的设置-->
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+			<!--设置日志的文件个数上限，不设置默认为7个，超过大小后会被覆盖；依赖于filePattern中的%i-->
+			<DefaultRolloverStrategy max="15"/>
+		</RollingRandomAccessFile>
+
+		<!--error及更高级别日志-->
+		<RollingRandomAccessFile name="errorFileAppender"
+								 fileName="${LOG_HOME}/error.log"
+								 filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz">
+			<!--设置日志格式-->
+			<PatternLayout>
+				<pattern>%d %p %C{} [%t] %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<!-- 设置日志文件切分参数 -->
+				<!--<OnStartupTriggeringPolicy/>-->
+				<!--设置日志基础文件大小，超过该大小就触发日志文件滚动更新-->
+				<SizeBasedTriggeringPolicy size="10MB"/>
+				<!--设置日志文件滚动更新的时间，依赖于文件命名filePattern的设置-->
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+			<!--设置日志的文件个数上限，不设置默认为7个，超过大小后会被覆盖；依赖于filePattern中的%i-->
+			<DefaultRolloverStrategy max="15"/>
+		</RollingRandomAccessFile>
+
+	</appenders>
+
+	<!--Logger节点用来单独指定日志的形式，比如要为指定包下的class指定不同的日志级别等。 -->
+	<!--然后定义loggers，只有定义了logger并引入的appender，appender才会生效 -->
+	<loggers>
+		<!-- 根日志设置 - 异步  -->
+		<asyncRoot level="info">
+			<AppenderRef ref="allFileAppender" level="all"/>
+			<AppenderRef ref="consoleAppender" level="debug"/>
+			<AppenderRef ref="debugFileAppender" level="debug"/>
+			<AppenderRef ref="infoFileAppender" level="info"/>
+			<AppenderRef ref="warnFileAppender" level="warn"/>
+			<AppenderRef ref="errorFileAppender" level="error"/>
+		</asyncRoot>
+	</loggers>
+
+</configuration>
