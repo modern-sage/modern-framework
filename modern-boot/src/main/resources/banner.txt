@@ -8,5 +8,5 @@ ${AnsiColor.BLUE}
 .##.....##..#######..########..########.##.....##.##....##..######..##.....##..######...##.....##
 
 ${AnsiColor.YELLOW}      :: Spring Boot ::             ${AnsiColor.WHITE}(v${spring-boot.version})
-${AnsiColor.YELLOW}      :: modern-starter-boot ::        ${AnsiColor.WHITE}(v${project.version})
+${AnsiColor.YELLOW}      :: modern-starter-boot ::        ${AnsiColor.WHITE}(v${revision})
 ==========================================   modern  =============================================
