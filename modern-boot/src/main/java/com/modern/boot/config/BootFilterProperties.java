@@ -15,7 +15,7 @@ import static com.modern.boot.config.StarterConfigConst.PROPERTIES_PREFIX;
  **/
 @Data
 @ConfigurationProperties(prefix = PROPERTIES_PREFIX + ".filter")
-public class CoreBootFilterProperties {
+public class BootFilterProperties {
 
     /**
      * 请求路径Filter配置

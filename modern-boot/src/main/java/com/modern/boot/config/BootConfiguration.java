@@ -30,13 +30,13 @@ import static com.modern.boot.config.StarterConfigConst.PROPERTIES_PREFIX;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties({
-        CoreBootProperties.class,
-        CoreBootInterceptorProperties.class,
-        CoreBootFilterProperties.class,
-        CoreBootCorsProperties.class
+        BootProperties.class,
+        BootInterceptorProperties.class,
+        BootFilterProperties.class,
+        BootCorsProperties.class
 })
 @ComponentScan("com.modern.boot")
-public class CoreBootConfiguration {
+public class BootConfiguration {
 
     /**
      * CORS跨域设置
@@ -50,7 +50,7 @@ public class CoreBootConfiguration {
     @Bean
     @ConditionalOnMissingBean(FilterRegistrationBean.class)
     @ConditionalOnProperty(prefix = PROPERTIES_PREFIX + ".cors", value = {"enable"}, havingValue = "true", matchIfMissing = true)
-    public FilterRegistrationBean corsFilter(CoreBootCorsProperties corsProperties) {
+    public FilterRegistrationBean corsFilter(BootCorsProperties corsProperties) {
         log.debug("corsProperties:{}", corsProperties);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = corsConfiguration(corsProperties);
@@ -63,7 +63,7 @@ public class CoreBootConfiguration {
 
     @Bean
     @ConditionalOnProperty(prefix = PROPERTIES_PREFIX + ".cors", value = {"enable"}, havingValue = "true", matchIfMissing = true)
-    public CorsConfiguration corsConfiguration(CoreBootCorsProperties corsProperties) {
+    public CorsConfiguration corsConfiguration(BootCorsProperties corsProperties) {
         log.debug("corsProperties:{}", corsProperties);
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // 跨域配置

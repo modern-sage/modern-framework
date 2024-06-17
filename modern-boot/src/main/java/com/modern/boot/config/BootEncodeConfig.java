@@ -13,11 +13,11 @@ import org.springframework.web.filter.CharacterEncodingFilter;
  * @since 0.2.0
  */
 @Configuration
-@EnableConfigurationProperties(CoreBootEncodeProperties.class)
-public class CoreBootEncodeConfig {
+@EnableConfigurationProperties(BootEncodeProperties.class)
+public class BootEncodeConfig {
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean(CoreBootEncodeProperties properties) {
+    public FilterRegistrationBean filterRegistrationBean(BootEncodeProperties properties) {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setForceEncoding(true);

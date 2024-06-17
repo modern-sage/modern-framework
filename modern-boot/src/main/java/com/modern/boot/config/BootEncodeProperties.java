@@ -16,7 +16,7 @@ import static com.modern.boot.config.StarterConfigConst.PROPERTIES_PREFIX;
  */
 @Data
 @ConfigurationProperties(prefix = PROPERTIES_PREFIX + ".encoding")
-public class CoreBootEncodeProperties {
+public class BootEncodeProperties {
 
     private String charset = StandardCharsets.UTF_8.name();
 

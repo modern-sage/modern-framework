@@ -19,7 +19,7 @@ import static com.modern.boot.config.StarterConfigConst.PROPERTIES_PREFIX;
  */
 @Data
 @ConfigurationProperties(prefix = PROPERTIES_PREFIX)
-public class CoreBootProperties {
+public class BootProperties {
 
     /**
      * 是否启用ansi控制台输出有颜色的字体，local环境建议开启，服务器环境设置为false
@@ -30,13 +30,13 @@ public class CoreBootProperties {
      * 拦截器配置
      */
     @NestedConfigurationProperty
-    private CoreBootInterceptorProperties interceptor;
+    private BootInterceptorProperties interceptor;
 
     /**
      * 过滤器配置
      */
     @NestedConfigurationProperty
-    private CoreBootFilterProperties filter;
+    private BootFilterProperties filter;
 
     /**
      * 允许上传的文件后缀集合

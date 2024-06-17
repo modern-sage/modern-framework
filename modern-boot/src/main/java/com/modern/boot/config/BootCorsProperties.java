@@ -20,7 +20,7 @@ import static com.modern.boot.config.StarterConfigConst.PROPERTIES_PREFIX;
  **/
 @Data
 @ConfigurationProperties(prefix = PROPERTIES_PREFIX + ".cors")
-public class CoreBootCorsProperties {
+public class BootCorsProperties {
 
     /**
      * 是否启用跨域，默认启用

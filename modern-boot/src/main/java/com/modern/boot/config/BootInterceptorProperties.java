@@ -13,7 +13,7 @@ import static com.modern.boot.config.StarterConfigConst.PROPERTIES_PREFIX;
  */
 @Data
 @ConfigurationProperties(prefix = PROPERTIES_PREFIX + ".interceptor")
-public class CoreBootInterceptorProperties {
+public class BootInterceptorProperties {
 
     /**
      * 权限拦截器排除路径
