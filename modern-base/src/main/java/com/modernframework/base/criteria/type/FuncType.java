@@ -2,7 +2,6 @@ package com.modernframework.base.criteria.type;
 
 /**
  * 函数枚举类型
- * todo 名字修改
  */
 public enum FuncType {
 	/**

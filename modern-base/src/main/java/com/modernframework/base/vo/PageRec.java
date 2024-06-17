@@ -1,4 +1,4 @@
-package com.modernframework.base;
+package com.modernframework.base.vo;
 
 import com.modernframework.base.criteria.GrateParam;
 import com.modernframework.core.utils.CollectionUtils;

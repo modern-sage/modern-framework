@@ -2,7 +2,7 @@ package com.modernframework.base.service;
 
 
 
-import com.modernframework.base.PageRec;
+import com.modernframework.base.vo.PageRec;
 import com.modernframework.base.criteria.GrateParam;
 
 import java.util.List;

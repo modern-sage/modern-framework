@@ -21,7 +21,6 @@ public class MdDefaultMpSqlInjector extends DefaultSqlInjector {
     @Override
     public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
         List<AbstractMethod> methodList = super.getMethodList(mapperClass, tableInfo);
-        // todo fixme
 //        methodList.add(new TenantIgnoreSelectById(null));
 //        methodList.add(new TenantIgnoreUpdateById(null));
 //        methodList.add(new TenantIgnoreDeleteBatchIds(null));

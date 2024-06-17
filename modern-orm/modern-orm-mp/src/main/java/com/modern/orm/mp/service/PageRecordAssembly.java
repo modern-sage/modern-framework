@@ -2,7 +2,7 @@ package com.modern.orm.mp.service;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.modernframework.base.PageRec;
+import com.modernframework.base.vo.PageRec;
 
 /**
  * 分页组装器

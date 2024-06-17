@@ -1,7 +1,8 @@
 package com.modernframework.base.service;
 
 
-import com.modernframework.base.PageRec;
+import com.modernframework.base.vo.Convertible;
+import com.modernframework.base.vo.PageRec;
 import com.modernframework.base.criteria.GrateParam;
 import com.modernframework.base.criteria.type.FuncType;
 import com.modernframework.core.func.SerialFunction;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
  * 基本Service继承接口
  *
  * @author zj
- *@since 1.0.0
+ * @since 1.0.0
  */
 public interface BaseService<T> {
 
@@ -126,7 +127,7 @@ public interface BaseService<T> {
      * @param aaIdValueFunc aaId值函数
      * @return
      */
-    default List<Long> listAaIdsByBbIds(List<Long> bbIds, SerialFunction<T, ?> bbIdNameFunc, 
+    default List<Long> listAaIdsByBbIds(List<Long> bbIds, SerialFunction<T, ?> bbIdNameFunc,
                                         SerialFunction<T, Long> aaIdValueFunc) {
         return listAaIdsByBbIds(bbIds, bbIdNameFunc, aaIdValueFunc, null);
     }
@@ -214,12 +215,13 @@ public interface BaseService<T> {
     /**
      * 设置指定类型分页查询
      *
+     * @param <V>         返回值类型
      * @param param       查询条件
      * @param targetClass 指定类型
-     * @param <V>         返回值类型
+     * @param convert     转换器
      * @return PageRec<V>
      */
-    <V> PageRec<V> page(GrateParam<T> param, Class<V> targetClass);
+    <V> PageRec<V> page(GrateParam<T> param, Class<V> targetClass, Convertible<T, V> convert);
 
     /**
      * 设置指定类型查询列表
@@ -229,7 +231,7 @@ public interface BaseService<T> {
      * @param <V>         返回值类型
      * @return List<V>
      */
-    <V> List<V> list(GrateParam<T> param, Class<V> targetClass);
+    <V> List<V> list(GrateParam<T> param, Class<V> targetClass, Convertible<T, V> convert);
 
     /**
      * 根据id集合查询
@@ -247,8 +249,8 @@ public interface BaseService<T> {
      * @param <V>         返回值类型
      * @return V
      */
-    default <V> V one(GrateParam<T> param, Class<V> targetClass) {
-        PageRec<V> page = page(param, targetClass);
+    default <V> V one(GrateParam<T> param, Class<V> targetClass, Convertible<T, V> convert) {
+        PageRec<V> page = page(param, targetClass, convert);
         if (page.isEmpty()) {
             return null;
         } else {

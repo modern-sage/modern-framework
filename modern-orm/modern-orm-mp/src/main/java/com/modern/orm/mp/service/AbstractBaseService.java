@@ -6,15 +6,21 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.modern.orm.mp.mapper.MdBaseMapper;
-import com.modernframework.base.PageRec;
+import com.modernframework.base.exception.BizException;
+import com.modernframework.base.vo.Convertible;
+import com.modernframework.base.vo.PageRec;
 import com.modernframework.base.criteria.GrateParam;
 import com.modernframework.base.criteria.type.FuncType;
 import com.modernframework.base.service.BaseService;
+import com.modernframework.core.utils.StringUtils;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 通用Service继承接口
@@ -101,8 +107,6 @@ public abstract class AbstractBaseService<M extends MdBaseMapper<T>, T> extends 
      */
     @Override
     public List<T> list(GrateParam<T> param) {
-//        return super.list(new QueryWrapper<>());
-//        return super.list(new QueryParamAssembly<T>(param).translate());
         return super.list(assemblyQuery.apply(param));
     }
 
@@ -171,11 +175,27 @@ public abstract class AbstractBaseService<M extends MdBaseMapper<T>, T> extends 
      *
      * @param param       查询条件
      * @param targetClass 指定类型
+     * @param convert
      * @return PageRec<V>
      */
     @Override
-    public <V> PageRec<V> page(GrateParam<T> param, Class<V> targetClass) {
-        return null; // todo
+    public <V> PageRec<V> page(GrateParam<T> param, Class<V> targetClass, Convertible<T, V> convert) {
+        PageRec<T> source = page(param);
+        PageRec<V> target = new PageRec<>(source.getPageNumber(), source.getPageSize(), source.getTotal());
+        List<V> collect = source.getRecords().stream().map(x -> {
+                    try {
+                        convert.convert(x);
+                    } catch (Throwable e) {
+                        log.error("page convert error: ", e);
+                        throw new BizException(StringUtils.format("page convert error: {}", e.getMessage()));
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .map(x -> (V) x)
+                .collect(Collectors.toList());
+        target.getRecords().addAll(collect);
+        return target;
     }
 
     /**
@@ -186,8 +206,21 @@ public abstract class AbstractBaseService<M extends MdBaseMapper<T>, T> extends 
      * @return List<V>
      */
     @Override
-    public <V> List<V> list(GrateParam<T> param, Class<V> targetClass) {
-        return null;  // todo
+    public <V> List<V> list(GrateParam<T> param, Class<V> targetClass, Convertible<T, V> convert) {
+        List<T> source = list(param);
+        List<V> target = source.stream().map(x -> {
+                    try {
+                        convert.convert(x);
+                    } catch (Throwable e) {
+                        log.error("page convert error: ", e);
+                        throw new BizException(StringUtils.format("page convert error: {}", e.getMessage()));
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .map(x -> (V) x)
+                .collect(Collectors.toList());
+        return target;
     }
 
     @Override
