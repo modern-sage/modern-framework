@@ -1,7 +1,7 @@
 package com.modernframework.base.criteria;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.modern.core.collection.CollectionUtils;
+import com.modernframework.core.utils.CollectionUtils;
 import lombok.Data;
 
 import java.io.Serial;
@@ -9,13 +9,15 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.modern.base.criteria.CriteriaExpress.*;
+import static com.modernframework.base.criteria.CriteriaExpress.EMBEDDED_END;
+import static com.modernframework.base.criteria.CriteriaExpress.EMBEDDED_START;
+
 
 /**
  * Api层参数
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
- * @since 0.2.1
+ *@since 1.0.0
  */
 @Data
 public class ApiGrateParam implements Serializable {

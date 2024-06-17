@@ -1,6 +1,6 @@
 package com.modernframework.base.criteria;
 
-import com.modern.core.util.StringUtils;
+import com.modernframework.core.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  * 排序字段
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
- * @since 0.2.0
+ * @since 1.0.0
  */
 @Data
 @AllArgsConstructor

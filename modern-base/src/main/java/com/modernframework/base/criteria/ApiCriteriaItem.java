@@ -1,6 +1,6 @@
 package com.modernframework.base.criteria;
 
-import com.modern.base.criteria.type.ConditionType;
+import com.modernframework.base.criteria.type.ConditionType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.List;
 
-import static com.modern.base.criteria.Constants.RELATIONSHIP_AND;
+import static com.modernframework.base.criteria.Constants.RELATIONSHIP_AND;
 
 
 /**

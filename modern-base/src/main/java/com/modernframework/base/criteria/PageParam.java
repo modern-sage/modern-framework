@@ -6,7 +6,7 @@ import lombok.Data;
  * 分页查询参数
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
- * @since 0.2.0
+ * @since 1.0.0
  */
 @Data
 public class PageParam {

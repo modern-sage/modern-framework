@@ -1,7 +1,7 @@
 package com.modernframework.base.criteria;
 
 
-import com.modern.base.criteria.type.ConditionType;
+import com.modernframework.base.criteria.type.ConditionType;
 
 import java.io.Serializable;
 
