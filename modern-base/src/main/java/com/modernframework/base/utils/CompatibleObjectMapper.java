@@ -15,7 +15,8 @@ import java.util.Date;
 /**
  * 兼容的ObjectMapper工具
  *
- * @author zhangj
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since  1.0.0
  */
 public class CompatibleObjectMapper extends ObjectMapper {
 
@@ -41,4 +42,12 @@ public class CompatibleObjectMapper extends ObjectMapper {
         return super.writeValueAsBytes(value);
     }
 
+    @Override
+    public String writeValueAsString(Object value) {
+        try {
+            return super.writeValueAsString(value);
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
