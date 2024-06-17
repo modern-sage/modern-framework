@@ -9,7 +9,11 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -110,6 +114,56 @@ public abstract class BeanUtils {
         } catch (IntrospectionException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public static void converterBean(Object fromBean, Object toBean, String[] excludeProperties)
+            throws InvocationTargetException, IllegalAccessException {
+        List<String> excludes = Arrays.asList(excludeProperties).stream().map(String::toLowerCase).collect(Collectors.toList());
+
+        Method[] methods = fromBean.getClass().getMethods();
+        for (Method method : methods) {
+
+            String methodName = method.getName();
+            if (!methodName.startsWith("get") || "getClass".equals(methodName)
+                    || excludes.contains(methodName.replaceFirst("get", "").toLowerCase())) {
+                continue;
+            }
+            Class<?> returnType = method.getReturnType();
+            Object value = method.invoke(fromBean, new Object[]{});
+            String setMethodName = String.format("set%s", methodName.replaceFirst("get", ""));
+            try {
+                Method setMethod = toBean.getClass().getMethod(setMethodName, returnType);
+                setMethod.invoke(toBean, value);
+            } catch (NoSuchMethodException e) {
+            }
+        }
+    }
+
+    public static void converterBean(Object fromBean, Object toBean)
+            throws InvocationTargetException, IllegalAccessException {
+        converterBean(fromBean, toBean, new String[]{});
+    }
+
+    public static <T> T converterBean(Object fromBean, Class<T> toBeanClass)
+            throws InvocationTargetException, IllegalAccessException, InstantiationException {
+        T toBean = toBeanClass.newInstance();
+        converterBean(fromBean, toBean);
+        return toBean;
+    }
+
+    public static <T> List<T> converterBeans(List<? extends Object> fromBean, Class<T> toBeanClass) {
+        List<T> target = new ArrayList<>();
+        fromBean.stream().forEach(x -> {
+            try {
+                target.add(converterBean(x, toBeanClass));
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException | InstantiationException e) {
+                e.printStackTrace();
+            }
+        });
+        return target;
     }
 
 }
