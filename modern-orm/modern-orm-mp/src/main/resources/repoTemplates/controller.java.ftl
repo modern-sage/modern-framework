@@ -12,9 +12,9 @@ import ${superControllerClassPackage};
 </#if>
 import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
-import com.modern.base.mvc.Rs;
-import com.modern.base.mvc.PageRec;
-import com.modern.base.criteria.GrateParam;
+import com.modernframework.base.vo.Rs;
+import com.modernframework.base.vo.PageRec;
+import com.modernframework.base.criteria.GrateParam;
 import java.util.List;
 
 /**

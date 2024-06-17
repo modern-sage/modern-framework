@@ -13,7 +13,7 @@
 		<!-- %logger{36} 表示 Logger 名字最长36个字符 -->
 		<property name="LOG_PATTERN_BAK" value="%d %p %C{} [%t] %m%n" />
 		<property name="LOG_PATTERN" value="%d %p %c{9.9.9.1}(%L) [%t] %m%n" />
-		<property name="FILE_NAME" value="tp-default-app" />
+		<property name="FILE_NAME" value="modern-app" />
 	</Properties>
 
 	<appenders>
