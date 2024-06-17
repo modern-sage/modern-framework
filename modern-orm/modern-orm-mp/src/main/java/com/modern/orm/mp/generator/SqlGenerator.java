@@ -51,6 +51,18 @@ public class SqlGenerator {
 
     /**
      * 数据库配置(DataSourceConfig)
+     * 基础配置
+     *
+     * @param dbProp dbProp
+     */
+    public static DataSourceConfig db(DbProp dbProp) {
+        return dbAll(dbProp.getUrl(), dbProp.getUsername(), dbProp.getPassword(),
+                new MySqlQuery(), dbProp.getSchema(),
+                new MySqlTypeConvert(), new MySqlKeyWordsHandler());
+    }
+
+    /**
+     * 数据库配置(DataSourceConfig)
      *
      * @param url             jdbc 路径
      * @param username        数据库账号

@@ -19,6 +19,7 @@ import com.modernframework.core.utils.ArrayUtils;
 import com.modernframework.core.utils.CollectionUtils;
 import com.modernframework.core.utils.ReflectUtils;
 import com.modernframework.core.utils.StringUtils;
+import com.modernframework.orm.DataOrmConstant;
 import com.modernframework.orm.PoType;
 import org.apache.ibatis.cache.Cache;
 
@@ -27,6 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.modernframework.base.constant.BaseConstant.DATE_FORMAT;
+import static com.modernframework.orm.DataOrmConstant.*;
 
 
 public class MdGenerator {
@@ -110,30 +112,6 @@ public class MdGenerator {
                 MdBaseMapper.class, null);
     }
 
-//    /**
-//     * 数据库表生成实体
-//     *
-//     * @param includes         当前库反射需要的表名
-//     * @param excludes         当前库反射排除的表名
-//     * @param fills            默认填充公共字段
-//     * @param url              数据库连接
-//     * @param root             用户名
-//     * @param password         密码
-//     * @param output           输出目录
-//     * @param author           作者
-//     * @param packageName      父包名
-//     * @param pathInfo         路径配置信息
-//     * @param entitySuperClass 实体指定父类
-//     * @return
-//     */
-//    public boolean gen(List<String> includes, List<String> excludes, List<IFill> fills, String url, String root, String password,
-//                       String output, String author, String packageName, Map<OutputFile, String> pathInfo,
-//                       Class entitySuperClass) {
-//        return gen(includes, excludes, fills, url, root, password,
-//                output, author, packageName, pathInfo, entitySuperClass,
-//                IMdService.class, FlineServiceImpl.class, FlineMapper.class, null);
-//    }
-
     /**
      * 数据库表生成实体
      *
@@ -171,6 +149,29 @@ public class MdGenerator {
                 // 不需要补充的服务
 //                .injection(customConfig())
                 .strategy(config(includes, excludes, fills, controllerSuperClass, serviceSuperClass, serviceImplSuperClass, mapperSuperClass, entitySuperClass, null));
+        generator.execute(new CustomerTemplateEngine());
+        return true;
+    }
+
+    public boolean gen(DbProp dbProp, EntityProp entityProp) {
+        AutoGenerator generator = new AutoGenerator(SqlGenerator.db(dbProp))
+                .global(SqlGenerator.globalAll(true, true,
+                        entityProp.getOutput(), entityProp.getAuthor(), false, true, DateType.TIME_PACK, DATE_FORMAT))
+                .template(SqlGenerator.templateAll(TEMPLATE_PATH_PRE + "/entity.java",
+                        TEMPLATE_PATH_PRE + "/service.java",
+                        TEMPLATE_PATH_PRE + "/serviceImpl.java",
+                        TEMPLATE_PATH_PRE + "/mapper.java",
+                        TEMPLATE_PATH_PRE + "/mapper.xml",
+                        TEMPLATE_PATH_PRE + "/controller.java",
+                        false, null))
+                .packageInfo(SqlGenerator.pack(entityProp.getPackageName(), entityProp.getPathInfo()))
+                // 不需要补充的服务
+//                .injection(customConfig())
+                .strategy(config(entityProp.getIncludes(), entityProp.getExcludes(),
+                        entityProp.getFills(), entityProp.getControllerSuperClass(),
+                        entityProp.getServiceSuperClass(), entityProp.getServiceImplSuperClass(),
+                        entityProp.getMapperSuperClass(), entityProp.getEntitySuperClass(),
+                        null));
         generator.execute(new CustomerTemplateEngine());
         return true;
     }
@@ -217,7 +218,7 @@ public class MdGenerator {
      */
     public boolean gen(String url, String root, String password, String output, String author,
                        String packageName, Map<OutputFile, String> pathInfo, PoType poType) {
-        List<String> excludes = new ArrayList<String>() {
+        List<String> excludes = new ArrayList<>() {
             {
                 add("");
             }
@@ -420,19 +421,14 @@ public class MdGenerator {
      * @return
      */
     protected Map<String, FieldFill> properties() {
-        return new HashMap<String, FieldFill>() {
+        return new HashMap<>() {
             {
-                put("name", FieldFill.DEFAULT);
-                put("code", FieldFill.DEFAULT);
-                put("deleteFlag", FieldFill.INSERT);
-                put("status", FieldFill.INSERT);
-                put("updateTime", FieldFill.INSERT);
-                put("updateDate", FieldFill.INSERT_UPDATE);
-                put("createDate", FieldFill.INSERT);
-                put("version", FieldFill.INSERT);
-                put("memo", FieldFill.DEFAULT);
-                put("creator", FieldFill.INSERT);
-                put("updator", FieldFill.INSERT);
+                put(DataOrmConstant.ATTR_DELETE_FLAG, FieldFill.INSERT);
+                put(ATTR_UPDATE_TIME, FieldFill.INSERT_UPDATE);
+                put(ATTR_CREATE_TIME, FieldFill.INSERT);
+                put(ATTR_VERSION, FieldFill.INSERT);
+                put(ATTR_CREATOR_ID, FieldFill.INSERT);
+                put(ATTR_UPDATER_ID, FieldFill.INSERT);
             }
         };
     }
@@ -451,9 +447,6 @@ public class MdGenerator {
 
     /**
      * 设置表前缀
-     *
-     * @param prefixs
-     * @return
      */
     public MdGenerator prefixs(List<String> prefixs) {
         this.prefixs = prefixs;
