@@ -1,6 +1,7 @@
 package com.modernframework.core.utils;
 
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * 集合相关工具类，此工具方法针对{@link Collection}及其实现类封装的工具。
@@ -218,6 +219,7 @@ public class CollectionUtils {
 
     /**
      * 是否存在交集
+     *
      * @param collection1
      * @param collection2
      */
@@ -231,6 +233,83 @@ public class CollectionUtils {
         }
     }
 
+    /**
+     * <pre>
+     *     抽取 List<T> 其中某个元素变为 Set<K> 的结果
+     * </pre>
+     */
+    public static <K, T> Set<K> extractSetFromList(Collection<T> list, Function<T, K> getKey) {
+        if (isEmpty(list)) {
+            return Collections.emptySet();
+        }
+        Set<K> re = new HashSet<>();
+        list.forEach(x -> {
+            K key = getKey.apply(x);
+            if (key != null) {
+                re.add(key);
+            }
+        });
+        return re;
+    }
 
+    /**
+     * <pre>
+     *     List<T> 转换为 Map<K, List<T>> 的结果
+     * </pre>
+     */
+    public static <K, T> Map<K, List<T>> listConvertMapList(Collection<T> list, Function<T, K> getKey) {
+        if (isEmpty(list)) {
+            return Collections.emptyMap();
+        }
+        Map<K, List<T>> re = new HashMap<>();
+        list.forEach(x -> {
+            K key = getKey.apply(x);
+            List<T> l = re.get(key);
+            if (l == null) {
+                l = new ArrayList<>();
+            }
+            l.add(x);
+            re.put(key, l);
+        });
+        return re;
+    }
+
+    /**
+     * <pre>
+     *     List<T> 转换为 Map<K, T> 的结果
+     *     如果存在重复key，则后者覆盖前者
+     * </pre>
+     */
+    public static <K, T> Map<K, T> listConvertMapCoverDuplication(Collection<T> list, Function<T, K> getKey) {
+        if (isEmpty(list)) {
+            return Collections.emptyMap();
+        }
+        Map<K, T> re = new HashMap<>();
+        list.forEach(x -> {
+            K key = getKey.apply(x);
+            re.put(key, x);
+        });
+        return re;
+    }
+
+    /**
+     * <pre>
+     *     List<T> 转换为 Map<K, T> 的结果
+     *     如果存在重复key，后者不会覆盖前者，取前者
+     * </pre>
+     */
+    public static <K, T> Map<K, T> listConvertMapNotCoverDuplication(Collection<T> list, Function<T, K> getKey) {
+        if (isEmpty(list)) {
+            return Collections.emptyMap();
+        }
+        Map<K, T> re = new HashMap<>();
+        list.forEach(x -> {
+            K key = getKey.apply(x);
+            if (!re.containsKey(key)) {
+                re.put(key, x);
+            }
+        });
+        return re;
+    }
 
 }

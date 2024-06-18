@@ -58,5 +58,14 @@ public class BootProperties {
     @Value("${modern.boot.openBackAutoService: true}")
     private boolean openBackAutoService;
 
+    /**
+     * 上传目录
+     */
+    private String uploadFilePath;
+
+    /**
+     * 是否启用验证码
+     */
+    private boolean enableVerifyCode;
 
 }
