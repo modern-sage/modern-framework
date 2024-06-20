@@ -1,7 +1,10 @@
 package com.modernframework.core.utils;
 
+import com.modernframework.core.func.Predicates;
+
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * 集合相关工具类，此工具方法针对{@link Collection}及其实现类封装的工具。
@@ -263,6 +266,29 @@ public class CollectionUtils {
         }
         Map<K, List<T>> re = new HashMap<>();
         list.forEach(x -> {
+            K key = getKey.apply(x);
+            List<T> l = re.get(key);
+            if (l == null) {
+                l = new ArrayList<>();
+            }
+            l.add(x);
+            re.put(key, l);
+        });
+        return re;
+    }
+
+    /**
+     * <pre>
+     *     List<T> 转换为 Map<K, List<T>> 的结果
+     * </pre>
+     */
+    public static <K, T> Map<K, List<T>> listConvertMapList(Collection<T> list, Function<T, K> getKey, Predicate<T>... predicates) {
+        if (isEmpty(list)) {
+            return Collections.emptyMap();
+        }
+        Map<K, List<T>> re = new HashMap<>();
+        Predicate<T> match = Predicates.and(predicates);
+        list.stream().filter(match).forEach(x -> {
             K key = getKey.apply(x);
             List<T> l = re.get(key);
             if (l == null) {

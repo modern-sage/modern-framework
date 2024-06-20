@@ -45,8 +45,10 @@ public interface Predicates {
      */
     static <T> Predicate<T> and(Predicate<? super T>... predicates) {
         Predicate<T> andPredicate = alwaysTrue();
-        for (Predicate<? super T> p : predicates) {
-            andPredicate = andPredicate.and(p);
+        if(predicates != null) {
+            for (Predicate<? super T> p : predicates) {
+                andPredicate = andPredicate.and(p);
+            }
         }
         return andPredicate;
     }
@@ -60,8 +62,10 @@ public interface Predicates {
      */
     static <T> Predicate<T> or(Predicate<? super T>... predicates) {
         Predicate<T> orPredicate = alwaysTrue();
-        for (Predicate<? super T> p : predicates) {
-            orPredicate = orPredicate.or(p);
+        if(predicates != null) {
+            for (Predicate<? super T> p : predicates) {
+                orPredicate = orPredicate.or(p);
+            }
         }
         return orPredicate;
     }
