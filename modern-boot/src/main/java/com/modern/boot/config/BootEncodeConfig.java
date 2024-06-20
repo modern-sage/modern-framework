@@ -10,7 +10,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
  * encoder相关配置
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
- * @since 0.2.0
+ * @since 1.0.0
  */
 @Configuration
 @EnableConfigurationProperties(BootEncodeProperties.class)

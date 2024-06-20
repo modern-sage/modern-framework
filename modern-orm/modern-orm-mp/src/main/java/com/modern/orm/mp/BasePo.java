@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * 基础Po
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
- * @since 0.2.0
+ * @since 1.0.0
  */
 public class BasePo<T extends BasePo<T>> extends IdPo<T> {
 

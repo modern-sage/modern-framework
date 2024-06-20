@@ -11,7 +11,7 @@ import static com.modern.boot.config.StarterConfigConst.PROPERTIES_PREFIX;
  * Filter配置属性
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
- * @since 0.2.0
+ * @since 1.0.0
  **/
 @Data
 @ConfigurationProperties(prefix = PROPERTIES_PREFIX + ".filter")

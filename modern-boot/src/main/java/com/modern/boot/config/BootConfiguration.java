@@ -25,11 +25,12 @@ import static com.modern.boot.config.StarterConfigConst.PROPERTIES_PREFIX;
  * </pre>
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
- * @since 0.2.0
+ * @since 1.0.0
  */
 @Slf4j
 @Configuration
 @EnableConfigurationProperties({
+        BootAopProperties.class,
         BootProperties.class,
         BootInterceptorProperties.class,
         BootFilterProperties.class,
