@@ -8,21 +8,19 @@
         <groupId>com.modernframework</groupId>
         <artifactId>modern-parent</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.modernframework</groupId>
     <artifactId>modern-core</artifactId>
     <packaging>jar</packaging>
     <name>modern-core:${revision}</name>
 
     <dependencies>
-
         <!-- Java Common Annotations -->
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
         </dependency>
-
         <!-- 第三方 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -37,13 +35,11 @@
             <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
         </dependency>
-
         <!-- Apache Commons -->
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
         </dependency>
-
         <!-- Testing -->
         <dependency>
             <groupId>junit</groupId>
@@ -51,6 +47,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 
 </project>

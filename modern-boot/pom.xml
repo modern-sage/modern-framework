@@ -8,13 +8,13 @@
         <groupId>com.modernframework</groupId>
         <artifactId>modern-parent</artifactId>
         <version>${revision}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.modernframework</groupId>
     <artifactId>modern-boot</artifactId>
     <packaging>jar</packaging>
     <name>modern-boot:${revision}</name>
-
 
     <dependencies>
         <dependency>
