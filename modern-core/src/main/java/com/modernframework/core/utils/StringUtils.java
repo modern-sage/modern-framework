@@ -1980,4 +1980,23 @@ public abstract class StringUtils {
             return true;
         }
     }
+
+    public static String join(Collection<?> collection, String separator) {
+        if (collection == null) {
+            return null;
+        } else {
+            StringBuilder stringBuilder = new StringBuilder();
+            Object[] objects = collection.toArray();
+
+            for(int i = 0; i < collection.size() - 1; ++i) {
+                stringBuilder.append(objects[i].toString()).append(separator);
+            }
+
+            if (!collection.isEmpty()) {
+                stringBuilder.append(objects[collection.size() - 1]);
+            }
+
+            return stringBuilder.toString();
+        }
+    }
 }
