@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.modernframework.core.constant.StrConstant.COMMA;
 import static com.modernframework.core.constant.StrConstant.EMPTY_JSON;
 import static java.lang.String.valueOf;
 
@@ -1981,8 +1982,16 @@ public abstract class StringUtils {
         }
     }
 
+    public static String join(String[] strings) {
+        return join(Collections.singletonList(strings), COMMA);
+    }
+
     public static String join(String[] strings, String separator) {
         return join(Collections.singletonList(strings), separator);
+    }
+
+    public static String join(Collection<?> collection) {
+        return join(Collections.singletonList(collection), COMMA);
     }
 
     public static String join(Collection<?> collection, String separator) {
