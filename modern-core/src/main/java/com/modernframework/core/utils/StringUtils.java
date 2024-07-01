@@ -1981,6 +1981,10 @@ public abstract class StringUtils {
         }
     }
 
+    public static String join(String[] strings, String separator) {
+        return join(Collections.singletonList(strings), separator);
+    }
+
     public static String join(Collection<?> collection, String separator) {
         if (collection == null) {
             return null;
