@@ -6,6 +6,7 @@ import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.security.access.AccessDeniedException;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -60,11 +61,11 @@ public class InMemoryAuthenticationDetailsService implements AuthenticationDetai
     public void validateAccessToken(String accessToken) {
         UserAuthenticationDetails authDetails = memoryMap.get(accessToken);
         if(authDetails == null) {
-            throw new AccessDeniedException("无权限");
+            throw new AccessDeniedException("无凭证");
         }
-
-
-        return false;
+        if (System.currentTimeMillis() > authDetails.getAccessExpireTime()) {
+            throw new AccessDeniedException("凭证已过期");
+        }
     }
 
     /**
@@ -72,7 +73,16 @@ public class InMemoryAuthenticationDetailsService implements AuthenticationDetai
      *
      */
     @Override
-    public boolean validateRefreshToken(String accessToken, String refreshToken) {
-        return false;
+    public void validateRefreshToken(String accessToken, String refreshToken) {
+        UserAuthenticationDetails authDetails = memoryMap.get(accessToken);
+        if(authDetails == null) {
+            throw new AccessDeniedException("无凭证");
+        }
+        if (System.currentTimeMillis() > authDetails.getAccessExpireTime()) {
+            throw new AccessDeniedException("凭证已过期");
+        }
+        if (!Objects.equals(refreshToken, authDetails.getRefreshToken())) {
+            throw new AccessDeniedException("刷新凭证不匹配");
+        }
     }
 }
