@@ -1,9 +1,7 @@
 package com.modern.security.spring.service;
 
-import com.modern.base.mvc.service.AbstractBaseBizService;
 import com.modern.security.AuthenticationUser;
 import com.modern.security.spring.UserDetailsAdapter;
-import com.modern.security.spring.util.SecurityAsserts;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  *
  * @author zhangj
  */
-public abstract class AbstractUserDetailsService extends AbstractBaseBizService implements UserDetailsService {
+public abstract class AbstractUserDetailsService implements UserDetailsService {
 
     /**
      * Locates the user based on the username. In the actual implementation, the search
@@ -30,15 +28,14 @@ public abstract class AbstractUserDetailsService extends AbstractBaseBizService 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AuthenticationUser authUser = loadUserByUsernameInternal(username);
-        SecurityAsserts.assertUserNotNull(authUser);
+        if (authUser == null) {
+            throw new UsernameNotFoundException(username);
+        }
         return new UserDetailsAdapter(authUser);
     }
 
     /**
      * 内部的加载用户信息
-     *
-     * @param username
-     * @return
      */
     protected abstract AuthenticationUser loadUserByUsernameInternal(String username);
 

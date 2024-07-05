@@ -12,6 +12,11 @@ import com.modern.security.AuthenticationDetails;
 public class UserAuthenticationDetails implements AuthenticationDetails {
 
     /**
+     * 用户名
+     */
+    private String username;
+
+    /**
      * 访问凭证Token
      */
     private String accessToken;
@@ -30,6 +35,7 @@ public class UserAuthenticationDetails implements AuthenticationDetails {
      * 访问凭证刷新过期时间
      */
     private Long refreshExpireTime;
+
 
     public UserAuthenticationDetails() {
     }
@@ -68,5 +74,13 @@ public class UserAuthenticationDetails implements AuthenticationDetails {
 
     public void setRefreshExpireTime(Long refreshExpireTime) {
         this.refreshExpireTime = refreshExpireTime;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

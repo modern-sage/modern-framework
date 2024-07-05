@@ -14,6 +14,4 @@ public abstract class TokenUtils {
        return RandomUtils.randomString(RandomUtils.randomInt(20, 30));
     }
 
-
-
 }

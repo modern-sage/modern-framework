@@ -10,6 +10,11 @@ package com.modern.security;
 public interface AuthenticationDetails {
 
     /**
+     * 用户名
+     */
+    String getUsername();
+
+    /**
      * 访问凭证Token
      */
     String getAccessToken();
@@ -28,6 +33,5 @@ public interface AuthenticationDetails {
      * 访问凭证刷新过期时间
      */
     Long getRefreshExpireTime();
-
 
 }

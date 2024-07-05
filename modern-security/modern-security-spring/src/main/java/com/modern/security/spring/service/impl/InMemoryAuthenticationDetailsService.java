@@ -53,36 +53,4 @@ public class InMemoryAuthenticationDetailsService implements AuthenticationDetai
         return memoryMap.remove(accessToken) != null;
     }
 
-    /**
-     * 验证 accessToken
-     *
-     */
-    @Override
-    public void validateAccessToken(String accessToken) {
-        UserAuthenticationDetails authDetails = memoryMap.get(accessToken);
-        if(authDetails == null) {
-            throw new AccessDeniedException("无凭证");
-        }
-        if (System.currentTimeMillis() > authDetails.getAccessExpireTime()) {
-            throw new AccessDeniedException("凭证已过期");
-        }
-    }
-
-    /**
-     * 验证 refreshToken
-     *
-     */
-    @Override
-    public void validateRefreshToken(String accessToken, String refreshToken) {
-        UserAuthenticationDetails authDetails = memoryMap.get(accessToken);
-        if(authDetails == null) {
-            throw new AccessDeniedException("无凭证");
-        }
-        if (System.currentTimeMillis() > authDetails.getAccessExpireTime()) {
-            throw new AccessDeniedException("凭证已过期");
-        }
-        if (!Objects.equals(refreshToken, authDetails.getRefreshToken())) {
-            throw new AccessDeniedException("刷新凭证不匹配");
-        }
-    }
 }

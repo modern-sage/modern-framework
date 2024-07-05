@@ -26,14 +26,4 @@ public interface AuthenticationDetailsService<T extends AuthenticationDetails> {
      */
     boolean removeAuthDetails(String accessToken);
 
-    /**
-     * 验证 accessToken
-     */
-    void validateAccessToken(String accessToken);
-
-    /**
-     * 验证 refreshToken
-     */
-    void validateRefreshToken(String accessToken, String refreshToken);
-
 }

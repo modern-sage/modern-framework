@@ -1,6 +1,6 @@
 package com.modern.security.spring.service;
 
-import com.modern.core.collection.CollectionUtils;
+import com.modernframework.core.utils.CollectionUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,12 +12,8 @@ import java.util.Collection;
 /**
  * 授权服务
  *
- * <pre>
- *  @PreAuthorize("@perm.hasPermission('sys:user:query')")
- * </pre>
- *
- * @author zj
- * @since 0.1.0
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
  */
 public class SecurityPermissionService {
 

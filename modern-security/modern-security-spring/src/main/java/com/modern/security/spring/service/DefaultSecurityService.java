@@ -6,6 +6,7 @@ import com.modern.security.spring.UserAuthenticationDetails;
 import com.modern.security.spring.config.SpringSecurityProperties;
 import com.modern.security.spring.utils.TokenUtils;
 import io.jsonwebtoken.Claims;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -94,22 +96,30 @@ public class DefaultSecurityService implements SecurityService {
      */
     @Override
     public UserCertificate refreshToken(String accessToken, String refreshToken) {
-        if (!JwtUtils.validateRefreshToken(refreshToken) && !JwtUtils.validateWithoutExpiration(accessToken)) {
-            throw new BizException("认证失败");
+        final AuthenticationDetails authDetailsByAccessToken = authDetailsService.getAuthDetailsByAccessToken(accessToken);
+        if(authDetailsByAccessToken == null) {
+            throw new AccessDeniedException("无授权");
         }
-        Optional<String> userName = JwtUtils.parseRefreshTokenClaims(refreshToken).map(Claims::getSubject);
-        if (userName.isPresent()) {
-            final UserDetails authUser = userDetailsService.loadUserByUsername(userName.get());
-            if (authUser == null) {
-                throw new InternalAuthenticationServiceException("认证失败");
-            }
+        if(Objects.equals(authDetailsByAccessToken.getRefreshToken(), refreshToken)) {
+            authDetailsService.removeAuthDetails(accessToken);
+            throw new AccessDeniedException("刷新Token非法");
+        }
+        if (System.currentTimeMillis() > authDetailsByAccessToken.getRefreshExpireTime()) {
+            authDetailsService.removeAuthDetails(accessToken);
+            throw new AccessDeniedException("刷新Token过期");
+        }
+
+        // 重新生成token
+        final UserDetails authUser = userDetailsService.loadUserByUsername(authDetailsByAccessToken.getUsername());
+        if(authUser != null) {
             UserCertificate certificate = new UserCertificate();
             certificate.setUsername(authUser.getUsername());
-            certificate.setToken(JwtUtils.createAccessToken(authUser, securityProperties.getAccessTokenExpire()));
-            certificate.setRefreshToken(JwtUtils.createRefreshToken(authUser, securityProperties.getRefreshTokenExpire()));
+            certificate.setToken(TokenUtils.createAccessToken());
+            certificate.setRefreshToken(TokenUtils.createAccessToken());
             return certificate;
+        } else {
+            throw new AccessDeniedException("Token非法");
         }
-        throw new BizException("认证失败");
     }
 
     /**

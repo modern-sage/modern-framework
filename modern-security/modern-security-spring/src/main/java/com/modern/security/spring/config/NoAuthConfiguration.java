@@ -77,5 +77,8 @@ public class NoAuthConfiguration implements InitializingBean, ApplicationContext
         this.applicationContext = applicationContext;
     }
 
+    public List<String> getPermitAllUrls() {
+        return permitAllUrls;
+    }
 
 }

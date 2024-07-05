@@ -3,6 +3,9 @@ package com.modern.security.spring.config;
 import com.modern.security.AuthenticationDetailsService;
 import com.modern.security.SecurityService;
 import com.modern.security.spring.UserAuthenticationDetails;
+import com.modern.security.spring.filter.AuthenticationTokenFilter;
+import com.modern.security.spring.handler.AccessDeniedHandler;
+import com.modern.security.spring.handler.AuthExceptionEntryPoint;
 import com.modern.security.spring.service.DefaultSecurityService;
 import com.modern.security.spring.service.SecurityPermissionService;
 import com.modern.security.spring.service.impl.InMemoryAuthenticationDetailsService;
@@ -22,6 +25,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -45,17 +49,6 @@ public class SpringSecurityConfiguration {
 
     @Autowired
     private NoAuthConfiguration noAuthConfiguration;
-
-//    /**
-//     * 默认是简单的内存实现
-//     *
-//     * @return UserDetailsService
-//     */
-//    @Bean
-//    @ConditionalOnMissingBean(UserDetailsService.class)
-//    public UserDetailsService userDetailsService() {
-//        return new InMemoryUserDetailsManager();
-//    }
 
     @Bean
     @ConditionalOnMissingBean(UserDetailsService.class)
@@ -83,7 +76,7 @@ public class SpringSecurityConfiguration {
     @Bean
     @ConditionalOnMissingBean(SecurityService.class)
     public SecurityService authService(UserDetailsService userDetailsService, AuthenticationManager authenticationManager,
-                                       SpringSecurityProperties securityProperties, AuthenticationDetailsService<SysAuthDetails> authDetailsService) {
+                                       SpringSecurityProperties securityProperties, AuthenticationDetailsService<UserAuthenticationDetails> authDetailsService) {
         return new DefaultSecurityService(userDetailsService, authenticationManager,
                 securityProperties, authDetailsService);
     }
@@ -92,20 +85,17 @@ public class SpringSecurityConfiguration {
      * JWT验证过滤器
      */
     @Bean
-    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter(AuthenticationDetailsService<? extends SysAuthDetails> authDetailsService,
-                                                                     SpringSecurityProperties properties) {
-        return new JwtAuthenticationTokenFilter(authDetailsService, properties.getAccessTokenKey());
+    public AuthenticationTokenFilter authenticationTokenFilter(AuthenticationDetailsService<? extends UserAuthenticationDetails> authDetailsService,
+                                                                  SpringSecurityProperties properties) {
+        return new AuthenticationTokenFilter(authDetailsService, properties.getAccessTokenKey());
     }
 
     /**
      * 认证资源过滤链配置
-     *
-     * @param http
-     * @return SecurityFilterChain
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   UserDetailsService userDetailsService, JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter) throws Exception {
+                                                   UserDetailsService userDetailsService, AuthenticationTokenFilter authenticationTokenFilter) throws Exception {
         // 登陆的接口标记不做任何的权限过滤，并且在里面做好登陆的操作
         //登录认证处理
 //        http.formLogin()
@@ -121,7 +111,7 @@ public class SpringSecurityConfiguration {
         http.cors().and()
                 //不使用session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                //csrf关闭 // todo 开启验证
+                //csrf关闭
                 .and().csrf().disable()
 //                .and().csrf().ignoringAntMatchers(noAuthConfiguration.getPermitAllUrls().toArray(new String[0]))
                 // 当被 @NoAuth 标注的接口没有任何的认证鉴权限制
@@ -132,21 +122,19 @@ public class SpringSecurityConfiguration {
 
                 .exceptionHandling()
                 //认证异常处理
-                .authenticationEntryPoint(new MdAuthExceptionEntryPoint())
+                .authenticationEntryPoint(new AuthExceptionEntryPoint())
                 //授权异常处理
-                .accessDeniedHandler(new MdAccessDeniedHandler())
+                .accessDeniedHandler(new AccessDeniedHandler())
                 //自定义认证
                 .and()
-                //jwt token 验证
-                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                //token 验证
+                .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .userDetailsService(userDetailsService);
         return http.build();
     }
 
     /**
      * 密码加密
-     *
-     * @return PasswordEncoder
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
