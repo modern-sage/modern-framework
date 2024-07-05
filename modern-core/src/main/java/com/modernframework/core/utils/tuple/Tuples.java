@@ -1,5 +1,12 @@
 package com.modernframework.core.utils.tuple;
 
+
+/**
+ * Tuples
+ *
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
+ */
 public class Tuples {
 
 	public static <T0, T1> Tuple2<T0, T1> of(T0 _0, T1 _1) {

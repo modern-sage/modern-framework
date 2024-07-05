@@ -56,6 +56,7 @@ public abstract class ReflectUtils {
      * @return 字段列表
      * @throws SecurityException 安全检查异常
      */
+    @SafeVarargs
     public static Field[] getFields(Class<?> beanClass, Predicate<Field>... fieldFilters) throws SecurityException {
         return Streams.filter(getFields(beanClass), fieldFilters).toArray(new Field[0]);
     }
@@ -101,7 +102,6 @@ public abstract class ReflectUtils {
      * @param withMethodFromObject 是否包括Object中的方法
      * @return 方法列表
      * @throws SecurityException 安全检查异常
-     * @since 1.0.0
      */
     public static Method[] getMethodsDirectly(Class<?> beanClass, boolean withSupers, boolean withMethodFromObject) throws SecurityException {
         Asserts.notNull(beanClass);
@@ -113,13 +113,13 @@ public abstract class ReflectUtils {
         Class<?> searchType = beanClass;
         // 顺序是从底部实现往上方接口查找，以底部实现的方法为主
         while (searchType != null) {
-            if (false == withMethodFromObject && Object.class == searchType) {
+            if (!withMethodFromObject && Object.class == searchType) {
                 break;
             }
 
             final List<Method> methods = Arrays.asList(searchType.getDeclaredMethods());
             if (CollectionUtils.isNotEmpty(methods)) {
-                methods.stream().forEach(method -> {
+                methods.forEach(method -> {
                     String uniqueKey = getMethodUniqueKey(method);
                     methodMap.putIfAbsent(uniqueKey, method);
                 });
@@ -127,12 +127,12 @@ public abstract class ReflectUtils {
 
             final List<Method> defaultMethodsFromInterface = getDefaultMethodsFromInterface(searchType);
             if (CollectionUtils.isNotEmpty(defaultMethodsFromInterface)) {
-                defaultMethodsFromInterface.stream().forEach(method -> {
+                defaultMethodsFromInterface.forEach(method -> {
                     String uniqueKey = getMethodUniqueKey(method);
                     methodMap.putIfAbsent(uniqueKey, method);
                 });
             }
-            searchType = (withSupers && false == searchType.isInterface()) ? searchType.getSuperclass() : null;
+            searchType = (withSupers && !searchType.isInterface()) ? searchType.getSuperclass() : null;
         }
 
         return methodMap.values().toArray(new Method[0]);
@@ -159,8 +159,8 @@ public abstract class ReflectUtils {
      * @param filters 过滤器
      * @return 过滤后的方法列表
      * @throws SecurityException 安全异常
-     * @since 1.0.0
      */
+    @SafeVarargs
     public static Method[] getMethods(Class<?> clazz, Predicate<Method>... filters) throws SecurityException {
         if (null == clazz) {
             return null;
@@ -249,7 +249,7 @@ public abstract class ReflectUtils {
     @SuppressWarnings("unchecked")
     public static <T> Constructor<T>[] getConstructors(Class<T> beanClass) throws SecurityException {
         Asserts.notNull(beanClass);
-        return (Constructor<T>[]) CONSTRUCTORS_CACHE.computeIfAbsent(beanClass, () -> beanClass.getDeclaredConstructors());
+        return (Constructor<T>[]) CONSTRUCTORS_CACHE.computeIfAbsent(beanClass, beanClass::getDeclaredConstructors);
     }
 
     /**
@@ -308,7 +308,7 @@ public abstract class ReflectUtils {
         try {
             return constructor.newInstance(params);
         } catch (Exception e) {
-            throw new IllegalStateException(String.format("Instance class [{}] error!", clazz), e);
+            throw new IllegalStateException(String.format("Instance class [%s] error!", clazz), e);
         }
     }
 
@@ -422,7 +422,7 @@ public abstract class ReflectUtils {
                 } else if (args[i] instanceof ClassUtils.NullWrapperBean) {
                     //如果是通过NullWrapperBean传递的null参数,直接赋值null
                     actualArgs[i] = null;
-                } else if (false == parameterTypes[i].isAssignableFrom(args[i].getClass())) {
+                } else if (!parameterTypes[i].isAssignableFrom(args[i].getClass())) {
                     //对于类型不同的字段，尝试转换，转换失败则使用原对象类型
                     final Object targetValue = ConvertUtils.convertIfPossible(args[i], parameterTypes[i]);
                     if (null != targetValue) {
@@ -461,7 +461,7 @@ public abstract class ReflectUtils {
 
         final Method method = getMethodOfObj(obj, methodName, args);
         if (null == method) {
-            throw new RuntimeException(StringUtils.format("No such method: [{}] from [{}]",
+            throw new RuntimeException(String.format("No such method: [%s] from [%s]",
                     methodName, obj.getClass()));
         }
         return invoke(obj, method, args);

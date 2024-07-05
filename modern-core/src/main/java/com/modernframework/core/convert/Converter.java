@@ -14,9 +14,9 @@ import java.util.function.Function;
  *
  * @param <S> The source type
  * @param <T> The target type
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
-@FunctionalInterface
 public interface Converter<S, T> extends Function<S, T>, Prioritized {
 
     default boolean accept(Class<?> sourceType, Class<?> targetType) {
@@ -54,7 +54,6 @@ public interface Converter<S, T> extends Function<S, T>, Prioritized {
      *
      * @param sourceType the source type
      * @param targetType the target type
-     * @return
      * @see ServiceLoader#load(Class)
      */
     static Converter<?, ?> getConverter(Class<?> sourceType, Class<?> targetType) {

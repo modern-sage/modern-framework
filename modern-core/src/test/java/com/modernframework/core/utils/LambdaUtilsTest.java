@@ -1,9 +1,6 @@
 package com.modernframework.core.utils;
 
 import com.modernframework.core.func.SerialFunction;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -81,17 +78,29 @@ public class LambdaUtilsTest {
         Assert.assertEquals(MyTeacher.class, staticSuperSupplierClass);
     }
 
-    @Data
-    @AllArgsConstructor
     static class MyStudent {
 
         private String name;
+
+        public MyStudent() {
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
-    @Data
     public static class Entity<T> {
 
         private T id;
+
+        public Entity() {
+        }
+
 
         public static <T> T takeId() {
             return new Entity<T>().getId();
@@ -102,11 +111,20 @@ public class LambdaUtilsTest {
         }
 
 
+        public T getId() {
+            return id;
+        }
+
+        public void setId(T id) {
+            this.id = id;
+        }
     }
 
-    @Data
-    @EqualsAndHashCode(callSuper = true)
     static class MyTeacher extends Entity<MyTeacher> {
+
+        private String age;
+        public MyTeacher() {
+        }
 
         public static String takeAge() {
             return new MyTeacher().getAge();
@@ -116,7 +134,13 @@ public class LambdaUtilsTest {
             return myTeacher.getAge();
         }
 
-        public String age;
+        public String getAge() {
+            return age;
+        }
+
+        public void setAge(String age) {
+            this.age = age;
+        }
     }
 
     /**

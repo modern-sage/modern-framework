@@ -44,7 +44,7 @@ public abstract class TypeUtils {
     public static Class<?> getRawClass(Type type) {
         Type rawType = getRawType(type);
         if (rawType instanceof Class) {
-            return (Class) rawType;
+            return (Class<?>) rawType;
         }
         return null;
     }
@@ -73,7 +73,7 @@ public abstract class TypeUtils {
      * @param sourceClass 源类
      * @param predicate   判断函数
      */
-    public static Class findFirstActualTypeArgument(Class<?> sourceClass, Predicate<Class> predicate) {
+    public static Class<?> findFirstActualTypeArgument(Class<?> sourceClass, Predicate<Class<?>> predicate) {
         if (sourceClass == null) {
             return null;
         }
@@ -83,7 +83,7 @@ public abstract class TypeUtils {
         // 加入 sourceClass 的父类
         genericTypes.add(sourceClass.getGenericSuperclass());
 
-        Class firstActualTypeArgument = genericTypes.stream()
+        Class<?> firstActualTypeArgument = genericTypes.stream()
                 .filter(type -> type instanceof ParameterizedType)
                 .map(ParameterizedType.class::cast)
                 .flatMap(p -> Arrays.stream(p.getActualTypeArguments()))
@@ -150,7 +150,7 @@ public abstract class TypeUtils {
      * @return 所有泛型参数类型
      */
     public static List<Class<?>> getClassArgumentsRecursion(Class<?> targetClass) {
-        List<Class<?>> classArguments = Collections.EMPTY_LIST;
+        List<Class<?>> classArguments = Collections.emptyList();
         if (null == targetClass) {
             // 终止条件
             return classArguments;
@@ -178,7 +178,7 @@ public abstract class TypeUtils {
 
     public static List<Class<?>> getClassArguments(ParameterizedType parameterizedType) {
         if (parameterizedType == null) {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
         List<Class<?>> classArguments = new LinkedList<>();
         if (parameterizedType.getRawType() instanceof Class) {
@@ -264,7 +264,6 @@ public abstract class TypeUtils {
      *
      * @param type {@link Type}
      * @return {@link ParameterizedType}
-     * @since 1.0.0
      */
     public static ParameterizedType toParameterizedType(Type type, Predicate<Type> predicate) {
         ParameterizedType result = null;
@@ -387,11 +386,10 @@ public abstract class TypeUtils {
     /**
      * 找到一个类的{@link ParameterizedType}
      *
-     * @param sourceClass
      */
     public static Set<ParameterizedType> findParameterizedType(Class<?> sourceClass) {
         if (sourceClass == null) {
-            return Collections.EMPTY_SET;
+            return Collections.emptySet();
         }
         // Add Generic Interface
         List<Type> genericTypes = new LinkedList<>(Arrays.asList(sourceClass.getGenericInterfaces()));
@@ -497,6 +495,7 @@ public abstract class TypeUtils {
      * @param typeFilters     one or more {@link Predicate}s to filter the {@link ParameterizedType} instance
      * @return non-null read-only {@link List}
      */
+    @SafeVarargs
     public static List<ParameterizedType> getAllGenericParameterizedTypes(Type type, boolean sortParentToSun,
                                                                           Predicate<ParameterizedType>... typeFilters) {
         List<ParameterizedType> allGenericTypes = new LinkedList<>();
@@ -513,6 +512,7 @@ public abstract class TypeUtils {
      * @param typeFilters     one or more {@link Predicate}s to filter the {@link ParameterizedType} instance
      * @return non-null read-only {@link List}
      */
+    @SafeVarargs
     public static List<ParameterizedType> getAllGenericParameterizedTypesFromSuperClasses(Type type, boolean sortParentToSun,
                                                                                           Predicate<ParameterizedType>... typeFilters) {
         Class<?> rawClass = getRawClass(type);
@@ -543,6 +543,7 @@ public abstract class TypeUtils {
      * @param typeFilters     one or more {@link Predicate}s to filter the {@link ParameterizedType} instance
      * @return non-null read-only {@link List}
      */
+    @SafeVarargs
     public static List<ParameterizedType> getAllGenericParameterizedTypesFromInterfaces(Type type, boolean sortParentToSun,
                                                                                         Predicate<ParameterizedType>... typeFilters) {
         Class<?> rawClass = getRawClass(type);

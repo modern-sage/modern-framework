@@ -2,6 +2,7 @@ package com.modernframework.core.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.util.Collections.unmodifiableMap;
 
@@ -30,12 +31,12 @@ public class MapUtils {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(Map<?, ?> map) {
-        return null != map && false == map.isEmpty();
+        return null != map && !map.isEmpty();
     }
 
     public static Map of(Object... values) {
         int length = values.length;
-        Map map = new HashMap(length / 2);
+        Map<Object, Object> map = new HashMap<>(length / 2);
         for (int i = 0; i < length; ) {
             map.put(values[i++], values[i++]);
         }

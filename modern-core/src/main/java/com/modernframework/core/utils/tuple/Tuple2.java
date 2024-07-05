@@ -2,6 +2,12 @@ package com.modernframework.core.utils.tuple;
 
 import java.util.Objects;
 
+/**
+ * Tuple2
+ *
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
+ */
 public final class Tuple2<T0, T1> {
 
 	public T0 _0;
@@ -30,8 +36,9 @@ public final class Tuple2<T0, T1> {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o == this)
-			return true;
+		if (o == this) {
+            return true;
+        }
 		if (o instanceof Tuple2) {
 			@SuppressWarnings("rawtypes")
 			Tuple2 t = (Tuple2) o;

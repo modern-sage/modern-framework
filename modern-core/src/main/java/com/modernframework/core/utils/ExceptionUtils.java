@@ -23,7 +23,7 @@ public abstract class ExceptionUtils {
         if (null == e) {
             return StringUtils.NULL;
         }
-        return StringUtils.format("{}: {}", e.getClass().getSimpleName(), e.getMessage());
+        return String.format("%s: %s", e.getClass().getSimpleName(), e.getMessage());
     }
 
     /**
@@ -31,8 +31,6 @@ public abstract class ExceptionUtils {
      *
      * @param source        源异常
      * @param exceptionType 目标异常类
-     * @param <T>
-     * @return
      */
     public static <T extends Throwable> T wrapThrowable(Throwable source, Class<T> exceptionType) {
         String message = source.getMessage();
@@ -47,12 +45,12 @@ public abstract class ExceptionUtils {
         Arrays.sort(constructors, (o1, o2) -> Integer.compare(o2.getParameterCount(), o1.getParameterCount()));
 
         // 找到参数最多的那个构造方法
-        Constructor constructor = constructors[0];
-        Class[] parameterTypes = constructor.getParameterTypes();
+        Constructor<?> constructor = constructors[0];
+        Class<?>[] parameterTypes = constructor.getParameterTypes();
         int parameterTypesLength = parameterTypes.length;
         Object[] parameters = new Object[parameterTypesLength];
         for (int i = 0; i < parameterTypes.length; i++) {
-            Class parameterType = parameterTypes[i];
+            Class<?> parameterType = parameterTypes[i];
             if (String.class.isAssignableFrom(parameterType)) {
                 parameters[i] = message;
             }

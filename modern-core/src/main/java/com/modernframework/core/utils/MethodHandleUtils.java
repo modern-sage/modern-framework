@@ -111,7 +111,7 @@ public class MethodHandleUtils {
 
 	/**
 	 * 执行接口或对象中的特殊方法（private、static等）<br>
-	 * 执行 static 方法会报错，需要调用 {@link MethodHandleUtils#invokeSpecial(Object, String, Object...)}
+	 * 执行 static 方法会报错，需要调用 {@link  MethodHandleUtils#invokeSpecial(Object, String, Object...)}
 	 *
 	 * <pre class="code">
 	 *     interface Duck {
@@ -138,7 +138,7 @@ public class MethodHandleUtils {
 
 		final Method method = ReflectUtils.getMethodOfObj(obj, methodName, args);
 		if (null == method) {
-			throw new RuntimeException(StringUtils.format("No such method: [{}] from [{}]", methodName, obj.getClass()));
+			throw new RuntimeException(String.format("No such method: [%s] from [%s]", methodName, obj.getClass()));
 		}
 		return invokeSpecial(obj, method, args);
 	}

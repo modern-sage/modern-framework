@@ -29,11 +29,11 @@ public class Base16Codec implements Encoder<byte[], char[]>, Decoder<CharSequenc
 	@Override
 	public char[] encode(byte[] data) {
 		final int len = data.length;
-		final char[] out = new char[len << 1];//len*2
+		final char[] out = new char[len << 1];
 		// two characters from the hex value.
 		for (int i = 0, j = 0; i < len; i++) {
-			out[j++] = alphabets[(0xF0 & data[i]) >>> 4];// 高位
-			out[j++] = alphabets[0x0F & data[i]];// 低位
+			out[j++] = alphabets[(0xF0 & data[i]) >>> 4];
+			out[j++] = alphabets[0x0F & data[i]];
 		}
 		return out;
 	}
@@ -110,7 +110,7 @@ public class Base16Codec implements Encoder<byte[], char[]>, Decoder<CharSequenc
 		int digit = Character.digit(ch, 16);
 		if (digit < 0) {
 			throw new IllegalArgumentException(
-					StringUtils.format("Illegal hexadecimal character {} at index {}", ch, index));
+					String.format("Illegal hexadecimal character %s at index %s", ch, index));
 		}
 		return digit;
 	}

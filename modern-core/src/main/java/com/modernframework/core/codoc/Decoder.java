@@ -10,11 +10,11 @@ package com.modernframework.core.codoc;
  */
 public interface Decoder<T, R> {
 
-	/**
-	 * 执行解码
-	 *
-	 * @param encoded 被解码的数据
-	 * @return 解码后的数据
-	 */
-	R decode(T encoded);
+    /**
+     * 执行解码
+     *
+     * @param encoded 被解码的数据
+     * @return 解码后的数据
+     */
+    R decode(T encoded);
 }

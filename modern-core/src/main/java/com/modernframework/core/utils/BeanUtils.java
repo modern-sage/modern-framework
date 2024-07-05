@@ -4,6 +4,8 @@ import com.modernframework.core.lang.Asserts;
 import net.sf.cglib.beans.BeanCopier;
 import net.sf.cglib.beans.BeanGenerator;
 import net.sf.cglib.beans.BeanMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -15,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -23,6 +24,8 @@ import java.util.stream.Collectors;
  * 把一个拥有对属性进行set和get方法的类，我们就可以称之为JavaBean。
  */
 public abstract class BeanUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(BeanUtils.class);
 
     /**
      * 获取Getter或Setter方法名对应的字段名称，规则如下：
@@ -47,26 +50,6 @@ public abstract class BeanUtils {
         }
     }
 
-//    /**
-//     * 复制Bean对象属性<br>
-//     *
-//     * @param source 源Bean对象
-//     * @param target 目标Bean对象
-//     */
-//    public static Object copyProperties(Object source, Object target) {
-//        return BeanCopierFactory.getBeanCopier(source, target).copy();
-//    }
-//
-//    /**
-//     * 复制Bean对象属性<br>
-//     *
-//     * @param source   源Bean对象
-//     * @param supplier 目标Bean对象构造函数
-//     */
-//    public static <T> T copyProperties(Object source, Supplier<T> supplier) {
-//        return BeanCopierFactory.getBeanCopier(source, supplier).copy();
-//    }
-
     public static <T> T addExtra(T source, String key, Object value) {
         Asserts.notNull(key);
         Asserts.notNull(value);
@@ -84,8 +67,8 @@ public abstract class BeanUtils {
             // 内省获取源数据的内部结构
             BeanInfo beanInfo = Introspector.getBeanInfo(sourceClass);
             // 源数据的所有的字段信息
-            Map<String, Class> propertyMap = Arrays.stream(beanInfo.getPropertyDescriptors())
-                    .filter(x -> false == "class".equals(x.getName()))
+            Map<String, Class<?>> propertyMap = Arrays.stream(beanInfo.getPropertyDescriptors())
+                    .filter(x -> !"class".equals(x.getName()))
                     .collect(Collectors.toMap(PropertyDescriptor::getName, PropertyDescriptor::getPropertyType));
 
             // 添加字段属性
@@ -105,9 +88,7 @@ public abstract class BeanUtils {
 
             // 根据字典执行插入
             if (CollectionUtils.isNotEmpty(addProperties)) {
-                addProperties.forEach((k, v) -> {
-                    beanMap.put(k, v);
-                });
+                beanMap.putAll(addProperties);
             }
 
             return target;
@@ -119,7 +100,7 @@ public abstract class BeanUtils {
 
     public static void converterBean(Object fromBean, Object toBean, String[] excludeProperties)
             throws InvocationTargetException, IllegalAccessException {
-        List<String> excludes = Arrays.asList(excludeProperties).stream().map(String::toLowerCase).collect(Collectors.toList());
+        List<String> excludes = Arrays.stream(excludeProperties).map(String::toLowerCase).collect(Collectors.toList());
 
         Method[] methods = fromBean.getClass().getMethods();
         for (Method method : methods) {
@@ -152,15 +133,13 @@ public abstract class BeanUtils {
         return toBean;
     }
 
-    public static <T> List<T> converterBeans(List<? extends Object> fromBean, Class<T> toBeanClass) {
+    public static <T> List<T> converterBeans(List<?> fromBean, Class<T> toBeanClass) {
         List<T> target = new ArrayList<>();
-        fromBean.stream().forEach(x -> {
+        fromBean.forEach(x -> {
             try {
                 target.add(converterBean(x, toBeanClass));
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException | InstantiationException e) {
-                e.printStackTrace();
+            } catch (Throwable e) {
+                log.error("convert error", e);
             }
         });
         return target;

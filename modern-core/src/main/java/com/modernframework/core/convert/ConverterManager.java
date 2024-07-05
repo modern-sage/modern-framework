@@ -7,7 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 
-public abstract class ConverterManager implements Converter {
+/**
+ * 转换器接口函数
+ *
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
+ */
+public abstract class ConverterManager {
 
     private static Map<Class<?>, Map<Class<?>, Converter>> converterMap;
 

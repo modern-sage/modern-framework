@@ -32,6 +32,7 @@ public abstract class AnnotationUtils {
         return Objects.equals(annotation.annotationType(), annotationType);
     }
 
+    @SafeVarargs
     public static List<Annotation> getDeclaredAnnotations(AnnotatedElement annotatedElement,
                                                           Predicate<Annotation>... annotationsToFilter) {
         if (annotatedElement == null) {
@@ -43,6 +44,7 @@ public abstract class AnnotationUtils {
                 .collect(Collectors.toList());
     }
 
+    @SafeVarargs
     public static Set<Class<?>> getAllInheritedTypes(Class<?> type, Predicate<Class<?>>... typeFilters) {
         // Add all super classes
         Set<Class<?>> types = new LinkedHashSet<>(ClassUtils.getAllSuperClasses(type, typeFilters));
@@ -51,6 +53,7 @@ public abstract class AnnotationUtils {
         return Collections.unmodifiableSet(types);
     }
 
+    @SafeVarargs
     public static List<Annotation> getAllDeclaredAnnotations(Class<?> type, Predicate<Annotation>... annotationsToFilter) {
 
         if (type == null) {
@@ -68,6 +71,7 @@ public abstract class AnnotationUtils {
                 .collect(Collectors.toList());
     }
 
+    @SafeVarargs
     public static List<Annotation> getAllDeclaredAnnotations(AnnotatedElement annotatedElement,
                                                              Predicate<Annotation>... annotationsToFilter) {
         if (annotatedElement instanceof Class) {
@@ -81,6 +85,7 @@ public abstract class AnnotationUtils {
         return findAnnotation(annotatedElement, a -> isSameType(a, annotationType));
     }
 
+    @SafeVarargs
     public static <A extends Annotation> A findAnnotation(AnnotatedElement annotatedElement,
                                                           Predicate<Annotation>... annotationFilters) {
         return (A) Streams.filterFirst(getAllDeclaredAnnotations(annotatedElement), annotationFilters);

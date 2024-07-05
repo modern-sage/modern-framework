@@ -2,6 +2,12 @@ package com.modernframework.core.utils.tuple;
 
 import java.util.Objects;
 
+/**
+ * Tuple5
+ *
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
+ */
 public final class Tuple5<T0, T1, T2, T3, T4> {
 
 	public T0 _0;
@@ -60,8 +66,9 @@ public final class Tuple5<T0, T1, T2, T3, T4> {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o == this)
-			return true;
+		if (o == this) {
+            return true;
+        }
 		if (o instanceof Tuple5) {
 			@SuppressWarnings("rawtypes")
 			Tuple5 t = (Tuple5) o;

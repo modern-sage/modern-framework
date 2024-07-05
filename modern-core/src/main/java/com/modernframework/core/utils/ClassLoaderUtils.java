@@ -312,7 +312,8 @@ public abstract class ClassLoaderUtils {
     private static Class<?> tryLoadInnerClass(String name, ClassLoader classLoader, boolean isInitialized) {
         // 尝试获取内部类，例如java.lang.Thread.State =》java.lang.Thread$State
         final int lastDotIndex = name.lastIndexOf(PACKAGE_SEPARATOR);
-        if (lastDotIndex > 0) {// 类与内部类的分隔符不能在第一位，因此>0
+        // 类与内部类的分隔符不能在第一位，因此 > 0
+        if (lastDotIndex > 0) {
             final String innerClassName = name.substring(0, lastDotIndex) + INNER_CLASS_SEPARATOR + name.substring(lastDotIndex + 1);
             try {
                 return Class.forName(innerClassName, isInitialized, classLoader);

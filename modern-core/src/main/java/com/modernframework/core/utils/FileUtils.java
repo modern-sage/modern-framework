@@ -165,7 +165,7 @@ public class FileUtils extends PathUtils {
                 // 去除类似于/C:这类路径开头的斜杠
                 prefix = prefix.substring(1);
             }
-            if (false == prefix.contains(StrConstant.SLASH)) {
+            if (!prefix.contains(StrConstant.SLASH)) {
                 pathToUse = pathToUse.substring(prefixIndex + 1);
             } else {
                 // 如果前缀中包含/,说明非Windows风格path
@@ -185,7 +185,7 @@ public class FileUtils extends PathUtils {
         for (int i = pathList.length - 1; i >= 0; i--) {
             element = pathList[i];
             // 只处理非.的目录，即只处理非当前目录
-            if (false == StrConstant.DOT.equals(element)) {
+            if (!StrConstant.DOT.equals(element)) {
                 if (StrConstant.DOUBLE_DOT.equals(element)) {
                     tops++;
                 } else {
@@ -417,7 +417,7 @@ public class FileUtils extends PathUtils {
                 parentCanonicalPath = parentFile.getAbsolutePath();
                 canonicalPath = file.getAbsolutePath();
             }
-            if (false == canonicalPath.startsWith(parentCanonicalPath)) {
+            if (!canonicalPath.startsWith(parentCanonicalPath)) {
                 throw new IllegalArgumentException("New file is outside of the parent dir: " + file.getName());
             }
         }

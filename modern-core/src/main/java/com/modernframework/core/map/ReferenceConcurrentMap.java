@@ -36,8 +36,6 @@ public class ReferenceConcurrentMap<K, V> implements ConcurrentMap<K, V>, Iterab
      */
     private BiConsumer<Reference<? extends K>, V> purgeListener;
 
-    // region 构造
-
     /**
      * 构造
      *
@@ -48,16 +46,6 @@ public class ReferenceConcurrentMap<K, V> implements ConcurrentMap<K, V>, Iterab
         this.raw = raw;
         this.keyType = referenceType;
         lastQueue = new ReferenceQueue<>();
-    }
-    // endregion
-
-    /**
-     * 设置对象回收清除监听
-     *
-     * @param purgeListener 监听函数
-     */
-    public void setPurgeListener(BiConsumer<Reference<? extends K>, V> purgeListener) {
-        this.purgeListener = purgeListener;
     }
 
     @Override

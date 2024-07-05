@@ -16,6 +16,12 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableMap;
 
+/**
+ * ClassUtils
+ *
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
+ */
 public abstract class ClassUtils {
 
     /**
@@ -50,7 +56,7 @@ public abstract class ClassUtils {
     /**
      * Maps primitive <code>Class</code>es to their corresponding wrapper <code>Class</code>.
      */
-    private static final Map PRIMITIVE_WRAPPER_MAP = new HashMap();
+    private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_MAP = new HashMap<>();
 
     static {
         PRIMITIVE_WRAPPER_MAP.put(Boolean.TYPE, Boolean.class);
@@ -67,12 +73,11 @@ public abstract class ClassUtils {
     /**
      * Maps wrapper <code>Class</code>es to their corresponding primitive types.
      */
-    private static final Map WRAPPER_PRIMITIVE_MAP = new HashMap();
+    private static final Map<Class<?>, Class<?>> WRAPPER_PRIMITIVE_MAP = new HashMap<>();
 
     static {
-        for (Iterator it = PRIMITIVE_WRAPPER_MAP.keySet().iterator(); it.hasNext(); ) {
-            Class primitiveClass = (Class) it.next();
-            Class wrapperClass = (Class) PRIMITIVE_WRAPPER_MAP.get(primitiveClass);
+        for (Class<?> primitiveClass : PRIMITIVE_WRAPPER_MAP.keySet()) {
+            Class<?> wrapperClass = PRIMITIVE_WRAPPER_MAP.get(primitiveClass);
             if (!primitiveClass.equals(wrapperClass)) {
                 WRAPPER_PRIMITIVE_MAP.put(wrapperClass, primitiveClass);
             }
@@ -86,7 +91,6 @@ public abstract class ClassUtils {
      * @param superType  the super type
      * @param targetType the target type
      * @return see {@link Class#isAssignableFrom(Class)}
-     * @since 1.0.0
      */
     public static boolean isAssignableFrom(Class<?> superType, Class<?> targetType) {
         // any argument is null
@@ -116,13 +120,11 @@ public abstract class ClassUtils {
      * 设置方法为可访问
      *
      * @param method 方法
-     * @return 方法
      */
-    public static Method setAccessible(Method method) {
-        if (null != method && false == method.isAccessible()) {
+    public static void setAccessible(Method method) {
+        if (null != method && !method.isAccessible()) {
             method.setAccessible(true);
         }
-        return method;
     }
 
     /**
@@ -201,7 +203,7 @@ public abstract class ClassUtils {
      * @param toClass    the Class to try to assign into, returns false if null
      * @return <code>true</code> if assignment possible
      */
-    public static boolean isAssignable(Class checkClass, Class toClass) {
+    public static boolean isAssignable(Class<?> checkClass, Class<?> toClass) {
         return isAssignable(checkClass, toClass, false);
     }
 
@@ -232,7 +234,7 @@ public abstract class ClassUtils {
      * @param autoboxing whether to use implicit autoboxing/unboxing between primitives and wrappers
      * @return <code>true</code> if assignment possible
      */
-    public static boolean isAssignable(Class cls, Class toClass, boolean autoboxing) {
+    public static boolean isAssignable(Class<?> cls, Class<?> toClass, boolean autoboxing) {
         if (toClass == null) {
             return false;
         }
@@ -259,7 +261,7 @@ public abstract class ClassUtils {
             return true;
         }
         if (cls.isPrimitive()) {
-            if (toClass.isPrimitive() == false) {
+            if (!toClass.isPrimitive()) {
                 return false;
             }
             if (Integer.TYPE.equals(cls)) {
@@ -312,7 +314,6 @@ public abstract class ClassUtils {
      * @param targetType the target type
      * @param superTypes the super types
      * @return see {@link Class#isAssignableFrom(Class)}
-     * @since 1.0.0
      */
     public static boolean isDerived(Class<?> targetType, Class<?>... superTypes) {
         // any argument is null
@@ -331,14 +332,13 @@ public abstract class ClassUtils {
 
 
     /**
-     * Get all interfaces from the specified type <br/>
-     * 顺序： 子 -> 父
+     * 获取所有的接口类
      *
      * @param type             the specified type
      * @param interfaceFilters the filters for interfaces
      * @return non-null read-only {@link Set}
-     * @since 1.0.0
      */
+    @SafeVarargs
     public static Set<Class<?>> getAllInterfaces(Class<?> type, Predicate<Class<?>>... interfaceFilters) {
         if (type == null || type.isPrimitive()) {
             return emptySet();
@@ -374,7 +374,7 @@ public abstract class ClassUtils {
         }
 
         Set<Class<?>> result = new LinkedHashSet<>();
-        StreamSupport.stream(allInterfaces.spliterator(), false)
+        allInterfaces.stream()
                 .filter(Predicates.and(interfaceFilters))
                 .forEach(result::add);
         return result;
@@ -382,16 +382,16 @@ public abstract class ClassUtils {
 
 
     /**
-     * Get all classes(may include self type) from the specified type with filters <br/>
-     * 顺序： 子 -> 父
+     * 获取所有的类（包含自身）
      *
      * @param type         the specified type
      * @param includedSelf included self type or not
      * @param classFilters class filters
      * @return non-null read-only {@link Set}
      */
-    public static Set<Class<?>> getAllClasses(Class<?> type, boolean includedSelf, Predicate<Class<?>>...
-            classFilters) {
+    @SafeVarargs
+    public static Set<Class<?>> getAllClasses(Class<?> type, boolean includedSelf,
+                                              Predicate<Class<?>>... classFilters) {
         if (type == null || type.isPrimitive()) {
             return emptySet();
         }
@@ -411,20 +411,20 @@ public abstract class ClassUtils {
 
         // Keep the same order from List
         Set<Class<?>> result = new LinkedHashSet<>();
-        StreamSupport.stream(allClasses.spliterator(), false)
+        allClasses.stream()
                 .filter(Predicates.and(classFilters))
                 .forEach(result::add);
         return result;
     }
 
     /**
-     * Get all super classes from the specified type
+     * 获取所有的父类
      *
      * @param type         the specified type
      * @param classFilters the filters for classes
      * @return non-null read-only {@link Set}
-     * @since 1.0.0
      */
+    @SafeVarargs
     public static Set<Class<?>> getAllSuperClasses(Class<?> type, Predicate<Class<?>>... classFilters) {
         return getAllClasses(type, false, classFilters);
     }
@@ -447,7 +447,7 @@ public abstract class ClassUtils {
         // SHOULD sit in a package, so a length check is worthwhile.
         if (name != null && name.length() <= 8) {
             // Could be a primitive - likely.
-            result = (Class<?>) PRIMITIVE_TYPE_NAME_MAP.get(name);
+            result = PRIMITIVE_TYPE_NAME_MAP.get(name);
         }
         return result;
     }
@@ -508,7 +508,6 @@ public abstract class ClassUtils {
      * @param classLoader {@link ClassLoader}
      * @return If can't be resolved , return <code>null</code>
      * @see #loadClass(String, boolean)
-     * @since 1.0.0
      */
     @Deprecated
     public static <T> Class<T> resolveClass(String className, ClassLoader classLoader) {
@@ -576,7 +575,7 @@ public abstract class ClassUtils {
     public static Class primitiveToWrapper(Class cls) {
         Class convertedClass = cls;
         if (cls != null && cls.isPrimitive()) {
-            convertedClass = (Class) PRIMITIVE_WRAPPER_MAP.get(cls);
+            convertedClass = PRIMITIVE_WRAPPER_MAP.get(cls);
         }
         return convertedClass;
     }
@@ -597,7 +596,7 @@ public abstract class ClassUtils {
      * @see #primitiveToWrapper(Class)
      */
     public static Class wrapperToPrimitive(Class cls) {
-        return (Class) WRAPPER_PRIMITIVE_MAP.get(cls);
+        return WRAPPER_PRIMITIVE_MAP.get(cls);
     }
 
 

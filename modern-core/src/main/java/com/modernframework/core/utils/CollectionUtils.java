@@ -20,16 +20,20 @@ public class CollectionUtils {
         return list;
     }
 
+    @SafeVarargs
     public static <T> ArrayList<T> newArrayList(T... values) {
-        ArrayList<T> list = new ArrayList<>();
-        Arrays.stream(values).forEach(list::add);
-        return list;
+        if(values == null) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(Arrays.asList(values));
     }
 
+    @SafeVarargs
     public static <T> LinkedList<T> newLinkedList(T... values) {
-        LinkedList<T> list = new LinkedList<>();
-        Arrays.stream(values).forEach(list::add);
-        return list;
+        if(values == null) {
+            return new LinkedList<>();
+        }
+        return new LinkedList<>(Arrays.asList(values));
     }
 
     // ---------------------------------------------------------------------- isEmpty
@@ -51,7 +55,7 @@ public class CollectionUtils {
      * @return 是否为空
      */
     public static boolean isEmpty(Enumeration<?> enumeration) {
-        return null == enumeration || false == enumeration.hasMoreElements();
+        return null == enumeration || !enumeration.hasMoreElements();
     }
 
     /**
@@ -95,7 +99,7 @@ public class CollectionUtils {
      * @return 是否为非空
      */
     public static boolean isNotEmpty(Collection<?> collection) {
-        return false == isEmpty(collection);
+        return !isEmpty(collection);
     }
 
     /**
@@ -223,8 +227,6 @@ public class CollectionUtils {
     /**
      * 是否存在交集
      *
-     * @param collection1
-     * @param collection2
      */
     public static boolean existIntersection(Collection<?> collection1, Collection<?> collection2) {
         try {

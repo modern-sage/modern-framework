@@ -16,7 +16,7 @@ import java.lang.invoke.SerializedLambda;
  */
 public abstract class LambdaUtils {
 
-    private static final WeakConcurrentMap<String, SerializedLambda> cache = new WeakConcurrentMap<>();
+    private static final WeakConcurrentMap<String, SerializedLambda> CACHE = new WeakConcurrentMap<>();
 
     /**
      * 通过对象的方法或类的静态方法引用，获取lambda实现类
@@ -65,7 +65,7 @@ public abstract class LambdaUtils {
      * @return 返回解析后的结果
      */
     public static <T> SerializedLambda resolve(SerialFunction<T, ?> func) {
-        return _resolve(func);
+        return doResolve(func);
     }
 
     /**
@@ -77,7 +77,7 @@ public abstract class LambdaUtils {
      * @return 返回解析后的结果
      */
     public static <R> SerializedLambda resolve(SerialSupplier<R> supplier) {
-        return _resolve(supplier);
+        return doResolve(supplier);
     }
 
     /**
@@ -194,7 +194,7 @@ public abstract class LambdaUtils {
      * @param func 需要解析的 lambda 对象
      * @return 返回解析后的结果
      */
-    private static SerializedLambda _resolve(Serializable func) {
-        return cache.computeIfAbsent(func.getClass().getName(), (key) -> ReflectUtils.invoke(func, "writeReplace"));
+    private static SerializedLambda doResolve(Serializable func) {
+        return CACHE.computeIfAbsent(func.getClass().getName(), (key) -> ReflectUtils.invoke(func, "writeReplace"));
     }
 }

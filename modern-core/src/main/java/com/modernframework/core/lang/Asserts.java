@@ -48,7 +48,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException if expression is {@code false}
 	 */
 	public static void isTrue(boolean expression, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		isTrue(expression, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		isTrue(expression, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException if expression is {@code false}
 	 */
 	public static void isFalse(boolean expression, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		isFalse(expression, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		isFalse(expression, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException if the object is not {@code null}
 	 */
 	public static void isNull(Object object, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		isNull(object, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		isNull(object, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -208,7 +208,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException if the object is {@code null}
 	 */
 	public static <T> T notNull(T object, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		return notNull(object, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return notNull(object, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -269,7 +269,7 @@ public class Asserts {
 	 * @see StringUtils#isNotEmpty(CharSequence)
 	 */
 	public static <T extends CharSequence> T notEmpty(T text, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		return notEmpty(text, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return notEmpty(text, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -330,7 +330,7 @@ public class Asserts {
 	 * @see StringUtils#isNotBlank(CharSequence)
 	 */
 	public static <T extends CharSequence> T notBlank(T text, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		return notBlank(text, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return notBlank(text, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -391,7 +391,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException 非子串抛出异常
 	 */
 	public static String notContain(String textToSearch, String substring, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		return notContain(textToSearch, substring, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return notContain(textToSearch, substring, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -451,7 +451,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException if the object array is {@code null} or has no elements
 	 */
 	public static <T> T[] notEmpty(T[] array, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		return notEmpty(array, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return notEmpty(array, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -510,7 +510,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException if the object array contains a {@code null} element
 	 */
 	public static <T> T[] noNullElements(T[] array, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		return noNullElements(array, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return noNullElements(array, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -571,7 +571,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException if the collection is {@code null} or has no elements
 	 */
 	public static <E, T extends Iterable<E>> T notEmpty(T collection, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		return notEmpty(collection, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return notEmpty(collection, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -635,7 +635,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException if the map is {@code null} or has no entries
 	 */
 	public static <K, V, T extends Map<K, V>> T notEmpty(T map, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		return notEmpty(map, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return notEmpty(map, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -693,7 +693,7 @@ public class Asserts {
 	public static <T> T isInstanceOf(Class<?> type, T obj, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
 		notNull(type, "Type to check against must not be null");
 		if (false == type.isInstance(obj)) {
-			throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
+			throw new IllegalArgumentException(String.format(errorMsgTemplate, params));
 		}
 		return obj;
 	}
@@ -729,7 +729,7 @@ public class Asserts {
 	public static void isAssignable(Class<?> superType, Class<?> subType, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
 		notNull(superType, "Type to check against must not be null");
 		if (subType == null || !superType.isAssignableFrom(subType)) {
-			throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
+			throw new IllegalArgumentException(String.format(errorMsgTemplate, params));
 		}
 	}
 
@@ -767,7 +767,7 @@ public class Asserts {
 	 */
 	public static void state(boolean expression, String errorMsgTemplate, Object... params) throws IllegalStateException {
 		if (false == expression) {
-			throw new IllegalStateException(StringUtils.format(errorMsgTemplate, params));
+			throw new IllegalStateException(String.format(errorMsgTemplate, params));
 		}
 	}
 
@@ -854,7 +854,7 @@ public class Asserts {
 	 * @return 经过检查后的值
 	 */
 	public static int checkBetween(int value, int min, int max, String errorMsgTemplate, Object... params) {
-		return checkBetween(value, min, max, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return checkBetween(value, min, max, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -899,7 +899,7 @@ public class Asserts {
 	 * @return 经过检查后的值
 	 */
 	public static long checkBetween(long value, long min, long max, String errorMsgTemplate, Object... params) {
-		return checkBetween(value, min, max, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return checkBetween(value, min, max, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -944,7 +944,7 @@ public class Asserts {
 	 * @return 经过检查后的值
 	 */
 	public static double checkBetween(double value, double min, double max, String errorMsgTemplate, Object... params) {
-		return checkBetween(value, min, max, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		return checkBetween(value, min, max, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -975,7 +975,7 @@ public class Asserts {
 		double minDouble = min.doubleValue();
 		double maxDouble = max.doubleValue();
 		if (valueDouble < minDouble || valueDouble > maxDouble) {
-			throw new IllegalArgumentException(StringUtils.format(TEMPLATE_VALUE_MUST_BE_BETWEEN_AND, min, max));
+			throw new IllegalArgumentException(String.format(TEMPLATE_VALUE_MUST_BE_BETWEEN_AND, min, max));
 		}
 		return value;
 	}
@@ -1007,7 +1007,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException obj1 must be not equals obj2
 	 */
 	public static void notEquals(Object obj1, Object obj2, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		notEquals(obj1, obj2, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		notEquals(obj1, obj2, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -1053,7 +1053,7 @@ public class Asserts {
 	 * @throws IllegalArgumentException obj1 must be equals obj2
 	 */
 	public static void equals(Object obj1, Object obj2, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
-		equals(obj1, obj2, () -> new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params)));
+		equals(obj1, obj2, () -> new IllegalArgumentException(String.format(errorMsgTemplate, params)));
 	}
 
 	/**
@@ -1086,11 +1086,11 @@ public class Asserts {
 	 */
 	private static String badIndexMsg(int index, int size, String desc, Object... params) {
 		if (index < 0) {
-			return StringUtils.format("{} ({}) must not be negative", StringUtils.format(desc, params), index);
+			return String.format("{} ({}) must not be negative", String.format(desc, params), index);
 		} else if (size < 0) {
 			throw new IllegalArgumentException("negative size: " + size);
 		} else { // index >= size
-			return StringUtils.format("{} ({}) must be less than size ({})", StringUtils.format(desc, params), index, size);
+			return String.format("{} ({}) must be less than size ({})", String.format(desc, params), index, size);
 		}
 	}
 	// -------------------------------------------------------------------------------------------------------------------------------------------- Private method end

@@ -33,13 +33,7 @@ public class RandomUtils {
 	 * 获取随机数生成器对象<br>
 	 * ThreadLocalRandom是JDK 7之后提供并发产生随机数，能够解决多个线程发生的竞争争夺。
 	 *
-	 * <p>
-	 * 注意：此方法返回的{@link ThreadLocalRandom}不可以在多线程环境下共享对象，否则有重复随机数问题。
-	 * 见：https://www.jianshu.com/p/89dfe990295c
-	 * </p>
-	 *
 	 * @return {@link ThreadLocalRandom}
-	 * @since 0.1.0
 	 */
 	public static ThreadLocalRandom getRandom() {
 		return ThreadLocalRandom.current();
@@ -59,12 +53,6 @@ public class RandomUtils {
 	/**
 	 * 获取SHA1PRNG的{@link SecureRandom}，类提供加密的强随机数生成器 (RNG)<br>
 	 * 注意：此方法获取的是伪随机序列发生器PRNG（pseudo-random number generator）
-	 *
-	 * <p>
-	 * 相关说明见：https://stackoverflow.com/questions/137212/how-to-solve-slow-java-securerandom
-	 *
-	 * @return {@link SecureRandom}
-	 * @since 0.1.0
 	 */
 	public static SecureRandom getSecureRandom() {
 		return getSecureRandom(null);
@@ -74,13 +62,9 @@ public class RandomUtils {
 	 * 获取SHA1PRNG的{@link SecureRandom}，类提供加密的强随机数生成器 (RNG)<br>
 	 * 注意：此方法获取的是伪随机序列发生器PRNG（pseudo-random number generator）
 	 *
-	 * <p>
-	 * 相关说明见：https://stackoverflow.com/questions/137212/how-to-solve-slow-java-securerandom
-	 *
 	 * @param seed 随机数种子
 	 * @return {@link SecureRandom}
 	 * @see #createSecureRandom(byte[])
-	 * @since 0.1.0
 	 */
 	public static SecureRandom getSecureRandom(byte[] seed) {
 		return createSecureRandom(seed);
@@ -89,14 +73,9 @@ public class RandomUtils {
 	/**
 	 * 获取SHA1PRNG的{@link SecureRandom}，类提供加密的强随机数生成器 (RNG)<br>
 	 * 注意：此方法获取的是伪随机序列发生器PRNG（pseudo-random number generator）,在Linux下噪声生成时可能造成较长时间停顿。<br>
-	 * see: http://ifeve.com/jvm-random-and-entropy-source/
-	 *
-	 * <p>
-	 * 相关说明见：https://stackoverflow.com/questions/137212/how-to-solve-slow-java-securerandom
 	 *
 	 * @param seed 随机数种子
 	 * @return {@link SecureRandom}
-	 * @since 0.1.0
 	 */
 	public static SecureRandom getSHA1PRNGRandom(byte[] seed) {
 		SecureRandom random;
@@ -116,7 +95,6 @@ public class RandomUtils {
 	 * 注意：此方法可能造成阻塞或性能问题
 	 *
 	 * @return {@link SecureRandom}
-	 * @since 50.1.0
 	 */
 	public static SecureRandom getSecureRandomStrong() {
 		try {
@@ -133,7 +111,6 @@ public class RandomUtils {
 	 * @return {@link Random}
 	 * @see #getSecureRandom()
 	 * @see #getRandom()
-	 * @since 40.1.0
 	 */
 	public static Random getRandom(boolean isSecure) {
 		return isSecure ? getSecureRandom() : getRandom();
@@ -143,7 +120,6 @@ public class RandomUtils {
 	 * 获得随机Boolean值
 	 *
 	 * @return true or false
-	 * @since 0.1.0
 	 */
 	public static boolean randomBoolean() {
 		return 0 == randomInt(2);
@@ -198,7 +174,6 @@ public class RandomUtils {
 	 * @param max 最大数（不包含）
 	 * @return 随机数
 	 * @see ThreadLocalRandom#nextLong(long, long)
-	 * @since 0.1.0
 	 */
 	public static long randomLong(long min, long max) {
 		return getRandom().nextLong(min, max);
@@ -209,7 +184,6 @@ public class RandomUtils {
 	 *
 	 * @return 随机数
 	 * @see ThreadLocalRandom#nextLong()
-	 * @since 0.1.0
 	 */
 	public static long randomLong() {
 		return getRandom().nextLong();
@@ -233,7 +207,6 @@ public class RandomUtils {
 	 * @param max 最大数（不包含）
 	 * @return 随机数
 	 * @see ThreadLocalRandom#nextDouble(double, double)
-	 * @since 0.1.0
 	 */
 	public static double randomDouble(double min, double max) {
 		return getRandom().nextDouble(min, max);
@@ -247,7 +220,6 @@ public class RandomUtils {
 	 * @param scale        保留小数位数
 	 * @param roundingMode 保留小数的模式 {@link RoundingMode}
 	 * @return 随机数
-	 * @since 0.1.0
 	 */
 	public static double randomDouble(double min, double max, int scale, RoundingMode roundingMode) {
 		return NumberUtils.round(randomDouble(min, max), scale, roundingMode).doubleValue();
@@ -258,7 +230,6 @@ public class RandomUtils {
 	 *
 	 * @return 随机数
 	 * @see ThreadLocalRandom#nextDouble()
-	 * @since 0.1.0
 	 */
 	public static double randomDouble() {
 		return getRandom().nextDouble();
@@ -270,7 +241,6 @@ public class RandomUtils {
 	 * @param scale        保留小数位数
 	 * @param roundingMode 保留小数的模式 {@link RoundingMode}
 	 * @return 随机数
-	 * @since 0.1.0
 	 */
 	public static double randomDouble(int scale, RoundingMode roundingMode) {
 		return NumberUtils.round(randomDouble(), scale, roundingMode).doubleValue();
@@ -282,7 +252,6 @@ public class RandomUtils {
 	 * @param limit 限制随机数的范围，不包括这个数
 	 * @return 随机数
 	 * @see ThreadLocalRandom#nextDouble(double)
-	 * @since 0.1.0
 	 */
 	public static double randomDouble(double limit) {
 		return getRandom().nextDouble(limit);
@@ -295,7 +264,6 @@ public class RandomUtils {
 	 * @param scale        保留小数位数
 	 * @param roundingMode 保留小数的模式 {@link RoundingMode}
 	 * @return 随机数
-	 * @since 0.1.0
 	 */
 	public static double randomDouble(double limit, int scale, RoundingMode roundingMode) {
 		return NumberUtils.round(randomDouble(limit), scale, roundingMode).doubleValue();
@@ -305,7 +273,6 @@ public class RandomUtils {
 	 * 获得指定范围内的随机数[0, 1)
 	 *
 	 * @return 随机数
-	 * @since 0.1.0
 	 */
 	public static BigDecimal randomBigDecimal() {
 		return NumberUtils.toBigDecimal(getRandom().nextDouble());
@@ -316,7 +283,6 @@ public class RandomUtils {
 	 *
 	 * @param limit 最大数（不包含）
 	 * @return 随机数
-	 * @since 0.1.0
 	 */
 	public static BigDecimal randomBigDecimal(BigDecimal limit) {
 		return NumberUtils.toBigDecimal(getRandom().nextDouble(limit.doubleValue()));
@@ -328,7 +294,6 @@ public class RandomUtils {
 	 * @param min 最小数（包含）
 	 * @param max 最大数（不包含）
 	 * @return 随机数
-	 * @since 0.1.0
 	 */
 	public static BigDecimal randomBigDecimal(BigDecimal min, BigDecimal max) {
 		return NumberUtils.toBigDecimal(getRandom().nextDouble(min.doubleValue(), max.doubleValue()));
@@ -495,7 +460,6 @@ public class RandomUtils {
 	 *
 	 * @param length 字符串的长度
 	 * @return 随机字符串
-	 * @since 40.1.0
 	 */
 	public static String randomStringUpper(int length) {
 		return randomString(BASE_CHAR_NUMBER, length).toUpperCase();
@@ -552,7 +516,6 @@ public class RandomUtils {
 	 * 随机数字，数字为0~9单个数字
 	 *
 	 * @return 随机数字字符
-	 * @since 0.1.0
 	 */
 	public static char randomNumber() {
 		return randomChar(BASE_NUMBER);
@@ -562,7 +525,6 @@ public class RandomUtils {
 	 * 随机字母或数字，小写
 	 *
 	 * @return 随机字符
-	 * @since 0.1.0
 	 */
 	public static char randomChar() {
 		return randomChar(BASE_CHAR_NUMBER);
@@ -573,7 +535,6 @@ public class RandomUtils {
 	 *
 	 * @param baseString 随机字符选取的样本
 	 * @return 随机字符
-	 * @since 0.1.0
 	 */
 	public static char randomChar(String baseString) {
 		return baseString.charAt(randomInt(baseString.length()));
@@ -583,7 +544,6 @@ public class RandomUtils {
 	 * 生成随机颜色
 	 *
 	 * @return 随机颜色
-	 * @since 0.1.0
 	 * @deprecated 使用ImgUtil.randomColor()
 	 */
 	@Deprecated

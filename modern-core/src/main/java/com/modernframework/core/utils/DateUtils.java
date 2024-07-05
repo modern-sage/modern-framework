@@ -2,7 +2,8 @@ package com.modernframework.core.utils;
 
 import com.modernframework.core.utils.tuple.Tuple2;
 import com.modernframework.core.utils.tuple.Tuples;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -24,8 +25,8 @@ import java.util.regex.Pattern;
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
-@Slf4j
 public class DateUtils {
+    private static final Logger log = LoggerFactory.getLogger(DateUtils.class);
 
     public static final String FORMATSTR_YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
     public static final String FORMATSTR_YYYY_MM_DD_HH_MM_SS_S = "yyyy-MM-dd HH:mm:ss.S";
@@ -38,8 +39,8 @@ public class DateUtils {
     public static final String FORMATSTR_HH_mm_ss = "HH:mm:ss";
     public static final String FORMATSTR_YYYYMMDDDELIMITER = "-";
 
-    public static final DateTimeFormatter dateFormatter_yyyyMMddHHmmss = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-    public static final DateTimeFormatter dateFormatter_yyyy_MM_dd_HH_mm_ss = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter DATEFORMATTER_YYYYMMDDHHMMSS = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+    public static final DateTimeFormatter DATEFORMATTER_YYYY_MM_DD_HH_MM_SS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static final int ONE_DAY_DATE_TIME_STAMP = 1000 * 60 * 60 * 24;
     public static final int ONE_HOUR_DATE_TIME_STAMP = 1000 * 60 * 60;
@@ -62,14 +63,12 @@ public class DateUtils {
     };
 
     /*一周星期枚举*/
-    public static enum DAY_IN_WEEK_ENUM {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY}
-
-    ;
+    public enum DAY_IN_WEEK_ENUM {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY}
 
     /**
      * 一天的时间戳
      */
-    public final Long ONE_DAY_DURATION = 1000 * 60 * 60 * 24L;
+    public static final Long ONE_DAY_DURATION = 1000 * 60 * 60 * 24L;
 
     /**
      * 尽可能将参数转换成日期
@@ -116,8 +115,7 @@ public class DateUtils {
             return null;
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateString = simpleDateFormat.format(date);
-        return dateString;
+        return simpleDateFormat.format(date);
     }
 
     /**
@@ -127,7 +125,7 @@ public class DateUtils {
         if (str == null) {
             return null;
         }
-        str = str.replaceAll("[:\\- ,\\.]+", " ").trim();
+        str = str.replaceAll("[:\\- ,.]+", " ").trim();
         if (str.isEmpty()) {
             return null;
         }
@@ -192,41 +190,8 @@ public class DateUtils {
      * 计算两个日期间的间隔天数
      */
     private static long daysBetween(Date one, Date two) {
-        long difference = (one.getTime() - two.getTime()) / 86400000;
+        long difference = (one.getTime() - two.getTime()) / ONE_DAY_DURATION;
         return Math.abs(difference);
-    }
-
-    /**
-     * 取相对于当前时间‘前’或‘后’‘N’天的日期字符串
-     *
-     * @param offset  正数为n天后，负数为n天前
-     * @param pattern 输出格式，默认为DATETIME（即 yyyy-MM-dd HH:mm:ss）
-     */
-    public static String getPrevOrNextNDay(int offset, String pattern) {
-        LocalDateTime now = LocalDateTime.now();
-        now.plusDays(offset);
-        if (StringUtils.isBlank(pattern)) {
-            pattern = FORMATSTR_YYYY_MM_DD_HH_MM_SS;
-        }
-        return now.format(DateTimeFormatter.ofPattern(pattern));
-    }
-
-    /**
-     * 取相对于当前时间‘前’或‘后’‘N’天的日期对象｛结果日期舍去“时”、“分”、“秒”为“0时:0分:0秒”｝
-     */
-    public static Date getPrevOrNextNDayDate(int offset) {
-        try {
-            Calendar now = Calendar.getInstance();
-            now.add(Calendar.DAY_OF_MONTH, offset);
-
-            now.set(Calendar.HOUR_OF_DAY, 0);
-            now.set(Calendar.MINUTE, 0);
-            now.set(Calendar.SECOND, 0);
-
-            return now.getTime();
-        } catch (Exception e) {
-            return null;
-        }
     }
 
     /**
@@ -249,8 +214,6 @@ public class DateUtils {
 
     /**
      * 获取当前时间所在周的星期几
-     *
-     * @return
      */
     public static String getDayInWeekName() {
         Calendar calendar = Calendar.getInstance();
@@ -322,10 +285,6 @@ public class DateUtils {
 
     /**
      * Date->XMLDate格式转换
-     *
-     * @param date
-     * @return XMLGregorianCalendar
-     * @throw
      */
     public static XMLGregorianCalendar toXmlDate(Date date) {
         Calendar cal = Calendar.getInstance();
@@ -353,9 +312,7 @@ public class DateUtils {
     /**
      * Date->Timestamp格式转换
      *
-     * @param date
      * @return Timestamp
-     * @throws
      */
     public static Timestamp toTimestampDate(Date date) {
         return new Timestamp(date.getTime());
@@ -364,24 +321,17 @@ public class DateUtils {
     /**
      * Timestamp->Date
      *
-     * @param ts
      * @return Date
-     * @throws
      */
     public static Date toDate(Timestamp ts) {
         if (ts == null) {
             return null;
         }
-        Date date = ts;
-        return date;
+        return ts;
     }
 
     /**
      * 日期比较
-     *
-     * @param date1
-     * @param date2
-     * @return date1 - date2
      */
     public static long compileDate(Object date1, Object date2) {
         Date d1 = parse(format(parse(date1), FORMATSTR_YYYY_MM_DD));
@@ -391,10 +341,6 @@ public class DateUtils {
 
     /**
      * 时间比较
-     *
-     * @param date1
-     * @param date2
-     * @return date1 - date2
      */
     public static long compileDateTime(Object date1, Object date2) {
         Date d1 = parse(format(parse(date1), FORMATSTR_YYYY_MM_DD_HH_MM_SS));
@@ -404,12 +350,6 @@ public class DateUtils {
 
     /**
      * 时间比较
-     *
-     * @param date_1
-     * @param date_2
-     * @return Integer
-     * @throws
-     * @desc -----------------
      * 1（date1 > date2）
      * 0（date1 = date2）
      * -1（date1 < date2）
@@ -423,15 +363,17 @@ public class DateUtils {
             Date d2 = df.parse(date_2);
             long delta = d1.getTime() - d2.getTime();
             if (delta > 0) {
-                return 1; //d1>d2
+                //d1>d2
+                return 1;
             } else if (delta == 0) {
-                return 0; //d1=d2
+                //d1=d2
+                return 0;
             } else {
-                return -1; //d1<d2
+                //d1<d2
+                return -1;
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return 9; //时间格式非法
+        } catch (ParseException ignore) {
+            return 9;
         }
     }
 
@@ -475,9 +417,6 @@ public class DateUtils {
         String _time = StringUtils.isBlank(time) ? "00:00:00" : time;
         String dateStr = year + "-" + _triggerMonth + "-" + _triggerDay + " " + _time;
         String dateFormatStr = DateUtils.format(DateUtils.parse(dateStr));
-        if (dateFormatStr == null) {
-            return true;
-        }
         return !dateStr.equals(dateFormatStr);
     }
 
@@ -490,9 +429,6 @@ public class DateUtils {
         }
         String todayTime = today() + " " + time;
         String dateFormatStr = DateUtils.format(DateUtils.parse(todayTime));
-        if (dateFormatStr == null) {
-            return true;
-        }
         return !todayTime.equals(dateFormatStr);
     }
 
@@ -502,17 +438,7 @@ public class DateUtils {
      * 10 ==> 10
      */
     public static String getFormatMonth(String month) {
-        if (StringUtils.isEmpty(month)) {
-            return "null";
-        }
-        String m = month + "";
-        int mSize = m.length();
-        if (mSize > 1) {
-            return m;
-        } else {
-            m = "0" + m;
-            return m;
-        }
+        return getFormatDay(month);
     }
 
     /**
@@ -524,7 +450,7 @@ public class DateUtils {
         if (StringUtils.isEmpty(day)) {
             return "null";
         }
-        String d = day + "";
+        String d = day;
         int dSize = d.length();
         if (dSize > 1) {
             return d;
@@ -540,9 +466,7 @@ public class DateUtils {
      * 月的有效参数为 0~11
      * 错误参数返回 -1
      *
-     * @param year
      * @param month [0-11]
-     * @return
      */
     public static int getActualMaxDayInMonth(int year, int month) {
         if (year <= 0 || month < 0 || month > 11) {
@@ -552,18 +476,16 @@ public class DateUtils {
         minimumCalendar.set(Calendar.YEAR, year);
         minimumCalendar.set(Calendar.MONTH, month);
         System.out.println(DateUtils.format(minimumCalendar.getTime()));
-        int max = minimumCalendar.getActualMaximum(Calendar.DAY_OF_MONTH); // 本月中最小的一天
-        return max;
+        // 本月中最小的一天
+        return minimumCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
     /**
      * 判断指定day是否存在
      *
-     * @param year
      * @param month [0-11]
      * @param day   [0-31]
      * @return boolean
-     * @throws
      */
     public static boolean isDayExist(int year, int month, int day) {
         if (year <= 0) {
@@ -580,7 +502,7 @@ public class DateUtils {
         }
 
         int maxDays = getActualMaxDayInMonth(year, month - 1);
-        return (day <= maxDays) ? true : false;
+        return day <= maxDays;
     }
 
     /**
@@ -589,7 +511,6 @@ public class DateUtils {
      * @param year  [1-9999]
      * @param month [1-12]
      * @param day   [1-31]
-     * @return
      */
     public static boolean isDayValid(int year, int month, int day) {
         if (year < 1 || year > 9999
@@ -715,49 +636,17 @@ public class DateUtils {
         return format(getTodayEarlyMorning());
     }
 
-
-//	/**
-//	 * 根据时间转换对应的cron时间格式：
-//	 * 01:30 ==> 0 30 1 * * ?
-//	 */
-//	public static String getCronDate(String t){
-//		if(StringUtils.isEmpty(t)){
-//			return "null";
-//		}
-//		String[] strs = t.trim().split(":");
-//		String tmp = "0";
-//		for(String s:strs){
-//			if(Integer.parseInt(s.substring(0,1))>0){
-//				tmp += " ";
-//				tmp += s;
-//			}else{
-//				tmp += " ";
-//				tmp += s.substring(1,2);
-//			}
-//		}
-//		tmp += " * * ?";
-//		return tmp;
-//	}
-
     /**
      * 判断某时间[targetTime]是否在一段时间区间内[date1,date2]
      */
     public static boolean containTime(Object date1, Object date2, Object targetTime) {
         boolean t1 = comTime(date1, targetTime);
         boolean t2 = comTime(date2, targetTime);
-
-        if (!t1 && t2) {
-            return true;
-        }
-        return false;
+        return !t1 && t2;
     }
 
     /**
      * 时间比较
-     *
-     * @param date1
-     * @param date2
-     * @return boolean
      */
     public static boolean comTime(Object date1, Object date2) {
         Date d1 = parse(date1);
@@ -772,10 +661,6 @@ public class DateUtils {
 
     /**
      * 计算两个时间戳的差额，用 [00:00:00] 格式表示结果
-     *
-     * @param startStamp
-     * @param endStamp
-     * @return
      */
     public static String timeDifference(long startStamp, long endStamp) {
         return formatTimeDifference(endStamp - startStamp);
@@ -828,9 +713,6 @@ public class DateUtils {
 
     /**
      * 以秒来格式化时间展示
-     *
-     * @param diffSec
-     * @return
      */
     public static String formatTimeSecDifference(long diffSec) {
         if (diffSec < 0) {

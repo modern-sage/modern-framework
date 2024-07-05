@@ -10,7 +10,6 @@ import java.net.URL;
  */
 public abstract class ResourceUtils {
 
-
     /**
      * 获得资源相对路径对应的URL
      *

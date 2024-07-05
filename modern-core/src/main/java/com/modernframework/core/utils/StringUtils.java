@@ -139,28 +139,6 @@ public abstract class StringUtils {
      *     <li>空字符串：{@code ""}</li>
      *     <li>空格、全角空格、制表符、换行符，等不可见字符</li>
      * </ol>
-     *
-     * <p>例：</p>
-     * <ul>
-     *     <li>{@code StringUtils.isBlank(null)     // true}</li>
-     *     <li>{@code StringUtils.isBlank("")       // true}</li>
-     *     <li>{@code StringUtils.isBlank(" \t\n")  // true}</li>
-     *     <li>{@code StringUtils.isBlank("abc")    // false}</li>
-     * </ul>
-     *
-     * <p>注意：该方法与 {@link #isEmpty(CharSequence)} 的区别是：
-     * 该方法会校验空白字符，且性能相对于 {@link #isEmpty(CharSequence)} 略慢。</p>
-     * <br>
-     *
-     * <p>建议：</p>
-     * <ul>
-     *     <li>该方法建议仅对于客户端（或第三方接口）传入的参数使用该方法。</li>
-     *     <li>需要同时校验多个字符串时，建议采用 {@link #isAnyBlank(CharSequence...)} 或 {@link #isAllBlank(CharSequence...)}</li>
-     * </ul>
-     *
-     * @param str 被检测的字符串
-     * @return 若为空白，则返回 true
-     * @see #isEmpty(CharSequence)
      */
     public static boolean isBlank(CharSequence str) {
         final int length;
@@ -170,7 +148,7 @@ public abstract class StringUtils {
 
         for (int i = 0; i < length; i++) {
             // 只要有一个非空字符即为非空字符串
-            if (false == CharUtils.isBlankChar(str.charAt(i))) {
+            if (!CharUtils.isBlankChar(str.charAt(i))) {
                 return false;
             }
         }
@@ -181,7 +159,6 @@ public abstract class StringUtils {
     /**
      * 字符串列表是否任意有空白
      *
-     * @param strList
      * @return 若存在空白，则返回 true
      */
     public static boolean isAnyBlank(Collection<CharSequence> strList) {
@@ -199,7 +176,6 @@ public abstract class StringUtils {
     /**
      * 字符串列表是否任意有空白
      *
-     * @param strs
      * @return 若存在空白，则返回 true
      */
     public static boolean isAnyBlank(CharSequence... strs) {
@@ -209,7 +185,6 @@ public abstract class StringUtils {
     /**
      * 字符串列表是否任意有空白
      *
-     * @param strList
      * @return 若存在空白，则返回 true
      */
     public static boolean isAllBlank(Collection<CharSequence> strList) {
@@ -227,7 +202,6 @@ public abstract class StringUtils {
     /**
      * 字符串列表是否任意有空白
      *
-     * @param strs
      * @return 若存在空白，则返回 true
      */
     public static boolean isAllBlank(CharSequence... strs) {
@@ -242,22 +216,6 @@ public abstract class StringUtils {
      *     <li>不为空字符串：{@code ""}</li>
      *     <li>不为空格、全角空格、制表符、换行符，等不可见字符</li>
      * </ol>
-     *
-     * <p>例：</p>
-     * <ul>
-     *     <li>{@code StringUtils.isNotBlank(null)     // false}</li>
-     *     <li>{@code StringUtils.isNotBlank("")       // false}</li>
-     *     <li>{@code StringUtils.isNotBlank(" \t\n")  // false}</li>
-     *     <li>{@code StringUtils.isNotBlank("abc")    // true}</li>
-     * </ul>
-     *
-     * <p>注意：该方法与 {@link #isNotEmpty(CharSequence)} 的区别是：
-     * 该方法会校验空白字符，且性能相对于 {@link #isNotEmpty(CharSequence)} 略慢。</p>
-     * <p>建议：仅对于客户端（或第三方接口）传入的参数使用该方法。</p>
-     *
-     * @param str 被检测的字符串
-     * @return 是否为非空
-     * @see #isBlank(CharSequence)
      */
     public static boolean isNotBlank(CharSequence str) {
         return !isBlank(str);
@@ -269,24 +227,6 @@ public abstract class StringUtils {
      *     <li>{@code null}</li>
      *     <li>空字符串：{@code ""}</li>
      * </ol>
-     *
-     * <p>例：</p>
-     * <ul>
-     *     <li>{@code StringUtils.isEmpty(null)     // true}</li>
-     *     <li>{@code StringUtils.isEmpty("")       // true}</li>
-     *     <li>{@code StringUtils.isEmpty(" \t\n")  // false}</li>
-     *     <li>{@code StringUtils.isEmpty("abc")    // false}</li>
-     * </ul>
-     *
-     * <p>注意：该方法与 {@link #isBlank(CharSequence)} 的区别是：该方法不校验空白字符。</p>
-     * <p>建议：</p>
-     * <ul>
-     *     <li>该方法建议用于工具类或任何可以预期的方法参数的校验中。</li>
-     * </ul>
-     *
-     * @param str 被检测的字符串
-     * @return 是否为空
-     * @see #isBlank(CharSequence)
      */
     public static boolean isEmpty(CharSequence str) {
         return str == null || str.length() == 0;
@@ -298,21 +238,6 @@ public abstract class StringUtils {
      *     <li>不为 {@code null}</li>
      *     <li>不为空字符串：{@code ""}</li>
      * </ol>
-     *
-     * <p>例：</p>
-     * <ul>
-     *     <li>{@code StringUtils.isNotEmpty(null)     // false}</li>
-     *     <li>{@code StringUtils.isNotEmpty("")       // false}</li>
-     *     <li>{@code StringUtils.isNotEmpty(" \t\n")  // true}</li>
-     *     <li>{@code StringUtils.isNotEmpty("abc")    // true}</li>
-     * </ul>
-     *
-     * <p>注意：该方法与 {@link #isNotBlank(CharSequence)} 的区别是：该方法不校验空白字符。</p>
-     * <p>建议：该方法建议用于工具类或任何可以预期的方法参数的校验中。</p>
-     *
-     * @param str 被检测的字符串
-     * @return 是否为非空
-     * @see #isEmpty(CharSequence)
      */
     public static boolean isNotEmpty(CharSequence str) {
         return !isEmpty(str);
@@ -333,7 +258,6 @@ public abstract class StringUtils {
      *
      * @param str1 要比较的字符串1
      * @param str2 要比较的字符串2
-     * @return 如果两个字符串相同，或者都是{@code null}，则返回{@code true}
      */
     public static boolean equals(CharSequence str1, CharSequence str2) {
         return equals(str1, str2, false);
@@ -352,7 +276,6 @@ public abstract class StringUtils {
      *
      * @param str1 要比较的字符串1
      * @param str2 要比较的字符串2
-     * @return 如果两个字符串相同，或者都是{@code null}，则返回{@code true}
      */
     public static boolean equalsIgnoreCase(CharSequence str1, CharSequence str2) {
         return equals(str1, str2, true);
@@ -369,7 +292,6 @@ public abstract class StringUtils {
      * @param str1       要比较的字符串1
      * @param str2       要比较的字符串2
      * @param ignoreCase 是否忽略大小写
-     * @return 如果两个字符串相同，或者都是{@code null}，则返回{@code true}
      */
     public static boolean equals(CharSequence str1, CharSequence str2, boolean ignoreCase) {
         if (null == str1) {
@@ -590,45 +512,6 @@ public abstract class StringUtils {
     }
 
     /**
-     * 替换指定字符串的指定区间内字符为固定字符<br>
-     * 此方法使用{@link String#codePoints()}完成拆分替换
-     *
-     * @param str          字符串
-     * @param startInclude 开始位置（包含）
-     * @param endExclude   结束位置（不包含）
-     * @param replacedChar 被替换的字符
-     * @return 替换后的字符串
-     */
-    public static String replace(CharSequence str, int startInclude, int endExclude, char replacedChar) {
-        if (isEmpty(str)) {
-            return strOrNull(str);
-        }
-        final String originalStr = strOrNull(str);
-        int[] strCodePoints = originalStr.codePoints().toArray();
-        final int strLength = strCodePoints.length;
-        if (startInclude > strLength) {
-            return originalStr;
-        }
-        if (endExclude > strLength) {
-            endExclude = strLength;
-        }
-        if (startInclude > endExclude) {
-            // 如果起始位置大于结束位置，不替换
-            return originalStr;
-        }
-
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < strLength; i++) {
-            if (i >= startInclude && i < endExclude) {
-                stringBuilder.append(replacedChar);
-            } else {
-                stringBuilder.append(new String(strCodePoints, i, 1));
-            }
-        }
-        return stringBuilder.toString();
-    }
-
-    /**
      * 替换指定字符串的指定区间内字符为指定字符串，字符串只重复一次<br>
      * 此方法使用{@link String#codePoints()}完成拆分替换
      *
@@ -652,7 +535,6 @@ public abstract class StringUtils {
             endExclude = strLength;
         }
         if (startInclude > endExclude) {
-            // 如果起始位置大于结束位置，不替换
             return originalStr;
         }
 
@@ -751,226 +633,8 @@ public abstract class StringUtils {
      * @return 替换后的字符串
      */
     public static String hide(CharSequence str, int startInclude, int endExclude) {
-        return replace(str, startInclude, endExclude, '*');
+        return replace(str, startInclude, endExclude, "*");
     }
-
-
-    /**
-     * 替换字符字符数组中所有的字符为replacedStr<br>
-     * 提供的chars为所有需要被替换的字符，例如："\r\n"，则"\r"和"\n"都会被替换，哪怕他们单独存在
-     *
-     * @param str         被检查的字符串
-     * @param chars       需要替换的字符列表，用一个字符串表示这个字符列表
-     * @param replacedStr 替换成的字符串
-     * @return 新字符串
-     */
-    public static String replaceChars(CharSequence str, String chars, CharSequence replacedStr) {
-        if (isEmpty(str) || isEmpty(chars)) {
-            return strOrNull(str);
-        }
-        return replaceChars(str, chars.toCharArray(), replacedStr);
-    }
-
-    /**
-     * 替换字符字符数组中所有的字符为replacedStr
-     *
-     * @param str         被检查的字符串
-     * @param chars       需要替换的字符列表
-     * @param replacedStr 替换成的字符串
-     * @return 新字符串
-     */
-    public static String replaceChars(CharSequence str, char[] chars, CharSequence replacedStr) {
-        if (isEmpty(str) || ArrayUtils.isEmpty(chars)) {
-            return strOrNull(str);
-        }
-
-        final Set<Character> set = new HashSet<>(chars.length);
-        for (char c : chars) {
-            set.add(c);
-        }
-        int strLen = str.length();
-        final StringBuilder builder = new StringBuilder();
-        char c;
-        for (int i = 0; i < strLen; i++) {
-            c = str.charAt(i);
-            builder.append(set.contains(c) ? replacedStr : c);
-        }
-        return builder.toString();
-    }
-
-    // ------------------------------------------------------------------------ format
-
-    /**
-     * 格式化文本，使用 {varName} 占位<br>
-     * map = {a: "aValue", b: "bValue"} format("{a} and {b}", map) ---=》 aValue and bValue
-     *
-     * @param template 文本模板，被替换的部分用 {key} 表示
-     * @param map      参数值对
-     * @return 格式化后的文本
-     */
-    public static String format(CharSequence template, Map<?, ?> map) {
-        return format(template, map, true);
-    }
-
-    /**
-     * 格式化文本，使用 {varName} 占位<br>
-     * map = {a: "aValue", b: "bValue"} format("{a} and {b}", map) ---=》 aValue and bValue
-     *
-     * @param template   文本模板，被替换的部分用 {key} 表示
-     * @param map        参数值对
-     * @param ignoreNull 是否忽略 {@code null} 值，忽略则 {@code null} 值对应的变量不被替换，否则替换为""
-     * @return 格式化后的文本
-     */
-    public static String format(CharSequence template, Map<?, ?> map, boolean ignoreNull) {
-        return format1(template, map, ignoreNull);
-    }
-
-    /**
-     * 格式化文本，使用 {varName} 占位<br>
-     * map = {a: "aValue", b: "bValue"} format("{a} and {b}", map) ---=》 aValue and bValue
-     *
-     * @param template   文本模板，被替换的部分用 {key} 表示
-     * @param map        参数值对
-     * @param ignoreNull 是否忽略 {@code null} 值，忽略则 {@code null} 值对应的变量不被替换，否则替换为""
-     * @return 格式化后的文本
-     */
-    public static String format1(CharSequence template, Map<?, ?> map, boolean ignoreNull) {
-        if (null == template) {
-            return null;
-        }
-        if (null == map || map.isEmpty()) {
-            return template.toString();
-        }
-
-        String template2 = template.toString();
-        String value;
-        for (Map.Entry<?, ?> entry : map.entrySet()) {
-            value = StringUtils.convertToUtf8Str(entry.getValue());
-            if (null == value && ignoreNull) {
-                continue;
-            }
-            template2 = StringUtils.replace(template2, "{" + entry.getKey() + "}", value);
-        }
-        return template2;
-    }
-
-    /**
-     * 格式化文本, {} 表示占位符<br>
-     * 此方法只是简单将占位符 {} 按照顺序替换为参数<br>
-     * 如果想输出 {} 使用 \\转义 { 即可，如果想输出 {} 之前的 \ 使用双转义符 \\\\ 即可<br>
-     * 例：<br>
-     * 通常使用：format("this is {} for {}", "a", "b") =》 this is a for b<br>
-     * 转义{}： format("this is \\{} for {}", "a", "b") =》 this is {} for a<br>
-     * 转义\： format("this is \\\\{} for {}", "a", "b") =》 this is \a for b<br>
-     *
-     * @param template 文本模板，被替换的部分用 {} 表示，如果模板为null，返回"null"
-     * @param params   参数值
-     * @return 格式化后的文本，如果模板为null，返回"null"
-     */
-    public static String format(CharSequence template, Object... params) {
-        if (null == template) {
-            return NULL;
-        }
-        if (ArrayUtils.isEmpty(params) || isBlank(template)) {
-            return template.toString();
-        }
-        return format2(template.toString(), params);
-    }
-
-    /**
-     * 格式化字符串<br>
-     * 此方法只是简单将占位符 {} 按照顺序替换为参数<br>
-     * 如果想输出 {} 使用 \\转义 { 即可，如果想输出 {} 之前的 \ 使用双转义符 \\\\ 即可<br>
-     * 例：<br>
-     * 通常使用：format("this is {} for {}", "a", "b") =》 this is a for b<br>
-     * 转义{}： format("this is \\{} for {}", "a", "b") =》 this is \{} for a<br>
-     * 转义\： format("this is \\\\{} for {}", "a", "b") =》 this is \a for b<br>
-     *
-     * @param strPattern 字符串模板
-     * @param argArray   参数列表
-     * @return 结果
-     */
-    public static String format2(String strPattern, Object... argArray) {
-        return formatWith(strPattern, EMPTY_JSON, argArray);
-    }
-
-    /**
-     * 格式化字符串<br>
-     * 此方法只是简单将指定占位符 按照顺序替换为参数<br>
-     * 如果想输出占位符使用 \\转义即可，如果想输出占位符之前的 \ 使用双转义符 \\\\ 即可<br>
-     * 例：<br>
-     * 通常使用：format("this is {} for {}", "{}", "a", "b") =》 this is a for b<br>
-     * 转义{}： format("this is \\{} for {}", "{}", "a", "b") =》 this is {} for a<br>
-     * 转义\： format("this is \\\\{} for {}", "{}", "a", "b") =》 this is \a for b<br>
-     *
-     * @param strPattern  字符串模板
-     * @param placeHolder 占位符，例如{}
-     * @param argArray    参数列表
-     * @return 结果
-     */
-    public static String formatWith(String strPattern, String placeHolder, Object... argArray) {
-        if (StringUtils.isBlank(strPattern) || StringUtils.isBlank(placeHolder) || ArrayUtils.isEmpty(argArray)) {
-            return strPattern;
-        }
-        final int strPatternLength = strPattern.length();
-        final int placeHolderLength = placeHolder.length();
-
-        // 初始化定义好的长度以获得更好的性能
-        final StringBuilder sbuf = new StringBuilder(strPatternLength + 50);
-
-        int handledPosition = 0;// 记录已经处理到的位置
-        int delimIndex;// 占位符所在位置
-        for (int argIndex = 0; argIndex < argArray.length; argIndex++) {
-            delimIndex = strPattern.indexOf(placeHolder, handledPosition);
-            if (delimIndex == -1) {// 剩余部分无占位符
-                if (handledPosition == 0) { // 不带占位符的模板直接返回
-                    return strPattern;
-                }
-                // 字符串模板剩余部分不再包含占位符，加入剩余部分后返回结果
-                sbuf.append(strPattern, handledPosition, strPatternLength);
-                return sbuf.toString();
-            }
-
-            // 转义符
-            if (delimIndex > 0 && strPattern.charAt(delimIndex - 1) == StrConstant.C_BACKSLASH) {// 转义符
-                if (delimIndex > 1 && strPattern.charAt(delimIndex - 2) == StrConstant.C_BACKSLASH) {// 双转义符
-                    // 转义符之前还有一个转义符，占位符依旧有效
-                    sbuf.append(strPattern, handledPosition, delimIndex - 1);
-                    sbuf.append(StringUtils.convertToUtf8Str(argArray[argIndex]));
-                    handledPosition = delimIndex + placeHolderLength;
-                } else {
-                    // 占位符被转义
-                    argIndex--;
-                    sbuf.append(strPattern, handledPosition, delimIndex - 1);
-                    sbuf.append(placeHolder.charAt(0));
-                    handledPosition = delimIndex + 1;
-                }
-            } else {// 正常占位符
-                sbuf.append(strPattern, handledPosition, delimIndex);
-                sbuf.append(StringUtils.convertToUtf8Str(argArray[argIndex]));
-                handledPosition = delimIndex + placeHolderLength;
-            }
-        }
-
-        // 加入最后一个占位符后所有的字符
-        sbuf.append(strPattern, handledPosition, strPatternLength);
-
-        return sbuf.toString();
-    }
-
-    /**
-     * 有序的格式化文本，使用{number}做为占位符<br>
-     * 通常使用：format("this is {0} for {1}", "a", "b") =》 this is a for b<br>
-     *
-     * @param pattern   文本格式
-     * @param arguments 参数
-     * @return 格式化后的文本
-     */
-    public static String indexedFormat(CharSequence pattern, Object... arguments) {
-        return MessageFormat.format(pattern.toString(), arguments);
-    }
-
-    // ------------------------------------------------------------------------ str
 
     /**
      * {@link CharSequence} 转为字符串，null安全
@@ -1024,11 +688,6 @@ public abstract class StringUtils {
     /**
      * 指定范围内查找指定字符
      *
-     * @param text       字符串
-     * @param searchChar 被查找的字符
-     * @param start      起始位置，如果小于0，从0开始查找
-     * @param end        终止位置，如果超过str.length()则默认查找到字符串末尾
-     * @return 位置
      */
     public static int indexOf(CharSequence text, char searchChar, int start, int end) {
         return indexOf(text, new StringBuilder(searchChar), start, end, false);
@@ -1037,23 +696,6 @@ public abstract class StringUtils {
     /**
      * 指定范围内查找字符串，忽略大小写<br>
      *
-     * <pre>
-     * StringUtils.indexOfIgnoreCase(null, *, *)          = -1
-     * StringUtils.indexOfIgnoreCase(*, null, *)          = -1
-     * StringUtils.indexOfIgnoreCase("", "", 0)           = 0
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
-     * StringUtils.indexOfIgnoreCase("abc", "", 9)        = -1
-     * </pre>
-     *
-     * @param str       字符串
-     * @param searchStr 需要查找位置的字符串
-     * @return 位置
      */
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
         return indexOfIgnoreCase(str, searchStr, 0);
@@ -1062,24 +704,6 @@ public abstract class StringUtils {
     /**
      * 指定范围内查找字符串
      *
-     * <pre>
-     * StringUtils.indexOfIgnoreCase(null, *, *)          = -1
-     * StringUtils.indexOfIgnoreCase(*, null, *)          = -1
-     * StringUtils.indexOfIgnoreCase("", "", 0)           = 0
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
-     * StringUtils.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
-     * StringUtils.indexOfIgnoreCase("abc", "", 9)        = -1
-     * </pre>
-     *
-     * @param str       字符串
-     * @param searchStr 需要查找位置的字符串
-     * @param fromIndex 起始位置
-     * @return 位置
      */
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int fromIndex) {
         return indexOf(str, searchStr, fromIndex, true);
@@ -1088,12 +712,6 @@ public abstract class StringUtils {
     /**
      * 指定范围内查找字符串
      *
-     * @param text       字符串，空则返回-1
-     * @param searchStr  需要查找位置的字符串，空则返回-1
-     * @param from       起始位置（包含）
-     * @param end        终止位置，如果超过str.length()则默认查找到字符串末尾
-     * @param ignoreCase 是否忽略大小写
-     * @return 位置
      */
     public static int indexOf(CharSequence text, CharSequence searchStr, int from, int end, boolean ignoreCase) {
         return indexOf(text, searchStr, from, end, ignoreCase, false);
@@ -1102,13 +720,6 @@ public abstract class StringUtils {
     /**
      * 指定范围内查找字符串
      *
-     * @param text       字符串，空则返回-1
-     * @param searchStr  需要查找位置的字符串，空则返回-1
-     * @param from       起始位置（包含）
-     * @param end        终止位置，如果超过str.length()则默认查找到字符串末尾
-     * @param ignoreCase 是否忽略大小写
-     * @param reverse    是否倒序
-     * @return 位置
      */
     public static int indexOf(CharSequence text, CharSequence searchStr, int from, int end, boolean ignoreCase, boolean reverse) {
         if (isEmpty(text) || isEmpty(searchStr)) {
@@ -1179,11 +790,6 @@ public abstract class StringUtils {
     /**
      * 指定范围内查找字符串
      *
-     * @param text       字符串，空则返回-1
-     * @param searchStr  需要查找位置的字符串，空则返回-1
-     * @param from       起始位置（包含）
-     * @param ignoreCase 是否忽略大小写
-     * @return 位置
      */
     public static int indexOf(CharSequence text, CharSequence searchStr, int from, boolean ignoreCase) {
         return indexOf(text, searchStr, from, Integer.MAX_VALUE, ignoreCase);
@@ -1192,9 +798,6 @@ public abstract class StringUtils {
     /**
      * 指定范围内查找字符串，忽略大小写
      *
-     * @param str       字符串
-     * @param searchStr 需要查找位置的字符串
-     * @return 位置
      */
     public static int lastIndexOfIgnoreCase(CharSequence str, CharSequence searchStr) {
         return lastIndexOfIgnoreCase(str, searchStr, str.length());
@@ -1234,21 +837,6 @@ public abstract class StringUtils {
      * 如果 str=null 或 searchStr=null 或 ordinal&ge;0 则返回-1<br>
      * 此方法来自：Apache-Commons-Lang
      * <p>
-     * 例子（*代表任意字符）：
-     *
-     * <pre>
-     * StringUtils.ordinalIndexOf(null, *, *)          = -1
-     * StringUtils.ordinalIndexOf(*, null, *)          = -1
-     * StringUtils.ordinalIndexOf("", "", *)           = 0
-     * StringUtils.ordinalIndexOf("aabaabaa", "a", 1)  = 0
-     * StringUtils.ordinalIndexOf("aabaabaa", "a", 2)  = 1
-     * StringUtils.ordinalIndexOf("aabaabaa", "b", 1)  = 2
-     * StringUtils.ordinalIndexOf("aabaabaa", "b", 2)  = 5
-     * StringUtils.ordinalIndexOf("aabaabaa", "ab", 1) = 1
-     * StringUtils.ordinalIndexOf("aabaabaa", "ab", 2) = 4
-     * StringUtils.ordinalIndexOf("aabaabaa", "", 1)   = 0
-     * StringUtils.ordinalIndexOf("aabaabaa", "", 2)   = 0
-     * </pre>
      *
      * @param str       被检查的字符串，可以为null
      * @param searchStr 被查找的字符串，可以为null
@@ -1259,7 +847,7 @@ public abstract class StringUtils {
         if (str == null || searchStr == null || ordinal <= 0) {
             return INDEX_NOT_FOUND;
         }
-        if (searchStr.length() == 0) {
+        if (searchStr.isEmpty()) {
             return 0;
         }
         int found = 0;
@@ -1458,9 +1046,6 @@ public abstract class StringUtils {
      * 压缩字符串
      * 1. 去除 \r \n
      * 2. 去除空格
-     *
-     * @param str
-     * @return
      */
     public static String compress(String str) {
         return Optional.ofNullable(str)
@@ -1600,8 +1185,6 @@ public abstract class StringUtils {
         return result;
     }
 
-    // ------------------------------------------------------------------------ startWith
-
     /**
      * 字符串是否以给定字符开始
      *
@@ -1668,7 +1251,7 @@ public abstract class StringUtils {
                 .regionMatches(ignoreCase, 0, prefix.toString(), 0, prefix.length());
 
         if (isStartWith) {
-            return (false == ignoreEquals) || (false == equals(str, prefix, ignoreCase));
+            return (!ignoreEquals) || (!equals(str, prefix, ignoreCase));
         }
         return false;
     }
@@ -1725,7 +1308,7 @@ public abstract class StringUtils {
                 .regionMatches(ignoreCase, strOffset, suffix.toString(), 0, suffix.length());
 
         if (isEndWith) {
-            return (false == ignoreEquals) || (false == equals(str, suffix, ignoreCase));
+            return (!ignoreEquals) || (!equals(str, suffix, ignoreCase));
         }
         return false;
     }
@@ -1813,7 +1396,7 @@ public abstract class StringUtils {
         char c;
         for (int i = 0; i < len; i++) {
             c = str.charAt(i);
-            if (false == ArrayUtils.contains(chars, c)) {
+            if (!ArrayUtils.contains(chars, c)) {
                 builder.append(c);
             }
         }
@@ -1870,7 +1453,7 @@ public abstract class StringUtils {
             return EMPTY;
         }
 
-        return str.toString().substring(fromIndexInclude, toIndexExclude);
+        return str.substring(fromIndexInclude, toIndexExclude);
     }
 
     /**

@@ -22,6 +22,7 @@ public abstract class EnumUtils {
      * @param predicate 需要查找的条件
      * @return 是否存在
      */
+    @SafeVarargs
     public static <E extends Enum<E>> boolean contains(final Class<E> enumClass, Predicate<E>... predicate) {
         return contains(enumClass, Predicates.and(predicate));
     }
@@ -36,9 +37,7 @@ public abstract class EnumUtils {
      * @return 是否存在
      */
     public static <E extends Enum<E>> boolean contains(final Class<E> enumClass, Predicate<E> predicate) {
-        return Arrays.stream(enumClass.getEnumConstants())
-                .filter(predicate)
-                .count() > 0L;
+        return Arrays.stream(enumClass.getEnumConstants()).anyMatch(predicate);
     }
 
     /**

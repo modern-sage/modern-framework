@@ -20,7 +20,7 @@ public abstract class CharUtils {
      * @return true表示为字符类
      */
     public static boolean isChar(Object value) {
-        return value instanceof Character || value.getClass() == char.class;
+        return value instanceof Character;
     }
 
 
