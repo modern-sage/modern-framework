@@ -130,7 +130,12 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.modernsage</groupId>
+                <groupId>com.modernframework</groupId>
+                <artifactId>modern-security-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.modernframework</groupId>
                 <artifactId>modern-starter-boot</artifactId>
                 <version>${project.version}</version>
             </dependency>

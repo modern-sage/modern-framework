@@ -44,7 +44,6 @@ public class RandomUtils {
 	 *
 	 * @param seed 自定义随机种子
 	 * @return {@link SecureRandom}
-	 * @since 0.1.0
 	 */
 	public static SecureRandom createSecureRandom(byte[] seed) {
 		return (null == seed) ? new SecureRandom() : new SecureRandom(seed);
