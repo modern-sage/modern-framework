@@ -28,6 +28,10 @@
         </dependency>
 
         <!-- 第三方 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <!-- log4j -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

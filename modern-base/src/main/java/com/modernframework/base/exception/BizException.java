@@ -27,7 +27,7 @@ public class BizException extends RuntimeException {
     }
 
     public BizException(String messageFormat, Object... args) {
-        super(StringUtils.format(messageFormat, args));
+        super(String.format(messageFormat, args));
     }
 
     public BizException(String message, Throwable cause) {

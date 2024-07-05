@@ -187,7 +187,7 @@ public abstract class AbstractBaseService<M extends MdBaseMapper<T>, T> extends 
                         convert.convert(x);
                     } catch (Throwable e) {
                         log.error("page convert error: ", e);
-                        throw new BizException(StringUtils.format("page convert error: {}", e.getMessage()));
+                        throw new BizException(String.format("page convert error: %s", e.getMessage()));
                     }
                     return null;
                 })
@@ -213,7 +213,7 @@ public abstract class AbstractBaseService<M extends MdBaseMapper<T>, T> extends 
                         convert.convert(x);
                     } catch (Throwable e) {
                         log.error("page convert error: ", e);
-                        throw new BizException(StringUtils.format("page convert error: {}", e.getMessage()));
+                        throw new BizException(String.format("page convert error: %s", e.getMessage()));
                     }
                     return null;
                 })

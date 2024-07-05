@@ -119,7 +119,7 @@ public abstract class AbstractBaseBizService implements BaseBizService {
     public <T> BaseService<T> getService(Class<T> tClass) {
         BaseService<T> service = service(getServiceMap(), tClass);
         Asserts.notNull(service, () -> {throw new IllegalStateException(
-                StringUtils.format("entity [{}] service not found.", tClass.getSimpleName()));});
+                String.format("entity [%s] service not found.", tClass.getSimpleName()));});
         return service;
     }
 
