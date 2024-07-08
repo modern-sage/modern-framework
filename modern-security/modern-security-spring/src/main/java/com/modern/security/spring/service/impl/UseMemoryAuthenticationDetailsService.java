@@ -2,6 +2,7 @@ package com.modern.security.spring.service.impl;
 
 import com.modern.security.AuthenticationDetailsService;
 import com.modern.security.spring.UserAuthenticationDetails;
+import com.modernframework.core.utils.StringUtils;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,6 +24,9 @@ public class UseMemoryAuthenticationDetailsService implements AuthenticationDeta
      */
     @Override
     public UserAuthenticationDetails getAuthDetailsByAccessToken(String accessToken) {
+        if(StringUtils.isBlank(accessToken)) {
+            return null;
+        }
         UserAuthenticationDetails authDetails = memoryMap.get(accessToken);
         if (authDetails == null) {
             return null;

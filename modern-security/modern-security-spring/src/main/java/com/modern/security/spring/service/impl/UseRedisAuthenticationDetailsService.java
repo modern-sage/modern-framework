@@ -2,6 +2,7 @@ package com.modern.security.spring.service.impl;
 
 import com.modern.security.AuthenticationDetailsService;
 import com.modern.security.spring.UserAuthenticationDetails;
+import com.modernframework.core.utils.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.concurrent.TimeUnit;
@@ -29,6 +30,9 @@ public class UseRedisAuthenticationDetailsService implements AuthenticationDetai
      */
     @Override
     public UserAuthenticationDetails getAuthDetailsByAccessToken(String accessToken) {
+        if(StringUtils.isBlank(accessToken)) {
+            return null;
+        }
         Object object = redisTemplate.opsForValue().get(TOKEN + accessToken);
         if (object == null) {
             return null;

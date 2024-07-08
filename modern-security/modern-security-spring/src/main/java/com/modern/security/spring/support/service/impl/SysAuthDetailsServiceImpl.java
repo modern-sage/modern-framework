@@ -5,6 +5,7 @@ import com.modern.security.AuthenticationDetails;
 import com.modern.security.spring.support.entity.SysAuthDetails;
 import com.modern.security.spring.support.mapper.SysAuthDetailsMapper;
 import com.modern.security.spring.support.service.SysAuthDetailsService;
+import com.modernframework.core.utils.StringUtils;
 
 /**
  * SysAuthDetailsServiceImpl
@@ -24,6 +25,9 @@ public class SysAuthDetailsServiceImpl extends AbstractBaseService<SysAuthDetail
      */
     @Override
     public SysAuthDetails getAuthDetailsByAccessToken(String accessToken) {
+        if(StringUtils.isBlank(accessToken)) {
+            return null;
+        }
         SysAuthDetails authDetails = one(where().eq(AuthenticationDetails::getAccessToken, accessToken));
         if (authDetails == null) {
             return null;
