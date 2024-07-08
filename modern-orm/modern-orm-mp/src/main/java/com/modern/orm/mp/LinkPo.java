@@ -43,7 +43,6 @@ public class LinkPo<T extends LinkPo<T>> extends IdPo<T> {
      * 当前实体创建时间
      *
      * @param createTime 时间值
-     * @return
      */
     public T setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
@@ -54,7 +53,6 @@ public class LinkPo<T extends LinkPo<T>> extends IdPo<T> {
      * 当前实体更新时间
      *
      * @param updateTime 时间值
-     * @return
      */
     public T setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
@@ -63,9 +61,6 @@ public class LinkPo<T extends LinkPo<T>> extends IdPo<T> {
 
     /**
      * 设置记录创建者ID
-     *
-     * @param creator
-     * @return
      */
     public T setCreator(Long creator) {
         this.creator = creator;
@@ -74,9 +69,6 @@ public class LinkPo<T extends LinkPo<T>> extends IdPo<T> {
 
     /**
      * 设置记录更新者ID
-     *
-     * @param updater
-     * @return
      */
     public T setUpdater(Long updater) {
         this.updater = updater;

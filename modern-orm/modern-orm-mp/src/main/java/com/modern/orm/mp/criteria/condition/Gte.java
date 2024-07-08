@@ -5,9 +5,9 @@ import com.modern.orm.mp.criteria.AbstractCriteriaTranslate;
 import com.modernframework.base.criteria.type.ConditionType;
 
 /**
- * 不等查询条件
+ * 大于等于查询条件
  */
-public class NotEqual extends AbstractCriteriaTranslate {
+public class Gte extends AbstractCriteriaTranslate {
 
     /**
      * 根据查询条件转成目标查询条件
@@ -18,7 +18,7 @@ public class NotEqual extends AbstractCriteriaTranslate {
      */
     @Override
     protected void doTranslate(QueryWrapper<?> query, String underLineField, Object criteriaVal) {
-        query.ne(underLineField, criteriaVal);
+        query.ge(underLineField, criteriaVal);
     }
 
     /**
@@ -28,6 +28,6 @@ public class NotEqual extends AbstractCriteriaTranslate {
      */
     @Override
     public ConditionType getConditionType() {
-        return ConditionType.NOT_EQUAL;
+        return ConditionType.GE;
     }
 }

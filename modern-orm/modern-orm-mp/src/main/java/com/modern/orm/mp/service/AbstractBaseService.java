@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 /**
  * 通用Service继承接口
  *
- * @param <T>
- * @author zj
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
+ * @since 1.0.0
  */
 public abstract class AbstractBaseService<M extends MdBaseMapper<T>, T> extends ServiceImpl<M, T> implements BaseService<T> {
 

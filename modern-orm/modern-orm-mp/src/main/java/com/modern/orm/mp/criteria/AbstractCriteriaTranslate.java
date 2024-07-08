@@ -24,17 +24,17 @@ public abstract class AbstractCriteriaTranslate implements MpCriteriaTranslate {
     /**
      * 有效的字段判断
      */
-    protected Predicate<? super CriteriaParam> funcEffectiveAttribute = x -> StringUtils.isNotBlank(x.getAttribute());
+    protected Predicate<? super CriteriaParam<?>> funcEffectiveAttribute = x -> StringUtils.isNotBlank(x.getAttribute());
 
     /**
      * 有效的值判断
      */
-    protected Predicate<? super CriteriaParam> funcEffectiveVal = x -> x.getValue() != null;
+    protected Predicate<? super CriteriaParam<?>> funcEffectiveVal = x -> x.getValue() != null;
 
     /**
      * 有效的键值判断
      */
-    protected Predicate<? super CriteriaParam> funcEffectiveCriteriaParam = Predicates.and(funcEffectiveAttribute, funcEffectiveVal);
+    protected Predicate<? super CriteriaParam<?>> funcEffectiveCriteriaParam = Predicates.and(funcEffectiveAttribute, funcEffectiveVal);
 
     /**
      * 有效的between值判断

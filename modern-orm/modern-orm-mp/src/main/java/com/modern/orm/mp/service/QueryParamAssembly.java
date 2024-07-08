@@ -13,14 +13,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.modernframework.orm.DataOrmConstant.COLUMN_ID;
+import static com.modernframework.orm.Constant.COLUMN_ID;
 
 
 /**
  * 自定义查询参数包装器
  *
- * @param <T>
- * @author zj
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
+ * @since 1.0.0
  */
 public class QueryParamAssembly<T> {
     private final CombinationCriteriaTranslate combinationCriteriaTranslate = new CombinationCriteriaTranslate();

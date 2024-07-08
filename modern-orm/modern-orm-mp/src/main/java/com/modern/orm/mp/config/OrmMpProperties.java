@@ -3,7 +3,7 @@ package com.modern.orm.mp.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import static com.modern.orm.mp.config.MdMpConfigContent.PROPERTIES_PREFIX;
+import static com.modern.orm.mp.config.OrmMpProperties.PROPERTIES_PREFIX;
 
 /**
  * <pre>
@@ -15,7 +15,9 @@ import static com.modern.orm.mp.config.MdMpConfigContent.PROPERTIES_PREFIX;
  */
 @Data
 @ConfigurationProperties(prefix = PROPERTIES_PREFIX)
-public class MdMpProperties {
+public class OrmMpProperties {
+
+    public static final String PROPERTIES_PREFIX = "com.modern.orm.mp";
 
     /**
      * 是否开启租户
@@ -30,7 +32,7 @@ public class MdMpProperties {
     /**
      * 表名前缀
      */
-    private String[] prefixs = new String[]{};
+    private String[] prefixes = new String[]{};
 
     /**
      * 表名是否驼峰转下划线

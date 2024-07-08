@@ -28,16 +28,16 @@ public class CombinationCriteriaTranslate implements ICriteriaTranslate<QueryWra
         Map<ConditionType, MpCriteriaTranslate> map = new HashMap<>();
         Arrays.asList(
                 new Between(),
-                new Equal(),
-                new Greaterthan(),
-                new GreaterThanOrEqual(),
+                new Eq(),
+                new Gt(),
+                new Gte(),
                 new In(),
                 new IsNotNull(),
                 new IsNull(),
-                new Lessthan(),
-                new LessThanOrEqual(),
+                new Lt(),
+                new Lte(),
                 new Like(),
-                new NotEqual(),
+                new Ne(),
                 new PrimaryKey()
         ).forEach(c -> map.put(c.getConditionType(), c));
         CRITERIA_MAP = Collections.unmodifiableMap(map);

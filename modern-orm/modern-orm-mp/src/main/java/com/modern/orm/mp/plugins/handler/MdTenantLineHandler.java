@@ -1,23 +1,26 @@
 package com.modern.orm.mp.plugins.handler;
 
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
-import com.modern.orm.mp.config.MdMpProperties;
+import com.modern.orm.mp.config.OrmMpProperties;
 import com.modernframework.base.security.context.UserContext;
 import com.modernframework.core.utils.ArrayUtils;
 import com.modernframework.core.utils.StringUtils;
-import com.modernframework.orm.DataOrmConstant;
+import com.modernframework.orm.Constant;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 
 
 /**
  * 租户处理实现
+ *
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
  */
-public class TenantLineHandlerImpl implements TenantLineHandler {
+public class MdTenantLineHandler implements TenantLineHandler {
 
-    private final MdMpProperties mdMpProperties;
+    private final OrmMpProperties mdMpProperties;
 
-    public TenantLineHandlerImpl(MdMpProperties mdMpProperties) {
+    public MdTenantLineHandler(OrmMpProperties mdMpProperties) {
         this.mdMpProperties = mdMpProperties;
     }
 
@@ -34,7 +37,7 @@ public class TenantLineHandlerImpl implements TenantLineHandler {
 
     @Override
     public String getTenantIdColumn() {
-        return StringUtils.camelToUnderline(DataOrmConstant.ATTR_TENANT_ID);
+        return StringUtils.camelToUnderline(Constant.ATTR_TENANT_ID);
     }
 
     @Override

@@ -8,7 +8,7 @@ import com.modernframework.base.criteria.type.ConditionType;
 /**
  * 小于等于查询条件
  */
-public class LessThanOrEqual extends AbstractCriteriaTranslate {
+public class Lte extends AbstractCriteriaTranslate {
 
     /**
      * 根据查询条件转成目标查询条件

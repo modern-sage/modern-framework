@@ -70,26 +70,26 @@ public class EntityProp {
     /**
      * 实体指定父类
      */
-    private Class entitySuperClass;
+    private Class<?> entitySuperClass;
 
     /**
      * Service指定父类
      */
-    private Class serviceSuperClass;
+    private Class<?> serviceSuperClass;
 
     /**
      * ServiceImpl实现类指定父类
      */
-    private Class serviceImplSuperClass;
+    private Class<?> serviceImplSuperClass;
 
     /**
      * Mapper指定父类
      */
-    private Class mapperSuperClass;
+    private Class<?> mapperSuperClass;
 
     /**
      * controller指定父类
      */
-    private Class controllerSuperClass;
+    private Class<?> controllerSuperClass;
 
 }

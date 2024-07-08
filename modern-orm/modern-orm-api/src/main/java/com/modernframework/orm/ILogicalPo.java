@@ -12,8 +12,8 @@ public interface ILogicalPo<T extends ILogicalPo<T>> extends ArIdentifiable<T> {
     /**
      * 逻辑删除标志，状态1表示记录被删除，0表示正常记录
      *
-     * @see DataOrmConstant#DELETED
-     * @see DataOrmConstant#NOT_DELETED
+     * @see Constant#DELETED
+     * @see Constant#NOT_DELETED
      */
     Integer getDeleteFlag();
 

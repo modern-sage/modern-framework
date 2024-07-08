@@ -12,8 +12,8 @@ import java.util.Map;
 /**
  * RepoMpUtils
  *
- * @Author zhangj
- * @Date 2023/5/14 22:29
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
+ * @since 1.0.0
  */
 public abstract class RepoMpUtils {
 

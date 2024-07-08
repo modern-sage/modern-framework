@@ -7,7 +7,8 @@ import com.modernframework.base.vo.PageRec;
 /**
  * 分页组装器
  *
- * @author zj
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
+ * @since 1.0.0
  */
 public class PageRecordAssembly<T> {
 

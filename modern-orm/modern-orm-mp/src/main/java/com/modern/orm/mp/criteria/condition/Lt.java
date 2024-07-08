@@ -5,9 +5,9 @@ import com.modern.orm.mp.criteria.AbstractCriteriaTranslate;
 import com.modernframework.base.criteria.type.ConditionType;
 
 /**
- * 大于等于查询条件
+ * 小于查询条件
  */
-public class GreaterThanOrEqual extends AbstractCriteriaTranslate {
+public class Lt extends AbstractCriteriaTranslate {
 
     /**
      * 根据查询条件转成目标查询条件
@@ -18,7 +18,7 @@ public class GreaterThanOrEqual extends AbstractCriteriaTranslate {
      */
     @Override
     protected void doTranslate(QueryWrapper<?> query, String underLineField, Object criteriaVal) {
-        query.ge(underLineField, criteriaVal);
+        query.lt(underLineField, criteriaVal);
     }
 
     /**
@@ -28,6 +28,6 @@ public class GreaterThanOrEqual extends AbstractCriteriaTranslate {
      */
     @Override
     public ConditionType getConditionType() {
-        return ConditionType.GE;
+        return ConditionType.LT;
     }
 }

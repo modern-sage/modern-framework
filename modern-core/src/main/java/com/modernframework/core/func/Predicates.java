@@ -43,6 +43,7 @@ public interface Predicates {
      * @param <T>        the type to test
      * @return non-null
      */
+    @SafeVarargs
     static <T> Predicate<T> and(Predicate<? super T>... predicates) {
         Predicate<T> andPredicate = alwaysTrue();
         if(predicates != null) {
@@ -60,6 +61,7 @@ public interface Predicates {
      * @param <T>        the detected type
      * @return non-null
      */
+    @SafeVarargs
     static <T> Predicate<T> or(Predicate<? super T>... predicates) {
         Predicate<T> orPredicate = alwaysTrue();
         if(predicates != null) {

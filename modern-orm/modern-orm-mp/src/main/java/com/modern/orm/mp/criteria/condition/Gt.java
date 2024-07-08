@@ -7,7 +7,7 @@ import com.modernframework.base.criteria.type.ConditionType;
 /**
  * 大于查询条件
  */
-public class Greaterthan extends AbstractCriteriaTranslate {
+public class Gt extends AbstractCriteriaTranslate {
 
     /**
      * 条件类型

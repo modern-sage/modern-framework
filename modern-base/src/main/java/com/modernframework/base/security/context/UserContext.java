@@ -6,7 +6,7 @@ import com.alibaba.ttl.TransmittableThreadLocal;
 import java.io.Serializable;
 
 /**
- * @Description 登录用户上下文
+ * 登录用户上下文
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0

@@ -1,4 +1,4 @@
-package com.modern.orm.mp.config;
+package com.modern.orm.mp.plugins.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.modernframework.base.security.context.SessionUser;
@@ -7,13 +7,16 @@ import org.apache.ibatis.reflection.MetaObject;
 
 import java.time.LocalDateTime;
 
-import static com.modernframework.orm.DataOrmConstant.*;
+import static com.modernframework.orm.Constant.*;
 
 
 /**
  * 处理公共字段
+ *
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
  */
-public class MdMpPublicFieldHandler implements MetaObjectHandler {
+public class PublicFieldMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {

@@ -8,7 +8,7 @@ import com.modernframework.base.criteria.type.ConditionType;
 /**
  * 相等查询条件
  */
-public class Equal extends AbstractCriteriaTranslate {
+public class Eq extends AbstractCriteriaTranslate {
 
     /**
      * 条件类型

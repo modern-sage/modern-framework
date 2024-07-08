@@ -42,7 +42,6 @@ public class SqlGenerator {
      * @param url      jdbc 路径
      * @param username 数据库账号
      * @param password 数据库密码
-     * @return
      */
     public static DataSourceConfig db(String url, String username, String password) {
         return dbAll(url, username, password, new MySqlQuery(), "mybatis-plus",
@@ -71,7 +70,6 @@ public class SqlGenerator {
      * @param schema          数据库 schema(部分数据库适用)
      * @param typeConvert     数据库类型转换器
      * @param keyWordsHandler 数据库关键字处理器
-     * @return
      */
     public static DataSourceConfig dbAll(String url, String username, String password,
                                          IDbQuery dbQuery, String schema, ITypeConvert typeConvert,
@@ -86,7 +84,6 @@ public class SqlGenerator {
      *
      * @param output 指定输出目录
      * @param author 作者名
-     * @return
      */
     public static GlobalConfig global(String output, String author) {
         return globalAll(true, true, output,
@@ -105,7 +102,6 @@ public class SqlGenerator {
      * @param enableSwagger  开启 swagger模式  默认值:false
      * @param type           时间策略
      * @param format         注释日期	默认值: yyyy-MM-dd HH:mm:ss
-     * @return
      */
     public static GlobalConfig globalAll(boolean fileOverride, boolean disableOpenDir, String output,
                                          String author, boolean enableKotlin, boolean enableSwagger,
@@ -136,7 +132,6 @@ public class SqlGenerator {
      *
      * @param parent   父包名
      * @param pathInfo 路径配置信息
-     * @return
      */
     public static PackageConfig pack(String parent, Map<OutputFile, String> pathInfo) {
         return packAll(parent, null, "entity", "service",
@@ -158,7 +153,6 @@ public class SqlGenerator {
      * @param controller  Controller 包名	    默认值:controller
      * @param other       自定义文件包名	        输出自定义文件时所用到的包名
      * @param pathInfo    路径配置信息
-     * @return
      */
     public static PackageConfig packAll(String parent, String moduleName, String entity, String service, String serviceImpl, String mapper, String xml, String controller, String other, Map<OutputFile, String> pathInfo) {
         return new PackageConfig.Builder().parent(parent).moduleName(moduleName)
@@ -170,7 +164,6 @@ public class SqlGenerator {
     /**
      * 模板配置(TemplateConfig)，默认不生成Controller层代码
      *
-     * @return
      */
     public static TemplateConfig template() {
         return templateAll(ConstVal.TEMPLATE_ENTITY_JAVA, ConstVal.TEMPLATE_SERVICE, ConstVal.TEMPLATE_SERVICE_IMPL, ConstVal.TEMPLATE_MAPPER, ConstVal.TEMPLATE_XML, ConstVal.TEMPLATE_CONTROLLER, false, null);
@@ -187,7 +180,6 @@ public class SqlGenerator {
      * @param controller    设置 controller 模板路径
      * @param disable       是否禁止所有的模板
      * @param templateTypes 禁止指定的模板
-     * @return
      */
     public static TemplateConfig templateAll(String entity, String service, String serviceImpl, String mapper, String xml, String controller, boolean disable, TemplateType... templateTypes) {
         TemplateConfig.Builder builder = new TemplateConfig.Builder().entity(entity).service(service).serviceImpl(serviceImpl).mapper(mapper).mapperXml(xml).controller(controller);
@@ -208,7 +200,6 @@ public class SqlGenerator {
      * @param biConsumer 输出文件之前消费者
      * @param customMap  自定义配置 Map 对象
      * @param customFile 自定义配置模板文件
-     * @return
      */
     public static InjectionConfig inject(BiConsumer<TableInfo, Map<String, Object>> biConsumer, Map<String, Object> customMap, Map<String, String> customFile) {
         return new InjectionConfig.Builder().beforeOutputFile(biConsumer).customMap(customMap).customFile(customFile).build();
@@ -229,7 +220,6 @@ public class SqlGenerator {
      * @param tableSuffix      增加过滤表后缀
      * @param fieldPrefix      增加过滤字段前缀
      * @param fieldSuffix      增加过滤字段后缀
-     * @return
      */
     public static StrategyConfig strategy(boolean capital, boolean skipView, boolean disableSqlFilter, boolean enableSchema,
                                           LikeTable likeTable, LikeTable notLikeTable, List<String> includes,
@@ -262,27 +252,27 @@ public class SqlGenerator {
         }
         //7.添加包含的表
         if (CollectionUtils.isNotEmpty(includes)) {
-            builder.addInclude(includes.toArray(new String[includes.size()]));
+            builder.addInclude(includes.toArray(new String[0]));
         }
         //8.添加排除的表
         if (CollectionUtils.isNotEmpty(excludes)) {
-            builder.addExclude(excludes.toArray(new String[excludes.size()]));
+            builder.addExclude(excludes.toArray(new String[0]));
         }
         //9.增加过滤表前缀
         if (CollectionUtils.isNotEmpty(tablePrefix)) {
-            builder.addTablePrefix(tablePrefix.toArray(new String[tablePrefix.size()]));
+            builder.addTablePrefix(tablePrefix.toArray(new String[0]));
         }
         //10.增加过滤表后缀
         if (CollectionUtils.isNotEmpty(tableSuffix)) {
-            builder.addTableSuffix(tableSuffix.toArray(new String[tableSuffix.size()]));
+            builder.addTableSuffix(tableSuffix.toArray(new String[0]));
         }
         //11.增加过滤字段前缀
         if (CollectionUtils.isNotEmpty(fieldPrefix)) {
-            builder.addFieldPrefix(fieldPrefix.toArray(new String[fieldPrefix.size()]));
+            builder.addFieldPrefix(fieldPrefix.toArray(new String[0]));
         }
         //12.增加过滤字段后缀
         if (CollectionUtils.isNotEmpty(fieldSuffix)) {
-            builder.addFieldSuffix(fieldSuffix.toArray(new String[fieldSuffix.size()]));
+            builder.addFieldSuffix(fieldSuffix.toArray(new String[0]));
         }
         return builder.build();
     }
@@ -313,7 +303,6 @@ public class SqlGenerator {
      * @param type                       全局主键类型
      * @param ConverterFileName          转换文件名称
      * @param formatFileName             格式化文件名称
-     * @return
      */
     public static StrategyConfig entity(StrategyConfig config, INameConvert nameConvert, Class<?> superClass,
                                         String superClazz, boolean disableSerialVersionUID, boolean enableColumnConstant,
@@ -366,15 +355,15 @@ public class SqlGenerator {
         }
         //9.添加父类公共字段
         if (CollectionUtils.isNotEmpty(addSuperEntityColumns)) {
-            eb.addSuperEntityColumns(addSuperEntityColumns.toArray(new String[addSuperEntityColumns.size()]));
+            eb.addSuperEntityColumns(addSuperEntityColumns.toArray(new String[0]));
         }
         //10.添加忽略字段
         if (CollectionUtils.isNotEmpty(addIgnoreColumns)) {
-            eb.addIgnoreColumns(addIgnoreColumns.toArray(new String[addIgnoreColumns.size()]));
+            eb.addIgnoreColumns(addIgnoreColumns.toArray(new String[0]));
         }
         //10.添加忽略字段
         if (CollectionUtils.isNotEmpty(addTableFills)) {
-            eb.addTableFills(addTableFills.toArray(new IFill[addTableFills.size()]));
+            eb.addTableFills(addTableFills.toArray(new IFill[0]));
         }
         eb.build();
         return config;
@@ -390,7 +379,6 @@ public class SqlGenerator {
      * @param enableRestStyle   开启生成@RestController 控制器	默认值:false
      * @param converterFileName 转换文件名称
      * @param format            格式化文件名称
-     * @return
      */
     public static StrategyConfig controller(StrategyConfig config, Class<?> superClass, String superClazz, boolean enableHyphenStyle, boolean enableRestStyle, ConverterFileName converterFileName, String format) {
         Controller.Builder cb = config.controllerBuilder();
@@ -427,7 +415,6 @@ public class SqlGenerator {
      * @param converterImplFileName 转换 service 实现类文件名称
      * @param format                格式化 service 接口文件名称
      * @param formatImpl            格式化 service 实现类文件名称
-     * @return
      */
     public static StrategyConfig service(StrategyConfig config, Class<?> superClass, String superClazz, Class<?> superImplClass, String superImplClazz, ConverterFileName converterFileName, ConverterFileName converterImplFileName, String format, String formatImpl) {
         Service.Builder sb = config.serviceBuilder();
@@ -477,7 +464,6 @@ public class SqlGenerator {
      * @param convertXmlFileName     转换 xml 文件名称
      * @param formatMapperFileName   格式化 mapper 文件名称
      * @param formatXmlFileName      格式化 xml 实现类文件名称
-     * @return
      */
     public static StrategyConfig mapper(StrategyConfig config, Class<?> superClass, String superClazz, boolean enableMapperAnnotation, boolean enableBaseResultMap, boolean enableBaseColumnList, Class<? extends Cache> cache, ConverterFileName convertMapperFileName, ConverterFileName convertXmlFileName, String formatMapperFileName, String formatXmlFileName) {
         Mapper.Builder mb = config.mapperBuilder();
@@ -532,7 +518,6 @@ public class SqlGenerator {
      * @param mapperSuperClass      Mapper接口父类
      * @param entitySupperClass     实体父类
      * @param cacheClass            缓存实现类
-     * @return
      */
     public static StrategyConfig config(List<String> includes, List<String> exludes, List<IFill> fills, Class<?> controllerSuperClass, Class<?> serviceSuperClass, Class<?> serviceImplSuperClass, Class<?> mapperSuperClass, Class<?> entitySupperClass, Class<? extends Cache> cacheClass) {
 
