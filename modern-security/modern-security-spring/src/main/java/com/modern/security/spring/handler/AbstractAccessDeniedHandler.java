@@ -3,8 +3,8 @@ package com.modern.security.spring.handler;
 /**
  * AbstractAccessDeniedHandler
  *
- * @author zj
- * @since 0.1.0
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
  */
 public abstract class AbstractAccessDeniedHandler {
 

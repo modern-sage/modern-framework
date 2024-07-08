@@ -31,7 +31,7 @@ public enum BizOpCode {
     UNAUTHORIZED(401, "认证失败"),
 
     /**
-     * Forbidden
+     * 授权失败
      */
     FORBIDDEN(403, "授权失败"),
 

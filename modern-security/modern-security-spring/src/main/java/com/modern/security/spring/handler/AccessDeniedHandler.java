@@ -12,8 +12,8 @@ import java.io.IOException;
 /**
  * 自定义授权异常实现
  *
- * @author zj
- * @since 0.1.0
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
  */
 public class AccessDeniedHandler extends AbstractAccessDeniedHandler implements org.springframework.security.web.access.AccessDeniedHandler {
 
@@ -23,6 +23,6 @@ public class AccessDeniedHandler extends AbstractAccessDeniedHandler implements 
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         log.info("授权失败: {}", accessDeniedException.getMessage());
         log.debug("授权失败栈信息", accessDeniedException);
-        throw new java.nio.file.AccessDeniedException("无授权");
+        throw new AccessDeniedException("无授权");
     }
 }
