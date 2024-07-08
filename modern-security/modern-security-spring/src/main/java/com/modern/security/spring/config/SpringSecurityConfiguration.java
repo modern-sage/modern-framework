@@ -16,6 +16,7 @@ import com.modern.security.spring.support.service.SysAuthUserService;
 import com.modern.security.spring.support.service.impl.SysAuthDetailsServiceImpl;
 import com.modern.security.spring.support.service.impl.SysAuthUserServiceImpl;
 import com.modern.security.spring.support.service.impl.DefaultUserDetailsServiceImpl;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableConfigurationProperties(SpringSecurityProperties.class)
 @ComponentScan("com.modern.security.spring")
+@MapperScan("com.modern.security.spring.support.mapper")
 public class SpringSecurityConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(SpringSecurityConfiguration.class);
