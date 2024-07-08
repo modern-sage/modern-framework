@@ -6,10 +6,10 @@ package com.modern.security.spring;
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
  * @since 1.0.0
  */
-public enum StoragePolicy {
+public enum TokenStoragePolicy {
 
-    IN_MEMORY,
-    REDIS,
-    CUSTOMIZATION
+    useMemory,
+    useRedis,
+    useDataBase
 
 }

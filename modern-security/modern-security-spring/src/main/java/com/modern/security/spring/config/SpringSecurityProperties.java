@@ -1,15 +1,15 @@
 package com.modern.security.spring.config;
 
-import com.modern.security.spring.StoragePolicy;
+import com.modern.security.spring.TokenStoragePolicy;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import static com.modern.security.spring.StoragePolicy.IN_MEMORY;
+import static com.modern.security.spring.TokenStoragePolicy.useMemory;
 
 /**
  * 安全配置
  *
- * @author zj
- * @since 0.1.0
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @since 1.0.0
  */
 @ConfigurationProperties(prefix = "modern.security")
 public class SpringSecurityProperties {
@@ -32,7 +32,7 @@ public class SpringSecurityProperties {
     /**
      * 权限存储策略
      */
-    private StoragePolicy storagePolicy = IN_MEMORY;
+    private TokenStoragePolicy storagePolicy = useMemory;
 
     public SpringSecurityProperties() {
     }
@@ -61,11 +61,11 @@ public class SpringSecurityProperties {
         this.accessTokenKey = accessTokenKey;
     }
 
-    public StoragePolicy getStoragePolicy() {
+    public TokenStoragePolicy getStoragePolicy() {
         return storagePolicy;
     }
 
-    public void setStoragePolicy(StoragePolicy storagePolicy) {
+    public void setStoragePolicy(TokenStoragePolicy storagePolicy) {
         this.storagePolicy = storagePolicy;
     }
 }

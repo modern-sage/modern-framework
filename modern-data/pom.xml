@@ -6,20 +6,16 @@
 
     <parent>
         <groupId>com.modernframework</groupId>
-        <artifactId>modern-orm</artifactId>
+        <artifactId>modern-parent</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>modern-orm-api</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>modern-data</artifactId>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.modernframework</groupId>
-            <artifactId>modern-base</artifactId>
-        </dependency>
-    </dependencies>
-
+    <modules>
+        <module>modern-data-redis</module>
+    </modules>
 
 
 </project>

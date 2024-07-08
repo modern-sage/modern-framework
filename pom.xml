@@ -45,6 +45,7 @@
         <module>modern-core</module>
         <module>modern-dependencies</module>
         <module>modern-base</module>
+        <module>modern-data</module>
         <module>modern-orm</module>
         <module>modern-security</module>
         <module>modern-boot</module>

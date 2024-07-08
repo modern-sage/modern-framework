@@ -21,10 +21,20 @@
         </dependency>
         <dependency>
             <groupId>com.modernframework</groupId>
-            <artifactId>modern-core</artifactId>
+            <artifactId>modern-orm-mp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.modernframework</groupId>
+            <artifactId>modern-data-redis</artifactId>
         </dependency>
 
         <!-- 第三方-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- >spring-security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -43,20 +53,6 @@
                     <groupId>org.springframework.boot</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <!-- jsonwebtoken -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
         </dependency>
 
     </dependencies>

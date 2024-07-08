@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * 基本Service继承接口
  *
- * @author zj
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
 public interface BaseService<T> {

@@ -2,11 +2,8 @@ package com.modern.security.spring.service.impl;
 
 import com.modern.security.AuthenticationDetailsService;
 import com.modern.security.spring.UserAuthenticationDetails;
-import org.apache.tomcat.websocket.AuthenticationException;
-import org.springframework.security.access.AccessDeniedException;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -15,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
  * @since 1.0.0
  */
-public class InMemoryAuthenticationDetailsService implements AuthenticationDetailsService<UserAuthenticationDetails> {
+public class UseMemoryAuthenticationDetailsService implements AuthenticationDetailsService<UserAuthenticationDetails> {
 
     private final Map<String, UserAuthenticationDetails> memoryMap = new ConcurrentHashMap<>();
 

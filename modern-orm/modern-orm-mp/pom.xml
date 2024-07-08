@@ -10,7 +10,6 @@
         <version>${revision}</version>
     </parent>
 
-    <groupId>com.modernframework</groupId>
     <artifactId>modern-orm-mp</artifactId>
     <packaging>jar</packaging>
 

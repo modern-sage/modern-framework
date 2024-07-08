@@ -1,14 +1,23 @@
 package com.modern.security.spring.config;
 
+import com.modern.security.AuthenticationDetails;
 import com.modern.security.AuthenticationDetailsService;
 import com.modern.security.SecurityService;
+import com.modern.security.spring.TokenStoragePolicy;
 import com.modern.security.spring.UserAuthenticationDetails;
 import com.modern.security.spring.filter.AuthenticationTokenFilter;
 import com.modern.security.spring.handler.AccessDeniedHandler;
 import com.modern.security.spring.handler.AuthExceptionEntryPoint;
 import com.modern.security.spring.service.DefaultSecurityService;
 import com.modern.security.spring.service.SecurityPermissionService;
-import com.modern.security.spring.service.impl.InMemoryAuthenticationDetailsService;
+import com.modern.security.spring.service.impl.UseMemoryAuthenticationDetailsService;
+import com.modern.security.spring.service.impl.UseRedisAuthenticationDetailsService;
+import com.modern.security.spring.support.service.SysAuthUserService;
+import com.modern.security.spring.support.service.impl.SysAuthDetailsServiceImpl;
+import com.modern.security.spring.support.service.impl.SysAuthUserServiceImpl;
+import com.modern.security.spring.support.service.impl.DefaultUserDetailsServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -16,6 +25,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -25,7 +35,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -47,6 +56,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @ComponentScan("com.modern.security.spring")
 public class SpringSecurityConfiguration {
 
+    private static final Logger log = LoggerFactory.getLogger(SpringSecurityConfiguration.class);
     @Autowired
     private NoAuthConfiguration noAuthConfiguration;
 
@@ -59,7 +69,7 @@ public class SpringSecurityConfiguration {
     @Bean
     @ConditionalOnMissingBean(UserDetailsService.class)
     public UserDetailsService userDetailsService(SysAuthUserService sysAuthUserService) {
-        return new DefaultSysAuthUserServiceImpl(sysAuthUserService);
+        return new DefaultUserDetailsServiceImpl(sysAuthUserService);
     }
 
     @Bean
@@ -68,9 +78,20 @@ public class SpringSecurityConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "modern.security", value = "storage-policy", havingValue = "IN_MEMORY", matchIfMissing = true)
-    public AuthenticationDetailsService<UserAuthenticationDetails> authDetailsService() {
-        return new InMemoryAuthenticationDetailsService();
+    public AuthenticationDetailsService<? extends AuthenticationDetails> authDetailsService(SpringSecurityProperties properties,
+                                                                                  RedisTemplate redisTemplate) {
+        AuthenticationDetailsService<? extends AuthenticationDetails> authenticationDetailsService = null;
+        TokenStoragePolicy tokenStoragePolicy = properties.getStoragePolicy();
+        switch (tokenStoragePolicy) {
+            case useMemory -> authenticationDetailsService = new UseMemoryAuthenticationDetailsService();
+            case useRedis -> authenticationDetailsService = new UseRedisAuthenticationDetailsService(redisTemplate);
+            case useDataBase -> authenticationDetailsService = new SysAuthDetailsServiceImpl();
+        }
+        if (authenticationDetailsService == null) {
+            log.error("authDetailsService 适配不成功，properties: {}", properties);
+            authenticationDetailsService = new UseMemoryAuthenticationDetailsService();
+        }
+        return authenticationDetailsService;
     }
 
     @Bean
@@ -82,11 +103,11 @@ public class SpringSecurityConfiguration {
     }
 
     /**
-     * JWT验证过滤器
+     * Token验证过滤器
      */
     @Bean
     public AuthenticationTokenFilter authenticationTokenFilter(AuthenticationDetailsService<? extends UserAuthenticationDetails> authDetailsService,
-                                                                  SpringSecurityProperties properties) {
+                                                               SpringSecurityProperties properties) {
         return new AuthenticationTokenFilter(authDetailsService, properties.getAccessTokenKey());
     }
 

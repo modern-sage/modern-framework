@@ -6,20 +6,30 @@
 
     <parent>
         <groupId>com.modernframework</groupId>
-        <artifactId>modern-orm</artifactId>
+        <artifactId>modern-data</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>modern-orm-api</artifactId>
+    <artifactId>modern-data-redis</artifactId>
     <packaging>jar</packaging>
-
     <dependencies>
         <dependency>
             <groupId>com.modernframework</groupId>
-            <artifactId>modern-base</artifactId>
+            <artifactId>modern-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
         </dependency>
     </dependencies>
-
 
 
 </project>
