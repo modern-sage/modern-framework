@@ -60,7 +60,6 @@ public class BasePo<T extends BasePo<T>> extends IdPo<T> {
      * 当前实体创建时间
      *
      * @param createTime 时间值
-     * @return
      */
     public T setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
@@ -71,7 +70,6 @@ public class BasePo<T extends BasePo<T>> extends IdPo<T> {
      * 当前实体更新时间
      *
      * @param updateTime 时间值
-     * @return
      */
     public T setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
@@ -80,9 +78,6 @@ public class BasePo<T extends BasePo<T>> extends IdPo<T> {
 
     /**
      * 设置记录创建者ID
-     *
-     * @param creatorId
-     * @return T
      */
     public T setCreatorUserId(Long creatorId) {
         this.creatorId = creatorId;
@@ -91,9 +86,6 @@ public class BasePo<T extends BasePo<T>> extends IdPo<T> {
 
     /**
      * 设置记录更新者ID
-     *
-     * @param updaterId
-     * @return T
      */
     public T setUpdaterUserId(Long updaterId) {
         this.updaterId = updaterId;
@@ -104,7 +96,6 @@ public class BasePo<T extends BasePo<T>> extends IdPo<T> {
      * 当前实体乐观锁版本
      *
      * @param version 版本值
-     * @return
      */
     public T setVersion(Integer version) {
         this.version = version;
@@ -115,7 +106,6 @@ public class BasePo<T extends BasePo<T>> extends IdPo<T> {
      * 设置当前实体逻辑删除标志
      *
      * @param deleteFlag 删除标志
-     * @return
      */
     public T setDeleteFlag(Integer deleteFlag) {
         this.deleteFlag = deleteFlag;

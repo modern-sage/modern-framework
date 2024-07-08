@@ -1,6 +1,8 @@
 package com.modern.security.spring.config;
 
 import com.modern.security.spring.TokenStoragePolicy;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import static com.modern.security.spring.TokenStoragePolicy.useMemory;
@@ -11,6 +13,8 @@ import static com.modern.security.spring.TokenStoragePolicy.useMemory;
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
+@Setter
+@Getter
 @ConfigurationProperties(prefix = "modern.security")
 public class SpringSecurityProperties {
 
@@ -37,35 +41,4 @@ public class SpringSecurityProperties {
     public SpringSecurityProperties() {
     }
 
-    public long getAccessTokenExpire() {
-        return accessTokenExpire;
-    }
-
-    public void setAccessTokenExpire(long accessTokenExpire) {
-        this.accessTokenExpire = accessTokenExpire;
-    }
-
-    public long getRefreshTokenExpire() {
-        return refreshTokenExpire;
-    }
-
-    public void setRefreshTokenExpire(long refreshTokenExpire) {
-        this.refreshTokenExpire = refreshTokenExpire;
-    }
-
-    public String getAccessTokenKey() {
-        return accessTokenKey;
-    }
-
-    public void setAccessTokenKey(String accessTokenKey) {
-        this.accessTokenKey = accessTokenKey;
-    }
-
-    public TokenStoragePolicy getStoragePolicy() {
-        return storagePolicy;
-    }
-
-    public void setStoragePolicy(TokenStoragePolicy storagePolicy) {
-        this.storagePolicy = storagePolicy;
-    }
 }

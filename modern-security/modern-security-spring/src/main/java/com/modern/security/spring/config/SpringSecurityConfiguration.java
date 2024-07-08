@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -60,6 +59,10 @@ public class SpringSecurityConfiguration {
     @Autowired
     private NoAuthConfiguration noAuthConfiguration;
 
+    @Autowired
+    @SuppressWarnings("rawtypes")
+    private RedisTemplate redisTemplate;
+
     @Bean
     @ConditionalOnMissingBean(UserDetailsService.class)
     public SysAuthUserService sysAuthUserService() {
@@ -78,9 +81,9 @@ public class SpringSecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationDetailsService<? extends AuthenticationDetails> authDetailsService(SpringSecurityProperties properties,
-                                                                                  RedisTemplate redisTemplate) {
-        AuthenticationDetailsService<? extends AuthenticationDetails> authenticationDetailsService = null;
+    @SuppressWarnings("rawtypes")
+    public AuthenticationDetailsService authenticationDetailsService(SpringSecurityProperties properties) {
+        AuthenticationDetailsService authenticationDetailsService = null;
         TokenStoragePolicy tokenStoragePolicy = properties.getStoragePolicy();
         switch (tokenStoragePolicy) {
             case useMemory -> authenticationDetailsService = new UseMemoryAuthenticationDetailsService();
@@ -95,20 +98,22 @@ public class SpringSecurityConfiguration {
     }
 
     @Bean
+    @SuppressWarnings("rawtypes")
     @ConditionalOnMissingBean(SecurityService.class)
     public SecurityService authService(UserDetailsService userDetailsService, AuthenticationManager authenticationManager,
-                                       SpringSecurityProperties securityProperties, AuthenticationDetailsService<UserAuthenticationDetails> authDetailsService) {
+                                       SpringSecurityProperties securityProperties, AuthenticationDetailsService authenticationDetailsService) {
         return new DefaultSecurityService(userDetailsService, authenticationManager,
-                securityProperties, authDetailsService);
+                securityProperties, authenticationDetailsService);
     }
 
     /**
      * Token验证过滤器
      */
     @Bean
-    public AuthenticationTokenFilter authenticationTokenFilter(AuthenticationDetailsService<? extends UserAuthenticationDetails> authDetailsService,
+    @SuppressWarnings("rawtypes")
+    public AuthenticationTokenFilter authenticationTokenFilter(AuthenticationDetailsService authenticationDetailsService,
                                                                SpringSecurityProperties properties) {
-        return new AuthenticationTokenFilter(authDetailsService, properties.getAccessTokenKey());
+        return new AuthenticationTokenFilter(authenticationDetailsService, properties.getAccessTokenKey());
     }
 
     /**

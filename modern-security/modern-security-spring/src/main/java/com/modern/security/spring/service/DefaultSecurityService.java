@@ -26,14 +26,14 @@ public class DefaultSecurityService implements SecurityService {
     private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
     private final SpringSecurityProperties securityProperties;
-    private final AuthenticationDetailsService<UserAuthenticationDetails> authDetailsService;
+    private final AuthenticationDetailsService authenticationDetailsService;
 
     public DefaultSecurityService(UserDetailsService userDetailsService, AuthenticationManager authenticationManager,
-                                  SpringSecurityProperties securityProperties, AuthenticationDetailsService<UserAuthenticationDetails> authDetailsService) {
+                                  SpringSecurityProperties securityProperties, AuthenticationDetailsService authenticationDetailsService) {
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
         this.securityProperties = securityProperties;
-        this.authDetailsService = authDetailsService;
+        this.authenticationDetailsService = authenticationDetailsService;
     }
 
     /**
@@ -71,7 +71,7 @@ public class DefaultSecurityService implements SecurityService {
         authDetails.setAccessExpireTime(accessExpireTime);
         authDetails.setRefreshToken(certificate.getRefreshToken());
         authDetails.setRefreshExpireTime(refreshExpireTime);
-        authDetailsService.saveAuthDetails(authDetails);
+        authenticationDetailsService.saveAuthDetails(authDetails);
 
         return certificate;
     }
@@ -93,16 +93,16 @@ public class DefaultSecurityService implements SecurityService {
      */
     @Override
     public UserCertificate refreshToken(String accessToken, String refreshToken) {
-        final AuthenticationDetails authDetailsByAccessToken = authDetailsService.getAuthDetailsByAccessToken(accessToken);
+        final AuthenticationDetails authDetailsByAccessToken = authenticationDetailsService.getAuthDetailsByAccessToken(accessToken);
         if(authDetailsByAccessToken == null) {
             throw new AccessDeniedException("无授权");
         }
         if(Objects.equals(authDetailsByAccessToken.getRefreshToken(), refreshToken)) {
-            authDetailsService.removeAuthDetails(accessToken);
+            authenticationDetailsService.removeAuthDetails(accessToken);
             throw new AccessDeniedException("刷新Token非法");
         }
         if (System.currentTimeMillis() > authDetailsByAccessToken.getRefreshExpireTime()) {
-            authDetailsService.removeAuthDetails(accessToken);
+            authenticationDetailsService.removeAuthDetails(accessToken);
             throw new AccessDeniedException("刷新Token过期");
         }
 
@@ -128,7 +128,7 @@ public class DefaultSecurityService implements SecurityService {
     public boolean logout() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         AuthenticationDetails details = (AuthenticationDetails) authentication.getDetails();
-        return authDetailsService.removeAuthDetails(details.getAccessToken());
+        return authenticationDetailsService.removeAuthDetails(details.getAccessToken());
     }
 
 }

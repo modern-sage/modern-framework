@@ -1,6 +1,6 @@
 package com.modern.security.spring.support.entity;
 
-import com.modern.orm.mp.IdPo;
+import com.modern.orm.mp.BasePo;
 import com.modern.security.AuthenticationUser;
 import com.modernframework.core.utils.StringUtils;
 import lombok.Data;
@@ -18,7 +18,9 @@ import java.util.Collections;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysAuthUser extends IdPo<SysAuthUser> implements AuthenticationUser {
+public class SysAuthUser extends BasePo<SysAuthUser> implements AuthenticationUser {
+
+    public static final String TABLE_NAME = "sys_auth_user";
 
     /**
      * 用户登录名

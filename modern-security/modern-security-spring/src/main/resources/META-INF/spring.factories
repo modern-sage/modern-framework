@@ -1,2 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration= \
   com.modern.security.spring.config.SpringSecurityConfiguration
+
+org.springframework.context.ApplicationListener=\
+  com.modern.security.spring.config.SpringSecurityStartedListener

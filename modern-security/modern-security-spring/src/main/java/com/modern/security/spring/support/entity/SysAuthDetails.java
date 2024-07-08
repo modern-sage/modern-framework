@@ -16,6 +16,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class SysAuthDetails extends IdPo<SysAuthDetails> implements AuthenticationDetails {
 
+    public static final String TABLE_NAME = "sys_auth_details";
+
     /**
      * 用户名
      */

@@ -26,16 +26,17 @@ import java.util.stream.Collectors;
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
+@SuppressWarnings("rawtypes")
 public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
     private static final Logger log = LoggerFactory.getLogger(ConvertUtils.class);
 
     private final String tokenKey;
 
-    private final AuthenticationDetailsService authDetailsService;
+    private final AuthenticationDetailsService authenticationDetailsService;
 
-    public AuthenticationTokenFilter(AuthenticationDetailsService authDetailsService, String tokenKey) {
-        this.authDetailsService = authDetailsService;
+    public AuthenticationTokenFilter(AuthenticationDetailsService authenticationDetailsService, String tokenKey) {
+        this.authenticationDetailsService = authenticationDetailsService;
         this.tokenKey = tokenKey;
     }
 
@@ -43,7 +44,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         //解析token中的认证信息
         String tokenKey = getTokenKey(request);
-        final AuthenticationDetails authDetailsByAccessToken = authDetailsService.getAuthDetailsByAccessToken(tokenKey);
+        final AuthenticationDetails authDetailsByAccessToken = authenticationDetailsService.getAuthDetailsByAccessToken(tokenKey);
         if (authDetailsByAccessToken != null) {
             //TODO 权限集合
             List<String> authoritiesList = Collections.emptyList();

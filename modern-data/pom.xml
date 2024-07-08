@@ -12,6 +12,7 @@
 
     <artifactId>modern-data</artifactId>
     <packaging>pom</packaging>
+    <name>modern-data:${revision}</name>
 
     <modules>
         <module>modern-data-redis</module>
