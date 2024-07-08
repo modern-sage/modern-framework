@@ -1,6 +1,8 @@
 package com.modern.security.spring.handler;
 
 import com.modern.security.spring.exception.UnauthenticatedException;
+import com.modernframework.base.constant.BizOpCode;
+import com.modernframework.base.vo.Rs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
@@ -25,6 +27,6 @@ public class AuthExceptionEntryPoint extends AbstractAccessDeniedHandler impleme
             throws IOException {
         log.info("认证失败: {}", authException.getMessage());
         log.debug("认证失败栈信息", authException);
-        throw new UnauthenticatedException("认证失败");
+        writeResponse(response, Rs.fail(BizOpCode.UNAUTHORIZED));
     }
 }

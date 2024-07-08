@@ -1,5 +1,7 @@
 package com.modern.security.spring.handler;
 
+import com.modernframework.base.constant.BizOpCode;
+import com.modernframework.base.vo.Rs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
@@ -23,6 +25,6 @@ public class AccessDeniedHandler extends AbstractAccessDeniedHandler implements 
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         log.info("授权失败: {}", accessDeniedException.getMessage());
         log.debug("授权失败栈信息", accessDeniedException);
-        throw new AccessDeniedException("无授权");
+        writeResponse(response, Rs.fail(BizOpCode.FORBIDDEN));
     }
 }
