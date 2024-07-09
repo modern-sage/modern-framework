@@ -1,6 +1,5 @@
 package com.modern.security.spring.handler;
 
-import com.modern.security.spring.exception.UnauthenticatedException;
 import com.modernframework.base.constant.BizOpCode;
 import com.modernframework.base.vo.Rs;
 import org.slf4j.Logger;

@@ -3,9 +3,11 @@ package com.modern.security.spring.support.controller;
 import com.modern.anno.NoAuth;
 import com.modern.security.SecurityService;
 import com.modern.security.UserCertificate;
+import com.modern.security.spring.support.controller.param.LoginParam;
 import com.modernframework.base.vo.Rs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,15 +39,11 @@ public class SecurityController {
 
     /**
      * 用户登录
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @return SysUser
      */
     @NoAuth
     @PostMapping("/login")
-    public Rs<UserCertificate> login(String username, String password) {
-        return Rs.ok(securityService.login(username, password));
+    public Rs<Object> login(@RequestBody LoginParam param) {
+        return Rs.ok(securityService.login(param.getUsername(), param.getPassword()));
     }
 
     /**
