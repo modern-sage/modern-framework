@@ -5,6 +5,7 @@ import com.modern.security.spring.UserAuthenticationDetails;
 import com.modernframework.core.utils.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -15,11 +16,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class UseRedisAuthenticationDetailsService implements AuthenticationDetailsService<UserAuthenticationDetails> {
 
-    private final RedisTemplate redisTemplate;
+    private final RedisTemplate<String, Serializable> redisTemplate;
 
     public final static String TOKEN = "token:";
 
-    public UseRedisAuthenticationDetailsService(RedisTemplate redisTemplate) {
+    public UseRedisAuthenticationDetailsService(RedisTemplate<String, Serializable> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -45,8 +46,9 @@ public class UseRedisAuthenticationDetailsService implements AuthenticationDetai
      */
     @Override
     public boolean saveAuthDetails(UserAuthenticationDetails authDetails) {
-        return Boolean.TRUE.equals(redisTemplate.opsForValue().setIfAbsent(TOKEN + authDetails.getAccessToken(), authDetails,
-                authDetails.getAccessExpireTime(), TimeUnit.MILLISECONDS));
+        redisTemplate.opsForValue().set(TOKEN + authDetails.getAccessToken(), authDetails,
+                authDetails.getAccessExpireTime(), TimeUnit.MILLISECONDS);
+        return true;
     }
 
     /**
@@ -54,7 +56,7 @@ public class UseRedisAuthenticationDetailsService implements AuthenticationDetai
      */
     @Override
     public boolean removeAuthDetails(String accessToken) {
-        return redisTemplate.delete(TOKEN + accessToken);
+        return Boolean.TRUE.equals(redisTemplate.delete(TOKEN + accessToken));
     }
 
 }

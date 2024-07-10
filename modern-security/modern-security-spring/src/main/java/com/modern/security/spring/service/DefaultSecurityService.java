@@ -67,6 +67,8 @@ public class DefaultSecurityService implements SecurityService {
 
         // 存储登陆的详细信息（Token等）
         UserAuthenticationDetails authDetails = new UserAuthenticationDetails();
+        authDetails.setUserId(certificate.getUserId());
+        authDetails.setUsername(certificate.getUsername());
         authDetails.setAccessToken(certificate.getToken());
         authDetails.setAccessExpireTime(accessExpireTime);
         authDetails.setRefreshToken(certificate.getRefreshToken());

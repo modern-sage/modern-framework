@@ -19,6 +19,11 @@ public class SysAuthDetails extends IdPo<SysAuthDetails> implements Authenticati
     public static final String TABLE_NAME = "sys_auth_details";
 
     /**
+     * 用户Id
+     */
+    private Long userId;
+
+    /**
      * 用户名
      */
     private String username;

@@ -10,6 +10,11 @@ package com.modern.security;
 public interface AuthenticationDetails {
 
     /**
+     * 用户Id
+     */
+    Long getUserId();
+
+    /**
      * 用户名
      */
     String getUsername();

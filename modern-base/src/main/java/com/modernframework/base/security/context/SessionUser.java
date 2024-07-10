@@ -10,16 +10,12 @@ public interface SessionUser extends Identifiable<Long> {
 
     /**
      * 用户Id
-     *
-     * @return
      */
     @Override
     Long getId();
 
     /**
      * 用户名
-     *
-     * @return
      */
     default String getUsername() {
         return null;
@@ -27,8 +23,6 @@ public interface SessionUser extends Identifiable<Long> {
 
     /**
      * 获取租户id，默认不存在为null
-     *
-     * @return
      */
     default Long getTenantId() {
         return null;

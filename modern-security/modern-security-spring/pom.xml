@@ -21,6 +21,10 @@
         </dependency>
         <dependency>
             <groupId>com.modernframework</groupId>
+            <artifactId>modern-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.modernframework</groupId>
             <artifactId>modern-orm-mp</artifactId>
         </dependency>
         <dependency>

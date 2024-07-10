@@ -2,6 +2,8 @@ package com.modern.security.spring.filter;
 
 import com.modern.security.AuthenticationDetails;
 import com.modern.security.AuthenticationDetailsService;
+import com.modern.security.spring.utils.SessionUtils;
+import com.modernframework.base.security.context.UserContext;
 import com.modernframework.core.convert.ConvertUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +59,10 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(authDetailsByAccessToken.getUsername(), null, authorities);
             usernamePasswordAuthenticationToken.setDetails(authDetailsByAccessToken);
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            UserContext.setUser(SessionUtils.convertDefaultSessionUser(authDetailsByAccessToken));
         } else {
             SecurityContextHolder.clearContext();
+            UserContext.clear();
         }
         chain.doFilter(request, response);
     }

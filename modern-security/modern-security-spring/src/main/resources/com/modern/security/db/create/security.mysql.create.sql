@@ -17,6 +17,7 @@ create table sys_auth_user
 create table sys_auth_details
 (
     id                  bigint auto_increment comment '主键' primary key,
+    user_id             bigint null comment '用户id',
     username            varchar(127) not null default '' comment '用户登录名',
     access_token        varchar(511) not null default '' comment '访问凭证Token',
     access_expire_time  bigint       not null default '' comment '访问凭证过期时间',
