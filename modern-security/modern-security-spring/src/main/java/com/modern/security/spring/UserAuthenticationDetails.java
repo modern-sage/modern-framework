@@ -1,6 +1,10 @@
 package com.modern.security.spring;
 
 import com.modern.security.AuthenticationDetails;
+import lombok.Data;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 
 /**
@@ -9,11 +13,14 @@ import com.modern.security.AuthenticationDetails;
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
-public class UserAuthenticationDetails implements AuthenticationDetails {
-
+@Data
+public class UserAuthenticationDetails implements AuthenticationDetails, Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     /**
      * 用户名
      */
+
     private String username;
 
     /**
@@ -36,51 +43,4 @@ public class UserAuthenticationDetails implements AuthenticationDetails {
      */
     private Long refreshExpireTime;
 
-
-    public UserAuthenticationDetails() {
-    }
-
-    @Override
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    @Override
-    public Long getAccessExpireTime() {
-        return accessExpireTime;
-    }
-
-    public void setAccessExpireTime(Long accessExpireTime) {
-        this.accessExpireTime = accessExpireTime;
-    }
-
-    @Override
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    @Override
-    public Long getRefreshExpireTime() {
-        return refreshExpireTime;
-    }
-
-    public void setRefreshExpireTime(Long refreshExpireTime) {
-        this.refreshExpireTime = refreshExpireTime;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }
