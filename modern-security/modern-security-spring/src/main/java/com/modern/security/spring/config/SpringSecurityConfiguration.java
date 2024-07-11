@@ -1,10 +1,8 @@
 package com.modern.security.spring.config;
 
-import com.modern.security.AuthenticationDetails;
 import com.modern.security.AuthenticationDetailsService;
 import com.modern.security.SecurityService;
 import com.modern.security.spring.TokenStoragePolicy;
-import com.modern.security.spring.UserAuthenticationDetails;
 import com.modern.security.spring.filter.AuthenticationTokenFilter;
 import com.modern.security.spring.handler.AccessDeniedHandler;
 import com.modern.security.spring.handler.AuthExceptionEntryPoint;
