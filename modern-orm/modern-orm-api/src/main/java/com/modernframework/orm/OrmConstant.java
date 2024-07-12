@@ -7,7 +7,7 @@ import com.modernframework.base.BaseConstant;
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
-public interface OrmConstant extends Constant {
+public interface OrmConstant extends BaseConstant {
 
     /**
      * 逻辑已删除
@@ -29,8 +29,8 @@ public interface OrmConstant extends Constant {
     String COLUMN_ID = "id";
     String ATTR_VERSION = "version";
     String COLUMN_VERSION = "version";
-    String ATTR_DELETE_FLAG = Constant.ATTR_DELETE_FLAG;
-    String COLUMN_DELETE_FLAG = Constant.COLUMN_DELETE_FLAG;
+    String ATTR_DELETE_FLAG = BaseConstant.ATTR_DELETE_FLAG;
+    String COLUMN_DELETE_FLAG = BaseConstant.COLUMN_DELETE_FLAG;
     String ATTR_CREATE_TIME = "createTime";
     String COLUMN_CREATE_TIME = "create_time";
     String ATTR_UPDATE_TIME = "updateTime";
