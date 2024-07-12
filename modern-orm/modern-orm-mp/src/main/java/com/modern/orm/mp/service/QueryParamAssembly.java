@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.modernframework.orm.OrmConstant.COLUMN_ID;
+import static com.modernframework.base.BaseConstant.COLUMN_ID;
 
 
 /**

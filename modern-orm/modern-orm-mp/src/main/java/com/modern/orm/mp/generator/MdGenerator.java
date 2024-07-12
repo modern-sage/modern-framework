@@ -14,12 +14,12 @@ import com.baomidou.mybatisplus.generator.fill.Property;
 import com.modern.orm.mp.mapper.MdBaseMapper;
 import com.modern.orm.mp.service.AbstractBaseService;
 import com.modern.orm.mp.utils.RepoMpUtils;
+import com.modernframework.base.BaseConstant;
 import com.modernframework.base.service.BaseService;
 import com.modernframework.core.utils.ArrayUtils;
 import com.modernframework.core.utils.CollectionUtils;
 import com.modernframework.core.utils.ReflectUtils;
 import com.modernframework.core.utils.StringUtils;
-import com.modernframework.orm.OrmConstant;
 import com.modernframework.orm.PoType;
 import org.apache.ibatis.cache.Cache;
 
@@ -27,8 +27,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.modernframework.base.BaseConstant.DATE_FORMAT;
-import static com.modernframework.orm.OrmConstant.*;
+import static com.modernframework.base.BaseConstant.*;
 
 
 public class MdGenerator {
@@ -417,13 +416,11 @@ public class MdGenerator {
     /**
      * TODO FIXME
      * 设置公共字段策略
-     *
-     * @return
      */
     protected Map<String, FieldFill> properties() {
         return new HashMap<>() {
             {
-                put(OrmConstant.ATTR_DELETE_FLAG, FieldFill.INSERT);
+                put(BaseConstant.ATTR_DELETE_FLAG, FieldFill.INSERT);
                 put(ATTR_UPDATE_TIME, FieldFill.INSERT_UPDATE);
                 put(ATTR_CREATE_TIME, FieldFill.INSERT);
                 put(ATTR_VERSION, FieldFill.INSERT);

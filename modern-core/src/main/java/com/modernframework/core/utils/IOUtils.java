@@ -1,9 +1,6 @@
 package com.modernframework.core.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 /**
  * IOUtils
@@ -44,6 +41,24 @@ public abstract class IOUtils {
         } catch (IOException ignore) {
         }
 
+    }
+
+    public static void closeSilently(AutoCloseable closeable) {
+        if (null != closeable) {
+            try {
+                closeable.close();
+            } catch (Exception ignore) {
+            }
+        }
+    }
+
+    public static void close(Closeable closeable) {
+        if (null != closeable) {
+            try {
+                closeable.close();
+            } catch (Exception ignore) {
+            }
+        }
     }
 
 }

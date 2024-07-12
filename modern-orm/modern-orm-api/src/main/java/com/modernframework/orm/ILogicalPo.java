@@ -1,6 +1,8 @@
 package com.modernframework.orm;
 
 
+import com.modernframework.base.BaseConstant;
+
 /**
  * 实现逻辑删除
  *
@@ -12,8 +14,8 @@ public interface ILogicalPo<T extends ILogicalPo<T>> extends ArIdentifiable<T> {
     /**
      * 逻辑删除标志，状态1表示记录被删除，0表示正常记录
      *
-     * @see OrmConstant#DELETED
-     * @see OrmConstant#NOT_DELETED
+     * @see BaseConstant#DELETED
+     * @see BaseConstant#NOT_DELETED
      */
     Integer getDeleteFlag();
 

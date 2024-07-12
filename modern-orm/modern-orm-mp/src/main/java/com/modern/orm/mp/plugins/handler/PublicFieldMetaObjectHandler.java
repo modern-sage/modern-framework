@@ -7,7 +7,7 @@ import org.apache.ibatis.reflection.MetaObject;
 
 import java.time.LocalDateTime;
 
-import static com.modernframework.orm.OrmConstant.*;
+import static com.modernframework.base.BaseConstant.*;
 
 
 /**

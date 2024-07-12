@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.modern.orm.mp.criteria.AbstractCriteriaTranslate;
 import com.modernframework.base.criteria.type.ConditionType;
 
-import static com.modernframework.orm.OrmConstant.COLUMN_ID;
+import static com.modernframework.base.BaseConstant.COLUMN_ID;
 
 
 /**
