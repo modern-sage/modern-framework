@@ -1,6 +1,6 @@
 package com.modern.boot.config;
 
-import com.modernframework.base.constant.BaseConstant;
+import com.modernframework.base.BaseConstant;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.cors.CorsConfiguration;

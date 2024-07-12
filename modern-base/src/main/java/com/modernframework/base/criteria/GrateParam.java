@@ -2,6 +2,7 @@ package com.modernframework.base.criteria;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.modernframework.base.BaseConstant;
 import com.modernframework.base.criteria.between.BetweenParam;
 import com.modernframework.base.criteria.type.ConditionType;
 import com.modernframework.base.criteria.type.FuncType;
@@ -17,7 +18,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static com.modernframework.base.criteria.Constant.ATTR_DELETE_FLAG;
+import static com.modernframework.base.BaseConstant.ATTR_DELETE_FLAG;
 import static com.modernframework.base.criteria.CriteriaExpress.R_AND;
 import static com.modernframework.base.criteria.CriteriaExpress.R_OR;
 import static javax.security.auth.callback.ConfirmationCallback.NO;
@@ -983,7 +984,7 @@ public class GrateParam<T> implements Serializable {
      * @return QueryParam<T>
      */
     public GrateParam<T> orderBy(SerialFunction<T, ?>... fields) {
-        Arrays.asList(fields).forEach(f -> orderBy(f, Constant.ASC));
+        Arrays.asList(fields).forEach(f -> orderBy(f, BaseConstant.ASC));
         return this;
     }
 
@@ -994,7 +995,7 @@ public class GrateParam<T> implements Serializable {
      * @return QueryParam<T>
      */
     public GrateParam<T> orderByDesc(SerialFunction<T, ?>... fields) {
-        Arrays.asList(fields).forEach(f -> orderBy(f, Constant.DESC));
+        Arrays.asList(fields).forEach(f -> orderBy(f, BaseConstant.DESC));
         return this;
     }
 

@@ -1,5 +1,6 @@
 package com.modernframework.base.criteria;
 
+import com.modernframework.base.BaseConstant;
 import com.modernframework.core.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class OrderBy {
     /**
      * 排序方式
      */
-    private Integer asc = Constant.ASC;
+    private Integer asc = BaseConstant.ASC;
 
     /**
      * 判断当前条件是否正序
@@ -31,7 +32,7 @@ public class OrderBy {
      * @return boolean
      */
     public boolean isAsc() {
-        return getAsc() > Constant.DESC;
+        return getAsc() > BaseConstant.DESC;
     }
 
     /**

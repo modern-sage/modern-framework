@@ -27,7 +27,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.modernframework.base.constant.BaseConstant.DATE_FORMAT;
+import static com.modernframework.base.BaseConstant.DATE_FORMAT;
 import static com.modernframework.orm.OrmConstant.*;
 
 

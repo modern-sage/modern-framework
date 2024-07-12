@@ -1,6 +1,6 @@
 package com.modernframework.orm;
 
-import com.modernframework.base.criteria.Constant;
+import com.modernframework.base.BaseConstant;
 
 /**
  *

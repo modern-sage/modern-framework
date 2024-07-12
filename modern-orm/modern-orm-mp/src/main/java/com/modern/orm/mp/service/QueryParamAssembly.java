@@ -4,6 +4,7 @@ package com.modern.orm.mp.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.modern.orm.mp.criteria.CombinationCriteriaTranslate;
+import com.modernframework.base.BaseConstant;
 import com.modernframework.base.criteria.*;
 import com.modernframework.base.exception.BizException;
 import com.modernframework.core.utils.CollectionUtils;
@@ -98,7 +99,7 @@ public class QueryParamAssembly<T> {
         // 添加排序字段
         List<OrderBy> orderBys = this.queryParam.getOrderBys();
         if (CollectionUtils.isEmpty(orderBys) && this.queryParam.isDefaultOrderBy()) {
-            orderBys.add(new OrderBy(COLUMN_ID, Constant.DESC));
+            orderBys.add(new OrderBy(COLUMN_ID, BaseConstant.DESC));
         }
         orderBys.forEach(o -> rootQuery.orderBy(o != null && StringUtils.isNotBlank(o.getAttribute()),
                 o.isAsc(), StringUtils.camelToUnderline(o.getAttribute())));
