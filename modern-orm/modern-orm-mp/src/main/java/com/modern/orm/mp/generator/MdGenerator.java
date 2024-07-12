@@ -19,7 +19,7 @@ import com.modernframework.core.utils.ArrayUtils;
 import com.modernframework.core.utils.CollectionUtils;
 import com.modernframework.core.utils.ReflectUtils;
 import com.modernframework.core.utils.StringUtils;
-import com.modernframework.orm.Constant;
+import com.modernframework.orm.OrmConstant;
 import com.modernframework.orm.PoType;
 import org.apache.ibatis.cache.Cache;
 
@@ -28,7 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.modernframework.base.constant.BaseConstant.DATE_FORMAT;
-import static com.modernframework.orm.Constant.*;
+import static com.modernframework.orm.OrmConstant.*;
 
 
 public class MdGenerator {
@@ -423,7 +423,7 @@ public class MdGenerator {
     protected Map<String, FieldFill> properties() {
         return new HashMap<>() {
             {
-                put(Constant.ATTR_DELETE_FLAG, FieldFill.INSERT);
+                put(OrmConstant.ATTR_DELETE_FLAG, FieldFill.INSERT);
                 put(ATTR_UPDATE_TIME, FieldFill.INSERT_UPDATE);
                 put(ATTR_CREATE_TIME, FieldFill.INSERT);
                 put(ATTR_VERSION, FieldFill.INSERT);

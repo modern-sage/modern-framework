@@ -1,7 +1,7 @@
 package com.modernframework.base.criteria;
 
 
-import static com.modernframework.base.criteria.Constants.*;
+import static com.modernframework.base.criteria.Constant.*;
 
 /**
  * 查询标准表达式接口

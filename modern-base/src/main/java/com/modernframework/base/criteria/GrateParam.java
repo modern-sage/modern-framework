@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import static com.modernframework.base.criteria.Constants.ATTR_DELETE_FLAG;
+import static com.modernframework.base.criteria.Constant.ATTR_DELETE_FLAG;
 import static com.modernframework.base.criteria.CriteriaExpress.R_AND;
 import static com.modernframework.base.criteria.CriteriaExpress.R_OR;
 import static javax.security.auth.callback.ConfirmationCallback.NO;
@@ -983,7 +983,7 @@ public class GrateParam<T> implements Serializable {
      * @return QueryParam<T>
      */
     public GrateParam<T> orderBy(SerialFunction<T, ?>... fields) {
-        Arrays.asList(fields).forEach(f -> orderBy(f, Constants.ASC));
+        Arrays.asList(fields).forEach(f -> orderBy(f, Constant.ASC));
         return this;
     }
 
@@ -994,7 +994,7 @@ public class GrateParam<T> implements Serializable {
      * @return QueryParam<T>
      */
     public GrateParam<T> orderByDesc(SerialFunction<T, ?>... fields) {
-        Arrays.asList(fields).forEach(f -> orderBy(f, Constants.DESC));
+        Arrays.asList(fields).forEach(f -> orderBy(f, Constant.DESC));
         return this;
     }
 

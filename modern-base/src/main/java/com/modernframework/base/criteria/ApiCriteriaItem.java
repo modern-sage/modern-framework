@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.List;
 
-import static com.modernframework.base.criteria.Constants.RELATIONSHIP_AND;
+import static com.modernframework.base.criteria.Constant.RELATIONSHIP_AND;
 
 
 /**

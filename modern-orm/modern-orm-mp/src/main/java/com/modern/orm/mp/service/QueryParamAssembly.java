@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.modernframework.orm.Constant.COLUMN_ID;
+import static com.modernframework.orm.OrmConstant.COLUMN_ID;
 
 
 /**
@@ -98,7 +98,7 @@ public class QueryParamAssembly<T> {
         // 添加排序字段
         List<OrderBy> orderBys = this.queryParam.getOrderBys();
         if (CollectionUtils.isEmpty(orderBys) && this.queryParam.isDefaultOrderBy()) {
-            orderBys.add(new OrderBy(COLUMN_ID, Constants.DESC));
+            orderBys.add(new OrderBy(COLUMN_ID, Constant.DESC));
         }
         orderBys.forEach(o -> rootQuery.orderBy(o != null && StringUtils.isNotBlank(o.getAttribute()),
                 o.isAsc(), StringUtils.camelToUnderline(o.getAttribute())));

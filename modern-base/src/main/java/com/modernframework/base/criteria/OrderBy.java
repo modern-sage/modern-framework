@@ -23,7 +23,7 @@ public class OrderBy {
     /**
      * 排序方式
      */
-    private Integer asc = Constants.ASC;
+    private Integer asc = Constant.ASC;
 
     /**
      * 判断当前条件是否正序
@@ -31,7 +31,7 @@ public class OrderBy {
      * @return boolean
      */
     public boolean isAsc() {
-        return getAsc() > Constants.DESC;
+        return getAsc() > Constant.DESC;
     }
 
     /**
