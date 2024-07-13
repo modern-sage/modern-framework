@@ -31,12 +31,6 @@ public class BaseBizPo<T extends BaseBizPo<T>> extends IdPo<T> {
      */
     @Getter
     protected String memo;
-    /**
-     * 记录的业务状态
-     */
-    @TableField(value = "status", fill = FieldFill.INSERT)
-    @Getter
-    protected Integer status;
 
     /**
      * 记录生成人的ID
@@ -108,17 +102,6 @@ public class BaseBizPo<T extends BaseBizPo<T>> extends IdPo<T> {
      */
     public T setMemo(String memo) {
         this.memo = memo;
-        return (T) this;
-    }
-
-    /**
-     * 设置当前实体业务状态
-     *
-     * @param status 业务状态值
-     * @return
-     */
-    public T setStatus(Integer status) {
-        this.status = status;
         return (T) this;
     }
 
