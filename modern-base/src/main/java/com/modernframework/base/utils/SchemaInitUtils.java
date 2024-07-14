@@ -1,18 +1,21 @@
-package com.modern.security.spring.utils;
+package com.modernframework.base.utils;
 
 import com.modernframework.core.utils.IOUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * SqlRead
+ * 数据结构初始化工具
  *
- * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
-public abstract class SqlReadUtil {
+public class SchemaInitUtils {
 
     public final static String CT = "create table";
 

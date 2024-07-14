@@ -5,7 +5,7 @@ import com.modern.security.spring.support.entity.SysAuthDetails;
 import com.modern.security.spring.support.entity.SysAuthUser;
 import com.modern.security.spring.support.service.impl.DefaultUserDetailsServiceImpl;
 import com.modern.security.spring.support.service.impl.SysAuthDetailsServiceImpl;
-import com.modern.security.spring.utils.SqlReadUtil;
+import com.modernframework.base.utils.SchemaInitUtils;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -44,7 +44,7 @@ public class SpringSecurityStartedListener implements ApplicationListener<Applic
             }
             if (!tables.contains(SysAuthUser.TABLE_NAME)) {
                 if (createTableSql == null) {
-                    createTableSql = SqlReadUtil.getTableCreateSql("com/modern/security/db/create/security.mysql.create.sql");
+                    createTableSql = SchemaInitUtils.getTableCreateSql("com/modern/security/db/create/security.mysql.create.sql");
                 }
                 context.getBean(JdbcTemplate.class).execute(createTableSql.get(SysAuthUser.TABLE_NAME));
             }
@@ -56,7 +56,7 @@ public class SpringSecurityStartedListener implements ApplicationListener<Applic
             tables = DataSourceUtils.getAllTableNames(context.getBean(DataSource.class));
             if (!tables.contains(SysAuthDetails.TABLE_NAME)) {
                 if (createTableSql == null) {
-                    createTableSql = SqlReadUtil.getTableCreateSql("com/modern/security/db/create/security.mysql.create.sql");
+                    createTableSql = SchemaInitUtils.getTableCreateSql("com/modern/security/db/create/security.mysql.create.sql");
                 }
                 context.getBean(JdbcTemplate.class).execute(createTableSql.get(SysAuthDetails.TABLE_NAME));
             }
