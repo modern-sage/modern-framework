@@ -19,9 +19,9 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static com.modernframework.base.BaseConstant.ATTR_DELETE_FLAG;
+import static com.modernframework.base.BaseConstant.NO;
 import static com.modernframework.base.criteria.CriteriaExpress.R_AND;
 import static com.modernframework.base.criteria.CriteriaExpress.R_OR;
-import static javax.security.auth.callback.ConfirmationCallback.NO;
 
 /**
  * 好用的查询参数
