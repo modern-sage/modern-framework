@@ -26,7 +26,6 @@ public class MdTenantLineHandler implements TenantLineHandler {
 
     /**
      * 获取租户 ID 值表达式，只支持单个 ID 值
-     * <p>
      *
      * @return 租户 ID 值表达式
      */

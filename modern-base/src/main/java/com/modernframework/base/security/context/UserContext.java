@@ -51,7 +51,7 @@ public abstract class UserContext implements Serializable {
      * 获取租户Id
      */
     public static Long getTenantId() {
-        return getUser() == null ? null : getUser().getTenantId();
+        return getUser() == null ? -1 : getUser().getTenantId();
     }
 
 }
