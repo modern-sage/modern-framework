@@ -1,8 +1,9 @@
 package com.modern.orm.mp.utils;
 
 import com.modernframework.base.security.context.UserContext;
-import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
@@ -14,12 +15,13 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
  */
 public abstract class DynamicTableNameUtils {
 
-    public static String parseTableName(Class<?> entityType, String paramExpression) {
-        EvaluationContext context = new StandardEvaluationContext();
+    public static String parseTableName(String tableName, String paramExpression) {
+        StandardEvaluationContext context = new StandardEvaluationContext();
         ExpressionParser parser = new SpelExpressionParser();
-        context.setVariable("className", entityType.getSimpleName());
+        context.setVariable("tableName", tableName);
         context.setVariable("tenant", resolveTenantId(UserContext.getTenantId()));
-        return (String) parser.parseExpression(paramExpression).getValue(context);
+        Expression expr = parser.parseExpression(paramExpression, new TemplateParserContext());
+        return expr.getValue(context, String.class);
     }
 
     private static String convertToBase36(long number, int minLength) {

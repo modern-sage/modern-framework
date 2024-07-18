@@ -21,10 +21,13 @@ public class DynamicTableNameHandler implements TableNameHandler {
     @Override
     public String dynamicTableName(String sql, String tableName) {
         TableInfo tableInfo = TableInfoHelper.getTableInfo(tableName);
+        if(tableInfo == null) {
+            return tableName;
+        }
         Class<?> entityType = tableInfo.getEntityType();
         DynamicTableName annotation = entityType.getAnnotation(DynamicTableName.class);
         if(annotation != null) {
-            return DynamicTableNameUtils.parseTableName(entityType, annotation.dynamicExpression());
+            return DynamicTableNameUtils.parseTableName(tableInfo.getTableName(), annotation.dynamicExpression());
         } else {
             return tableName;
         }

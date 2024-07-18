@@ -3,25 +3,20 @@ package com.modern.orm.mp.config;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusPropertiesCustomizer;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
 import com.baomidou.mybatisplus.extension.plugins.inner.DynamicTableNameInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.TenantLineInnerInterceptor;
 import com.modern.orm.mp.plugins.handler.DynamicTableNameHandler;
 import com.modern.orm.mp.plugins.handler.PublicFieldMetaObjectHandler;
-import com.modern.orm.mp.plugins.handler.MdTenantLineHandler;
 import com.modern.orm.mp.plugins.inner.MdDynamicTableInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
@@ -93,7 +88,7 @@ public class OrmMpConfiguration {
      * - 动态表名
      */
     @Bean
-    @ConditionalOnProperty(prefix = PROPERTIES_PREFIX, name = "enableDynamicTableName", havingValue = "true")
+    @ConditionalOnProperty(prefix = PROPERTIES_PREFIX, name = "enable-dynamic-table-name", havingValue = "true")
     DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor() {
         DynamicTableNameInnerInterceptor dynamicTableNameInnerInterceptor = new MdDynamicTableInterceptor();
         dynamicTableNameInnerInterceptor.setTableNameHandler(new DynamicTableNameHandler());

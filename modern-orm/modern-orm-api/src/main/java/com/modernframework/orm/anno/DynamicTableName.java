@@ -21,7 +21,7 @@ public @interface DynamicTableName {
     /**
      * 参数表达式 <br/>
      * 内置参数:
-     *    className： 当前类名
+     *    tableName： 当前表名
      *    tenant：    当前租户Id的下标排序 aaa - zzz
      */
     String dynamicExpression() default "";

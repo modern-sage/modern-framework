@@ -19,10 +19,10 @@ public class OrmMpProperties {
 
     public static final String PROPERTIES_PREFIX = "modern.orm.mp";
 
-    /**
-     * 是否开启租户
-     */
-    boolean enableTenant = false;
+//    /**
+//     * 是否开启租户
+//     */
+//    boolean enableTenant = false;
 
     /**
      * 是否开启动态表单
