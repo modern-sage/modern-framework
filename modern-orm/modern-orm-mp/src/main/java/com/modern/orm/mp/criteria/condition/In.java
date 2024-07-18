@@ -17,7 +17,12 @@ public class In extends AbstractCriteriaTranslate {
 
     @Override
     protected boolean subValidate(CriteriaParamItem criteria) {
-        return CollectionUtils.isNotEmpty(JSONArray.fromObject(criteria.getValue()));
+        try {
+            return CollectionUtils.isNotEmpty((Collection<?>)criteria.getValue());
+        } catch (Exception ignore) {
+            return false;
+        }
+
     }
 
     /**

@@ -17,12 +17,17 @@ import static com.modern.orm.mp.config.OrmMpProperties.PROPERTIES_PREFIX;
 @ConfigurationProperties(prefix = PROPERTIES_PREFIX)
 public class OrmMpProperties {
 
-    public static final String PROPERTIES_PREFIX = "com.modern.orm.mp";
+    public static final String PROPERTIES_PREFIX = "modern.orm.mp";
 
     /**
      * 是否开启租户
      */
     boolean enableTenant = false;
+
+    /**
+     * 是否开启动态表单
+     */
+    boolean enableDynamicTableName = false;
 
     /**
      * 租户表名忽略设置

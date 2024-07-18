@@ -9,7 +9,7 @@ import org.apache.ibatis.mapping.MappedStatement;
 import java.sql.Connection;
 
 /**
- * 动态表明拦截器
+ * 动态表名拦截器
  */
 public class MdDynamicTableInterceptor extends DynamicTableNameInnerInterceptor {
 

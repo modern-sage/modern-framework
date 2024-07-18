@@ -23,13 +23,6 @@ public class IdPo<T extends IdPo<T>> extends Model<T> implements ArIdentifiable<
     protected Long id;
 
     /**
-     * tenantId
-     */
-    @Getter
-    protected Long tenantId;
-
-
-    /**
      * 设置主键
      *
      * @param id 主键值
@@ -37,11 +30,6 @@ public class IdPo<T extends IdPo<T>> extends Model<T> implements ArIdentifiable<
      */
     public T setId(Long id) {
         this.id = id;
-        return (T) this;
-    }
-
-    public T setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
         return (T) this;
     }
 
