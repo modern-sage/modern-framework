@@ -73,12 +73,6 @@
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
             <classifier>jdk15</classifier>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-lang</artifactId>
-                    <groupId>commons-lang</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
