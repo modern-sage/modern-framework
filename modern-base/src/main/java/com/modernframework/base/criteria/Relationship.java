@@ -15,6 +15,17 @@ public class Relationship implements CriteriaExpress {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if(obj == null) {
+            return false;
+        }
+        if(!(obj instanceof Relationship other)) {
+            return false;
+        }
+        return relation.equals(other.relation);
+    }
+
+    @Override
     public String toString() {
         return " " + relation + " ";
     }
