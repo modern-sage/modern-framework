@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = {BizException.class})
     public Rs<String> businessException(BizException exception) {
-        log.debug("BusinessException: {}", exception.getMessage(), exception);
+        log.info("BusinessException: {}", exception.getMessage(), exception);
         return new Rs<String>()
                 .setCode(exception.getCode())
                 .setMessage(exception.getMessage());
