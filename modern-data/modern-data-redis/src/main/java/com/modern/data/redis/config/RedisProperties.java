@@ -67,7 +67,7 @@ public class RedisProperties {
         /**
          * 最大建立连接等待时间
          */
-        private Integer maxWaitMillis = -1;
+        private Long maxWaitMillis = -1L;
         /**
          * 逐出连接的最小空闲时间 默认1800000毫秒(30分钟)
          */

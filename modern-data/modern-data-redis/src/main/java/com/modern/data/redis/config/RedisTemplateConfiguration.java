@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisPassword;
@@ -43,10 +44,13 @@ public class RedisTemplateConfiguration {
         GenericObjectPoolConfig<Object> genericObjectPoolConfig = new GenericObjectPoolConfig<>();
         genericObjectPoolConfig.setMaxIdle(pool.getMaxIdle());
         genericObjectPoolConfig.setMaxTotal(pool.getMaxTotal());
-        genericObjectPoolConfig.setMaxWaitMillis(pool.getMaxWaitMillis());
-        genericObjectPoolConfig.setMinEvictableIdleTimeMillis(pool.getMinEvictableIdleTimeMillis());
+//        genericObjectPoolConfig.setMaxWaitMillis(pool.getMaxWaitMillis());
+        genericObjectPoolConfig.setMaxWait(Duration.ofMillis(pool.getMaxWaitMillis()));
+//        genericObjectPoolConfig.setMinEvictableIdleTimeMillis(pool.getMinEvictableIdleTimeMillis());
+        genericObjectPoolConfig.setMinEvictableIdleTime(Duration.ofMillis(pool.getMinEvictableIdleTimeMillis()));
         genericObjectPoolConfig.setNumTestsPerEvictionRun(pool.getNumTestsPerEvictionRun());
-        genericObjectPoolConfig.setTimeBetweenEvictionRunsMillis(pool.getTimeBetweenEvictionRunsMillis());
+//        genericObjectPoolConfig.setTimeBetweenEvictionRunsMillis(pool.getTimeBetweenEvictionRunsMillis());
+        genericObjectPoolConfig.setTimeBetweenEvictionRuns(Duration.ofMillis(pool.getTimeBetweenEvictionRunsMillis()));
         genericObjectPoolConfig.setTestOnBorrow(pool.getTestOnBorrow());
         genericObjectPoolConfig.setTestWhileIdle(pool.getTestWhileIdle());
 
@@ -84,7 +88,16 @@ public class RedisTemplateConfiguration {
         if (StringUtils.isNotBlank(standalone.getPassword())) {
             standaloneConfiguration.setPassword(RedisPassword.of(standalone.getPassword()));
         }
-        return new LettuceConnectionFactory(standaloneConfiguration, lettuceClientConfiguration);
+        return new LettuceConnectionFactory(standaloneConfiguration, lettuceClientConfiguration) {
+            @Override
+            public void afterPropertiesSet() {
+                try {
+                    super.afterPropertiesSet();
+                } catch (RedisConnectionFailureException e) {
+                    System.out.println("redis 链接断开了，此处写重连机制");
+                }
+            }
+        };
     }
 
 }
