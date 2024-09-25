@@ -19,10 +19,10 @@ public class Relationship implements CriteriaExpress {
         if(obj == null) {
             return false;
         }
-        if(!(obj instanceof Relationship other)) {
+        if(!(obj instanceof Relationship)) {
             return false;
         }
-        return relation.equals(other.relation);
+        return relation.equals(((Relationship)obj).relation);
     }
 
     @Override

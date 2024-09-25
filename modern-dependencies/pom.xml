@@ -144,11 +144,11 @@
                 <artifactId>modern-security-spring</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.modernframework</groupId>
-                <artifactId>modern-starter-boot</artifactId>
-                <version>${project.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.modernframework</groupId>-->
+<!--                <artifactId>modern-starter-boot</artifactId>-->
+<!--                <version>${project.version}</version>-->
+<!--            </dependency>-->
 
             <!-- Artifacts -->
             <dependency>
@@ -513,7 +513,6 @@
                 <artifactId>transmittable-thread-local</artifactId>
                 <version>${transmittable-thread-local.version}</version>
             </dependency>
-
 
         </dependencies>
     </dependencyManagement>
