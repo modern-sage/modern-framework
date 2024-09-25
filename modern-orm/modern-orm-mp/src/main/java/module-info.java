@@ -30,4 +30,6 @@ module modern.orm.mp {
     exports com.modern.orm.mp.mapper;
     exports com.modern.orm.mp.service;
     exports com.modern.orm.mp.utils;
+
+    opens com.modern.orm.mp.config to spring.core;
 }
