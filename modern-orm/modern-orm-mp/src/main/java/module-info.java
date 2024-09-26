@@ -25,11 +25,14 @@ module modern.orm.mp {
     requires spring.expression;
 
     exports com.modern.orm.mp;
+    exports com.modern.orm.mp.config;
     exports com.modern.orm.mp.criteria;
+    exports com.modern.orm.mp.criteria.condition;
     exports com.modern.orm.mp.generator;
     exports com.modern.orm.mp.mapper;
     exports com.modern.orm.mp.service;
     exports com.modern.orm.mp.utils;
 
     opens com.modern.orm.mp.config to spring.core;
+    opens com.modern.orm.mp to org.mybatis, com.baomidou.mybatis.plus.core;
 }
