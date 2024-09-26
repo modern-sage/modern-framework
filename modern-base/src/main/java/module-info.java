@@ -26,4 +26,6 @@ module modern.base {
     exports com.modernframework.base.service;
     exports com.modernframework.base.utils;
     exports com.modernframework.base.vo;
+
+    opens com.modernframework.base.criteria to com.fasterxml.jackson.databind;
 }
