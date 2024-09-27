@@ -72,6 +72,7 @@
         <commons-codec.version>1.13</commons-codec.version>
         <commons-net.version>3.6</commons-net.version>
         <commons-pool2.version>2.11.1</commons-pool2.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <elasticsearch.version>7.17.4</elasticsearch.version>
         <commons-text.version>1.8</commons-text.version>
         <hutool.version>5.0.4</hutool.version>
@@ -341,7 +342,6 @@
                 <version>${activiti-image-generator.version}</version>
             </dependency>
 
-            <!-- Apache Commons -->
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
@@ -472,6 +472,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
                 <version>${commons-pool2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>

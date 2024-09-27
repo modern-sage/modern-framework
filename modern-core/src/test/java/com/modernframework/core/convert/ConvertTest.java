@@ -1,9 +1,11 @@
 package com.modernframework.core.convert;
 
 
+import com.modernframework.core.utils.ClassUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -93,6 +95,21 @@ public class ConvertTest {
         Assert.assertEquals(Boolean.TRUE, ConvertUtils.convert("true", Boolean.class));
         Assert.assertEquals(Boolean.TRUE, ConvertUtils.convert("1", Boolean.class));
         Assert.assertEquals(Boolean.FALSE, ConvertUtils.convert("0", Boolean.class));
+    }
+
+    @Test
+    public void testBooleanConvert() {
+        Field[] declaredFields = Demo.class.getDeclaredFields();
+        Field declaredField = declaredFields[0];
+        Class type = declaredField.getType();
+        System.out.println(type);
+        Class aClass1 = ClassUtils.primitiveToWrapper(type);
+        System.out.println(aClass1);
+        Assert.assertEquals(Boolean.TRUE, ConvertUtils.convert(true, type));
+    }
+
+    class Demo {
+        boolean a;
     }
 
 

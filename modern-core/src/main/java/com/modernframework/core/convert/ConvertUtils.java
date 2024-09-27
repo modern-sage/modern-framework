@@ -1,6 +1,7 @@
 package com.modernframework.core.convert;
 
 
+import com.modernframework.core.utils.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,15 +33,21 @@ public abstract class ConvertUtils {
         if (source == null) {
             return defaultValue;
         }
-        if (source.getClass().equals(targetType)) {
+
+        Class actualType = targetType;
+        if (targetType.isPrimitive()) {
+            actualType = ClassUtils.primitiveToWrapper(targetType);
+        }
+
+        if (source.getClass().equals(actualType)) {
             return (T) source;
         }
         T result = null;
-        Converter converter = Converter.getConverter(source.getClass(), targetType);
+        Converter converter = Converter.getConverter(source.getClass(), actualType);
         if (converter == null) {
-            String error = String.format("未找到对应的转换器, 源: %s, 目标: %s", source.getClass(), targetType);
+            String error = String.format("未找到对应的转换器, 源: %s, 目标: %s", source.getClass(), actualType);
             if (ignoreException) {
-                log.error("未找到对应的转换器, 源: {}, 目标: {}", source.getClass(), targetType);
+                log.error("未找到对应的转换器, 源: {}, 目标: {}", source.getClass(), actualType);
             } else {
                 throw new UnsupportedOperationException(error);
             }
