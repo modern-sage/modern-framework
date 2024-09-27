@@ -18,7 +18,6 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- misc -->
         <lombok.version>1.18.26</lombok.version>
 
         <!-- Maven Plugins 版本 -->
