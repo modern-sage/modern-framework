@@ -45,6 +45,13 @@ public interface BaseDict<K, V> {
      */
     V getItem();
 
+    /**
+     * 排序
+     */
+    default int getOrder() {
+        return 0;
+    }
+
     @Data
     @NoArgsConstructor
     class DictObj implements BaseDict<Object, Object> {
