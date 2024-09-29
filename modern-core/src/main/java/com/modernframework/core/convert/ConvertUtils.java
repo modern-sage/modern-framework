@@ -39,7 +39,7 @@ public abstract class ConvertUtils {
             actualType = ClassUtils.primitiveToWrapper(targetType);
         }
 
-        if (source.getClass().equals(actualType)) {
+        if (source.getClass().equals(actualType) || actualType.isAssignableFrom(source.getClass())) {
             return (T) source;
         }
         T result = null;
