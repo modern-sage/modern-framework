@@ -59,11 +59,13 @@ public interface BaseDict<K, V> {
         private Object itemKey;
         private String itemText;
         private Object item;
+        private int order;
         public DictObj(BaseDict<?, ?> dict) {
             this.name = dict.getName();
             this.itemKey = dict.getItemKey();
             this.itemText = dict.getItemText();
             this.item = dict.getItem();
+            this.order = dict.getOrder();
         }
     }
 
