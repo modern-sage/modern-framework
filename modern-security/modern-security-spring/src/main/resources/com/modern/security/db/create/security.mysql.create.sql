@@ -20,7 +20,7 @@ create table sys_auth_details
     user_id             bigint null comment '用户id',
     username            varchar(127) not null default '' comment '用户登录名',
     access_token        varchar(511) not null default '' comment '访问凭证Token',
-    access_expire_time  bigint       not null default '' comment '访问凭证过期时间',
+    access_expire_time  bigint       not null default -1 comment '访问凭证过期时间',
     refresh_token       varchar(511) not null default '' comment '访问凭证刷新Token',
     refresh_expire_time bigint       not null comment '访问凭证刷新过期时间'
 ) comment '存储有关身份验证请求的其他详细信息' collate = utf8mb4_0900_ai_ci;
