@@ -79,7 +79,7 @@ public class SqlReadUtils {
     }
 
     @Data
-    static class SqlInit {
+    public static class SqlInit {
         private String create;
         private List<String> inserts;
     }
