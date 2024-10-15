@@ -11,10 +11,12 @@ import java.util.Map;
 
 /**
  * 数据结构初始化工具
+ * @See SqlReadUtils
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
+@Deprecated
 public class SchemaInitUtils {
 
     public final static String CT = "create table";
