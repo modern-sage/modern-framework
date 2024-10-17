@@ -19,7 +19,8 @@ public interface AuthenticationDetailsService<T extends AuthenticationDetails> {
     /**
      * 保存
      */
-    boolean saveAuthDetails(T authDetails);
+    boolean saveAuthDetails(UserCertificate certificate,
+                            long accessExpireTime, long refreshExpireTime);
 
     /**
      * 删除

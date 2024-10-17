@@ -2,6 +2,7 @@ package com.modern.security.spring.support.service.impl;
 
 import com.modern.orm.mp.service.AbstractBaseService;
 import com.modern.security.AuthenticationDetails;
+import com.modern.security.UserCertificate;
 import com.modern.security.spring.support.entity.SysAuthDetails;
 import com.modern.security.spring.support.mapper.SysAuthDetailsMapper;
 import com.modern.security.spring.support.service.SysAuthDetailsService;
@@ -45,8 +46,16 @@ public class SysAuthDetailsServiceImpl extends AbstractBaseService<SysAuthDetail
      * @return boolean
      */
     @Override
-    public boolean saveAuthDetails(SysAuthDetails authDetails) {
-        return save(authDetails);
+    public boolean saveAuthDetails(UserCertificate certificate,
+                                   long accessExpireTime, long refreshExpireTime) {
+        SysAuthDetails sysAuthDetails = new SysAuthDetails();
+        sysAuthDetails.setUserId(certificate.getUserId());
+        sysAuthDetails.setUsername(certificate.getUsername());
+        sysAuthDetails.setAccessToken(certificate.getToken());
+        sysAuthDetails.setAccessExpireTime(accessExpireTime);
+        sysAuthDetails.setRefreshToken(certificate.getRefreshToken());
+        sysAuthDetails.setRefreshExpireTime(refreshExpireTime);
+        return save(sysAuthDetails);
     }
 
     /**

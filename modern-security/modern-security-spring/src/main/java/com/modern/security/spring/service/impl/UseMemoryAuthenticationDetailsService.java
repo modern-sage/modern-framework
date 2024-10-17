@@ -1,6 +1,7 @@
 package com.modern.security.spring.service.impl;
 
 import com.modern.security.AuthenticationDetailsService;
+import com.modern.security.UserCertificate;
 import com.modern.security.spring.UserAuthenticationDetails;
 import com.modernframework.core.utils.StringUtils;
 
@@ -42,7 +43,15 @@ public class UseMemoryAuthenticationDetailsService implements AuthenticationDeta
      * 保存
      */
     @Override
-    public boolean saveAuthDetails(UserAuthenticationDetails authDetails) {
+    public boolean saveAuthDetails(UserCertificate certificate,
+                                   long accessExpireTime, long refreshExpireTime) {
+        UserAuthenticationDetails authDetails = new UserAuthenticationDetails();
+        authDetails.setUserId(certificate.getUserId());
+        authDetails.setUsername(certificate.getUsername());
+        authDetails.setAccessToken(certificate.getToken());
+        authDetails.setAccessExpireTime(accessExpireTime);
+        authDetails.setRefreshToken(certificate.getRefreshToken());
+        authDetails.setRefreshExpireTime(refreshExpireTime);
         return memoryMap.put(authDetails.getAccessToken(), authDetails) != null;
     }
 
