@@ -1,6 +1,7 @@
 package com.modern.data.redis.config;
 
 import com.modernframework.core.utils.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -24,6 +25,7 @@ import java.time.Duration;
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
+@Slf4j
 @Configuration
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisTemplateConfiguration {
@@ -35,6 +37,7 @@ public class RedisTemplateConfiguration {
      * jedis连接池信息
      */
     @Bean
+    @ConditionalOnProperty(prefix = "modern.data.redis", name = "open", havingValue = "true")
     public LettuceClientConfiguration lettuceClientConfiguration() {
         RedisProperties.Pool pool = redisProperties.getPool();
         if (pool == null) {
@@ -72,6 +75,7 @@ public class RedisTemplateConfiguration {
         if (StringUtils.isNotBlank(cluster.getPassword())) {
             clusterConfiguration.setPassword(RedisPassword.of(cluster.getPassword()));
         }
+        log.info("modern cluster redis properties: {}", lettuceClientConfiguration);
         return new LettuceConnectionFactory(clusterConfiguration, lettuceClientConfiguration);
     }
 
@@ -79,22 +83,24 @@ public class RedisTemplateConfiguration {
      * 单机模式连接工厂
      */
     @Bean
-    @ConditionalOnProperty(prefix = "modern.data.redis", name = "type", havingValue = "standalone")
+    @ConditionalOnProperty(prefix = "modern.data.redis", name = "type", havingValue = "standalone", matchIfMissing = true)
     public RedisConnectionFactory standaloneConnectionFactory(LettuceClientConfiguration lettuceClientConfiguration) {
         RedisProperties.Standalone standalone = redisProperties.getStandalone();
         RedisStandaloneConfiguration standaloneConfiguration = new RedisStandaloneConfiguration();
         standaloneConfiguration.setHostName(standalone.getHostName());
         standaloneConfiguration.setPort(standalone.getPort());
+        standaloneConfiguration.setDatabase(redisProperties.getDatabase());
         if (StringUtils.isNotBlank(standalone.getPassword())) {
             standaloneConfiguration.setPassword(RedisPassword.of(standalone.getPassword()));
         }
+        log.info("modern standalone redis properties : {} {}", standalone.getHostName(), standalone.getPort());
         return new LettuceConnectionFactory(standaloneConfiguration, lettuceClientConfiguration) {
             @Override
             public void afterPropertiesSet() {
                 try {
                     super.afterPropertiesSet();
                 } catch (RedisConnectionFailureException e) {
-                    System.out.println("redis 链接断开了，此处写重连机制");
+                    log.error("redis 链接断开了，此处写重连机制");
                 }
             }
         };

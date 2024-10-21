@@ -15,10 +15,9 @@ import java.util.List;
 @ConfigurationProperties(prefix = "modern.data.redis")
 public class RedisProperties {
 
-    public enum Type {
-        CLUSTER,
-        STANDALONE;
-    }
+    private boolean open;
+
+    private int database;
 
     /**
      * 类型；默认单体
@@ -30,6 +29,11 @@ public class RedisProperties {
     private Cluster cluster;
 
     private Standalone standalone;
+
+    public enum Type {
+        CLUSTER,
+        STANDALONE;
+    }
 
     @Data
     public static class Cluster {
