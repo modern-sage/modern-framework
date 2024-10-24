@@ -27,16 +27,17 @@
             <groupId>com.modernframework</groupId>
             <artifactId>modern-orm-mp</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.modernframework</groupId>
-            <artifactId>modern-data-redis</artifactId>
-        </dependency>
 
         <!-- 第三方-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <!-- >spring-security -->

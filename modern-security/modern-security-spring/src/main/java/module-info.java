@@ -16,10 +16,10 @@ module modern.security.spring {
     requires spring.boot.autoconfigure;
     requires spring.context;
     requires spring.core;
-    requires spring.data.redis;
     requires spring.jdbc;
     requires spring.security.config;
     requires spring.security.core;
+    requires spring.data.redis;
     requires spring.security.crypto;
     requires spring.security.web;
     requires spring.web;
