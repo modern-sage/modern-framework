@@ -141,8 +141,8 @@ public class SpringSecurityConfiguration {
                 .and().csrf().disable()
 //                .and().csrf().ignoringAntMatchers(noAuthConfiguration.getPermitAllUrls().toArray(new String[0]))
                 // 当被 @NoAuth 标注的接口没有任何的认证鉴权限制
-                .authorizeRequests(rep -> rep.antMatchers(noAuthConfiguration.getPermitAllUrls().toArray(new String[0]))
-                        .permitAll()
+                .authorizeRequests(rep -> rep
+                        .antMatchers(noAuthConfiguration.getPermitAllUrls().toArray(new String[0])).permitAll()
                         // 剩下的全部页面需要执行认证
                         .anyRequest().authenticated())
 

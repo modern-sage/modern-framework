@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.List;
+
 import static com.modern.security.spring.TokenStoragePolicy.useMemory;
 
 /**
@@ -37,6 +39,11 @@ public class SpringSecurityProperties {
      * 权限存储策略
      */
     private TokenStoragePolicy storagePolicy = useMemory;
+
+    /**
+     * 放行的地址
+     */
+    private String[] permitUrls = new String[0];
 
     public SpringSecurityProperties() {
     }

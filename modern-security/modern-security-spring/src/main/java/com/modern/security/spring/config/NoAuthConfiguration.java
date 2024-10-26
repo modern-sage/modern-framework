@@ -1,8 +1,10 @@
 package com.modern.security.spring.config;
 
 import com.modern.anno.NoAuth;
+import com.modernframework.core.utils.ArrayUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +30,6 @@ public class NoAuthConfiguration implements InitializingBean, ApplicationContext
     private static final String PATTERN = "\\{(.*?)}";
 
     public static final String ASTERISK = "*";
-
 
     private ApplicationContext applicationContext;
 
@@ -75,6 +77,10 @@ public class NoAuthConfiguration implements InitializingBean, ApplicationContext
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+        SpringSecurityProperties properties = this.applicationContext.getBean(SpringSecurityProperties.class);
+        if(ArrayUtils.isNotEmpty(properties.getPermitUrls())) {
+            this.permitAllUrls.addAll(Arrays.asList(properties.getPermitUrls()));
+        }
     }
 
     public List<String> getPermitAllUrls() {
