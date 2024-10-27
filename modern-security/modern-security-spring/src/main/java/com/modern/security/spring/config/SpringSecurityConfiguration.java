@@ -148,7 +148,7 @@ public class SpringSecurityConfiguration {
 
                 .exceptionHandling()
                 //认证异常处理
-                .authenticationEntryPoint(new AuthExceptionEntryPoint())
+//                .authenticationEntryPoint(new AuthExceptionEntryPoint())
                 //授权异常处理
                 .accessDeniedHandler(new AccessDeniedHandler())
                 //自定义认证
