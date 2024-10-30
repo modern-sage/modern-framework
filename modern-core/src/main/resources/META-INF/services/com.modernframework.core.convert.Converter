@@ -14,6 +14,7 @@ com.modernframework.core.convert.StringToDateConverter
 com.modernframework.core.convert.StringToLocalDateTimeConverter
 
 com.modernframework.core.convert.byteconvert.ByteToBoolean
+com.modernframework.core.convert.byteconvert.ByteToInteger
 
 com.modernframework.core.convert.shortconvert.ShortToBigDecimal
 com.modernframework.core.convert.shortconvert.ShortToInteger
@@ -23,6 +24,7 @@ com.modernframework.core.convert.shortconvert.ShortToString
 
 com.modernframework.core.convert.integerconvert.IntegerToShort
 com.modernframework.core.convert.integerconvert.IntegerToBigDecimal
+com.modernframework.core.convert.integerconvert.IntegerToByte
 com.modernframework.core.convert.integerconvert.IntegerToLong
 com.modernframework.core.convert.integerconvert.IntegerToString
 com.modernframework.core.convert.integerconvert.IntegerToLocalDateTime
