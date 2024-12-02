@@ -3,9 +3,13 @@ package com.modernframework.core.func;
 
 import com.modernframework.core.utils.ExceptionUtils;
 
+import java.util.function.Predicate;
+
 /**
- * @Description ThrowableFunction
+ * ThrowableFunction <br/>
+ *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @see Predicate
  * @since 1.0.0
  */
 @FunctionalInterface

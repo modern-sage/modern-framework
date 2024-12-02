@@ -3,7 +3,7 @@ package com.modernframework.core.anno;
 import java.lang.annotation.*;
 
 /**
- * The annotated element could be null under some circumstances.
+ * 可以为null的注解标记
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 0.2.0

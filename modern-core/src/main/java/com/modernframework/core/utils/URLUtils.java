@@ -1,13 +1,9 @@
 package com.modernframework.core.utils;
 
-import com.modernframework.core.codoc.RFC3986;
 import com.modernframework.core.lang.Asserts;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.net.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -222,7 +218,7 @@ public class URLUtils {
      * @return 编码后的字符
      */
     public static String encode(String url, Charset charset) {
-        return RFC3986.PATH.encode(url, charset);
+        return URLEncoder.encode(url, charset);
     }
 
 }

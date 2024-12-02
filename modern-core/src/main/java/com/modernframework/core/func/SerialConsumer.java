@@ -1,9 +1,12 @@
 package com.modernframework.core.func;
 
+import java.util.function.Predicate;
+
 /**
- * SerialConsumer
+ * SerialConsumer <br/>
  *
- * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
+ * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @see Predicate
  * @since 1.0.0
  */
 public interface SerialConsumer<P> {

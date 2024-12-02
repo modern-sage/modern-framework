@@ -29,8 +29,10 @@ public class JarClassLoader extends URLClassLoader {
      */
     public static JarClassLoader load(File dir) throws MalformedURLException {
         final JarClassLoader loader = new JarClassLoader();
-        loader.addJar(dir);//查找加载所有jar
-        loader.addURL(dir);//查找加载所有class
+        // 查找加载所有jar
+        loader.addJar(dir);
+        // 查找加载所有class
+        loader.addURL(dir);
         return loader;
     }
 
@@ -75,8 +77,6 @@ public class JarClassLoader extends URLClassLoader {
         return urlClassLoader;
     }
 
-    // ------------------------------------------------------------------- Constructor start
-
     /**
      * 构造
      */
@@ -102,7 +102,6 @@ public class JarClassLoader extends URLClassLoader {
     public JarClassLoader(URL[] urls, ClassLoader classLoader) {
         super(urls, classLoader);
     }
-    // ------------------------------------------------------------------- Constructor end
 
     /**
      * 加载Jar文件，或者加载目录
@@ -138,8 +137,6 @@ public class JarClassLoader extends URLClassLoader {
         return this;
     }
 
-    // ------------------------------------------------------------------- Private method start
-
     /**
      * 递归获得Jar文件
      *
@@ -162,5 +159,4 @@ public class JarClassLoader extends URLClassLoader {
         }
         return file.getPath().toLowerCase().endsWith(".jar");
     }
-    // ------------------------------------------------------------------- Private method end
 }

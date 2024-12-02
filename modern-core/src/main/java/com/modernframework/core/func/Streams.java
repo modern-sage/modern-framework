@@ -1,6 +1,5 @@
 package com.modernframework.core.func;
 
-
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -18,11 +17,11 @@ import static java.util.Collections.unmodifiableSet;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
-
 /**
- * The utilities class for {@link Stream}
+ * Streams <br/>
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @see Predicate
  * @since 1.0.0
  */
 public interface Streams {

@@ -3,9 +3,10 @@ package com.modernframework.core.func;
 import java.util.function.Predicate;
 
 /**
- * The utilities class for Java {@link Predicate}
+ * Predicates <br/>
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
+ * @see Predicate
  * @since 1.0.0
  */
 public interface Predicates {
