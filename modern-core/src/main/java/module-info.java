@@ -43,7 +43,6 @@ module modern.core {
             ;
 
     exports com.modernframework.core.anno;
-    exports com.modernframework.core.codoc;
     exports com.modernframework.core.constant;
     exports com.modernframework.core.convert;
     exports com.modernframework.core.func;
