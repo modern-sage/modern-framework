@@ -1,10 +1,9 @@
 package com.modern.security.spring.config;
 
-import com.modern.anno.NoAuth;
+import com.modern.security.NoAuth;
 import com.modernframework.core.utils.ArrayUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationUtils;

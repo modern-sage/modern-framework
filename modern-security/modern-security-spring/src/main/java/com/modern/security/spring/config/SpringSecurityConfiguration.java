@@ -137,7 +137,7 @@ public class SpringSecurityConfiguration {
         http.cors().and()
                 //不使用session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                //csrf关闭
+                //csrf
                 .and().csrf().disable()
 //                .and().csrf().ignoringAntMatchers(noAuthConfiguration.getPermitAllUrls().toArray(new String[0]))
                 // 当被 @NoAuth 标注的接口没有任何的认证鉴权限制
@@ -148,7 +148,7 @@ public class SpringSecurityConfiguration {
 
                 .exceptionHandling()
                 //认证异常处理
-//                .authenticationEntryPoint(new AuthExceptionEntryPoint())
+                // .authenticationEntryPoint(new AuthExceptionEntryPoint())
                 //授权异常处理
                 .accessDeniedHandler(new AccessDeniedHandler())
                 //自定义认证

@@ -1,8 +1,7 @@
 package com.modern.security.spring.support.controller;
 
-import com.modern.anno.NoAuth;
+import com.modern.security.NoAuth;
 import com.modern.security.SecurityService;
-import com.modern.security.UserCertificate;
 import com.modern.security.spring.support.controller.param.LoginParam;
 import com.modernframework.base.vo.Rs;
 import org.springframework.beans.factory.annotation.Autowired;
