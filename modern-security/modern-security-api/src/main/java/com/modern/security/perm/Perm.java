@@ -1,4 +1,4 @@
-package com.modern.security;
+package com.modern.security.perm;
 
 /**
  * 权限策略上下文
@@ -17,5 +17,8 @@ public interface Perm {
      * 通用条件关键字前缀
      */
     String PREFIX_CONDITION = "cond";
+
+    String ALLOW = "allow";
+    String DENY = "deny";
 
 }

@@ -1,12 +1,12 @@
-package com.modern.security;
+package com.modern.security.perm;
 
 /**
- * 条件
+ * 资源
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangjun</a>
  * @since 1.0.0
  */
-public interface PermCondition extends Perm {
+public interface PermResource extends Perm {
 
     /**
      * 服务唯一编码

@@ -29,6 +29,7 @@ module modern.security.spring {
     requires modern.base;
     requires modern.security.api;
     requires modern.orm.mp;
+    requires com.fasterxml.jackson.databind;
 
     exports com.modern.security.spring;
     exports com.modern.security.spring.filter;
