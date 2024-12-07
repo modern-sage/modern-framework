@@ -6,7 +6,6 @@
  */
 module modern.security.api {
 
-    exports com.modern.anno;
     exports com.modern.security;
     exports com.modern.security.perm;
 }
