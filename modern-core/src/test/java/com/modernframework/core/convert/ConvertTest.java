@@ -26,7 +26,7 @@ public class ConvertTest {
     public void convert() {
         Integer num = ConvertUtils.convertIfPossible("30000", Integer.class);
         Assert.assertNotNull(num);
-        Assert.assertTrue(num.equals(30000));
+        Assert.assertEquals(30000, (int) num);
     }
 
     @Test
