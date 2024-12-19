@@ -1,18 +1,18 @@
 package com.modernframework.core.convert.booleanconvert;
 
 /**
- * BooleanToByte
+ * BooleanToString
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
-public class BooleanToByte implements BooleanConverter<Byte> {
+public class BooleanToString implements BooleanConverter<String> {
 
     @Override
-    public Byte convert(Boolean source) {
+    public String convert(Boolean source) {
         if(source == null) {
             return null;
         }
-        return source ? (byte) 1 : (byte) 0;
+        return source.toString();
     }
 }

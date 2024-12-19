@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * ConvertTest
@@ -62,7 +65,6 @@ public class ConvertTest {
         Assert.assertEquals(String.valueOf(aa), ConvertUtils.convert(aa, String.class));
     }
 
-
     @Test
     public void testBigDecimalConvert() {
         BigDecimal aa = new BigDecimal("120");
@@ -112,5 +114,15 @@ public class ConvertTest {
         boolean a;
     }
 
+    @Test
+    public void testListConverter() {
+        List<Object> list = new ArrayList<>();
+        Assert.assertEquals("", ConvertUtils.convert(list, String.class));
+        list.add("a");
+        list.add(2);
+        list.add(true);
+        list.add(false);
+        Assert.assertEquals("a,2,true,false", ConvertUtils.convert(list, String.class));
+    }
 
 }

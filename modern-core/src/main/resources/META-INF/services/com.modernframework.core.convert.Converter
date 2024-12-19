@@ -50,3 +50,8 @@ com.modernframework.core.convert.localdatetimeconvert.LocalDateTimeToInteger
 com.modernframework.core.convert.timestampconvert.TimestampToLocalDateTime
 
 com.modernframework.core.convert.booleanconvert.BooleanToByte
+com.modernframework.core.convert.booleanconvert.BooleanToString
+
+com.modernframework.core.convert.listconvert.ListToStringConverter
+
+

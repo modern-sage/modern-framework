@@ -20,8 +20,8 @@ import java.util.function.Function;
 public interface Converter<S, T> extends Function<S, T>, Prioritized {
 
     default boolean accept(Class<?> sourceType, Class<?> targetType) {
-        return ClassUtils.isAssignableFrom(sourceType, getSourceType())
-                && ClassUtils.isAssignableFrom(targetType, getTargetType());
+        return ClassUtils.isAssignableFrom(getSourceType(), sourceType)
+                && ClassUtils.isAssignableFrom(getTargetType(), targetType);
     }
 
     T convert(S source);

@@ -509,11 +509,10 @@ public abstract class ClassUtils {
      * @return If can't be resolved , return <code>null</code>
      * @see #loadClass(String, boolean)
      */
-    @Deprecated
-    public static <T> Class<T> resolveClass(String className, ClassLoader classLoader) {
-        Class<T> targetClass = null;
+    public static Class<?> resolveClass(String className, ClassLoader classLoader) {
+        Class<?> targetClass = null;
         try {
-            targetClass = (Class<T>) forName(className, classLoader);
+            targetClass = forName(className, classLoader);
         } catch (Throwable ignored) { // Ignored
         }
         return targetClass;
@@ -527,11 +526,10 @@ public abstract class ClassUtils {
      * @see #loadClass(String)
      * @since 1.0.0
      */
-    @Deprecated
-    public static <T> Class<T> resolveClass(String className) {
-        Class<T> targetClass = null;
+    public static Class<?> resolveClass(String className) {
+        Class<?> targetClass = null;
         try {
-            targetClass = (Class<T>) forName(className, ClassLoaderUtils.getClassLoader());
+            targetClass = forName(className, ClassLoaderUtils.getClassLoader());
         } catch (Throwable ignored) { // Ignored
         }
         return targetClass;

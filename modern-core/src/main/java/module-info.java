@@ -1,3 +1,5 @@
+import com.modernframework.core.convert.listconvert.ListConverter;
+
 /**
  * module
  *
@@ -39,7 +41,9 @@ module modern.core {
             com.modernframework.core.convert.localdatetimeconvert.LocalDateTimeToBigDecimal, com.modernframework.core.convert.localdatetimeconvert.LocalDateTimeToLong,
             com.modernframework.core.convert.localdatetimeconvert.LocalDateTimeToShort,
             com.modernframework.core.convert.timestampconvert.TimestampToLocalDateTime,
-            com.modernframework.core.convert.booleanconvert.BooleanToByte
+            com.modernframework.core.convert.booleanconvert.BooleanToByte,
+            com.modernframework.core.convert.booleanconvert.BooleanToString,
+            com.modernframework.core.convert.listconvert.ListToStringConverter
             ;
 
     exports com.modernframework.core.anno;
@@ -49,4 +53,5 @@ module modern.core {
     exports com.modernframework.core.lang;
     exports com.modernframework.core.map;
     exports com.modernframework.core.utils;
+    exports com.modernframework.core.convert.listconvert;
 }
