@@ -18,9 +18,10 @@ public class ListToStringConverter implements ListConverter<String> {
         if(CollectionUtils.isEmpty(source)) {
             return "";
         }
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder("[");
         source.forEach(x -> builder.append(ConvertUtils.convert(x, String.class)).append(COMMA));
         builder.deleteCharAt(builder.length() - 1);
+        builder.append("]");
         return builder.toString();
     }
 
