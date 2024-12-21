@@ -9,6 +9,9 @@ import com.modernframework.core.utils.TypeUtils;
 import java.util.Collection;
 import java.util.Optional;
 
+import static com.modernframework.core.constant.StrConstant.BRACKET_END;
+import static com.modernframework.core.constant.StrConstant.BRACKET_START;
+
 public abstract class StringToIterableConverter<T extends Iterable> implements StringToMultiValueConverter {
 
     public boolean accept(Class<String> type, Class<?> multiValueType) {
@@ -28,6 +31,11 @@ public abstract class StringToIterableConverter<T extends Iterable> implements S
                 Collection collection = (Collection) convertedObject;
                 for (int i = 0; i < size; i++) {
                     String segment = segments[i];
+                    if(i == 0 && segment.startsWith(BRACKET_START)) {
+                        segment = segment.substring(1);
+                    } else if (i == size - 1 && segment.endsWith(BRACKET_END)) {
+                        segment = segment.substring(0, segment.length() - 1);
+                    }
                     Object element = converter.convert(segment);
                     collection.add(element);
                 }

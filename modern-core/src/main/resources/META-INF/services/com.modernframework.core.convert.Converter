@@ -24,6 +24,7 @@ com.modernframework.core.convert.shortconvert.ShortToString
 
 com.modernframework.core.convert.integerconvert.IntegerToShort
 com.modernframework.core.convert.integerconvert.IntegerToBigDecimal
+com.modernframework.core.convert.integerconvert.IntegerToBoolean
 com.modernframework.core.convert.integerconvert.IntegerToByte
 com.modernframework.core.convert.integerconvert.IntegerToLong
 com.modernframework.core.convert.integerconvert.IntegerToString
