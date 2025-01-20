@@ -17,7 +17,8 @@ module modern.core {
 
     uses com.modernframework.core.convert.Converter;
     provides com.modernframework.core.convert.Converter with
-            com.modernframework.core.convert.StringToBooleanConverter, com.modernframework.core.convert.StringToCharacterConverter,
+            com.modernframework.core.convert.StringToBigDecimalConverter, com.modernframework.core.convert.StringToBooleanConverter,
+            com.modernframework.core.convert.StringToByteConverter, com.modernframework.core.convert.StringToCharacterConverter,
             com.modernframework.core.convert.StringToCharArrayConverter, com.modernframework.core.convert.StringToClassConverter,
             com.modernframework.core.convert.StringToDoubleConverter, com.modernframework.core.convert.StringToFloatConverter,
             com.modernframework.core.convert.StringToIntegerConverter, com.modernframework.core.convert.StringToLongConverter,
@@ -29,7 +30,7 @@ module modern.core {
             com.modernframework.core.convert.shortconvert.ShortToLocalDateTime, com.modernframework.core.convert.shortconvert.ShortToLong,
             com.modernframework.core.convert.shortconvert.ShortToString,
             com.modernframework.core.convert.integerconvert.IntegerToBigDecimal,
-            com.modernframework.core.convert.integerconvert.IntegerToByte,     com.modernframework.core.convert.integerconvert.IntegerToBoolean,
+            com.modernframework.core.convert.integerconvert.IntegerToByte, com.modernframework.core.convert.integerconvert.IntegerToBoolean,
             com.modernframework.core.convert.integerconvert.IntegerToLocalDateTime, com.modernframework.core.convert.integerconvert.IntegerToLong,
             com.modernframework.core.convert.integerconvert.IntegerToShort, com.modernframework.core.convert.integerconvert.IntegerToString,
             com.modernframework.core.convert.longconvert.LongToBigDecimal, com.modernframework.core.convert.longconvert.LongToInteger,

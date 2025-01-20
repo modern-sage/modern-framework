@@ -1,4 +1,6 @@
+com.modernframework.core.convert.StringToBigDecimalConverter
 com.modernframework.core.convert.StringToBooleanConverter
+com.modernframework.core.convert.StringToByteConverter
 com.modernframework.core.convert.StringToCharacterConverter
 com.modernframework.core.convert.StringToCharArrayConverter
 com.modernframework.core.convert.StringToClassConverter
