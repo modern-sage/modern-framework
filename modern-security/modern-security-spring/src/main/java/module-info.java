@@ -31,13 +31,20 @@ module modern.security.spring {
     requires modern.orm.mp;
     requires com.fasterxml.jackson.databind;
 
+    opens com.modern.security.spring.config to spring.core;
+    opens com.modern.security.spring.support.controller to spring.core;
+    opens com.modern.security.spring.support.entity to com.baomidou.mybatis.plus.core;
+
     exports com.modern.security.spring;
     exports com.modern.security.spring.filter;
     exports com.modern.security.spring.handler;
     exports com.modern.security.spring.service;
     exports com.modern.security.spring.support.controller;
+    exports com.modern.security.spring.support.controller.param;
     exports com.modern.security.spring.support.entity;
     exports com.modern.security.spring.support.mapper;
     exports com.modern.security.spring.support.service;
+    exports com.modern.security.spring.support.service.impl;
     exports com.modern.security.spring.utils;
+    exports com.modern.security.spring.config;
 }
