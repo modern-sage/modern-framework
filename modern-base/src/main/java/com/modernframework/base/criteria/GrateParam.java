@@ -44,11 +44,6 @@ public class GrateParam<T> implements Serializable {
     @JsonIgnore
     protected CriteriaExpressBlock ceb = new CriteriaExpressBlock();
 
-//    /**
-//     * 查询条件
-//     */
-//    protected Map<String, Object> params = new LinkedHashMap<>();
-
     /**
      * 限制的查询字段，为null 或为空则为查询全部
      */
@@ -58,6 +53,12 @@ public class GrateParam<T> implements Serializable {
      * 排除字段
      */
     protected List<String> excludesAttributes = new ArrayList<>();
+
+    /**
+     * 强制查询全部字段，当开启的时候，会强制查询所有的字段
+     * {@link GrateParam##excludesAttributes}会处于失效状态，为空
+     */
+    protected boolean queryAllForce = false;
 
     /**
      * 排序字段
