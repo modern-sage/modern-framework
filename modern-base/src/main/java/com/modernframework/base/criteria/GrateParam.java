@@ -147,6 +147,12 @@ public class GrateParam<T> implements Serializable {
 
     // ------------------------ 指定字段 -------------------------
 
+    public GrateParam<T> setQueryAllForce(boolean queryAllForce) {
+        this.queryAllForce = queryAllForce;
+        return this;
+    }
+
+
     /**
      * 选择属性
      *
