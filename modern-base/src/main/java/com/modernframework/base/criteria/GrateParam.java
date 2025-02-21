@@ -84,17 +84,6 @@ public class GrateParam<T> implements Serializable {
         this.eq(logic, ATTR_DELETE_FLAG, NO);
     }
 
-//    /**
-//     * 有参构造器，默认把入参对象不为null的属性拼成eq条件对象
-//     *
-//     * @param entity 查询对象，所有属性用eq条件查询
-//     */
-//    public GrateParam(T entity) {
-//        if (entity != null) {
-//            this.params = (Map<String, Object>) JSONObject.toBean(JSONObject.fromObject(entity), Map.class);
-//        }
-//    }
-
     // ------------------------ 分页条件 -------------------------
 
     /**
@@ -134,16 +123,6 @@ public class GrateParam<T> implements Serializable {
         return orderBys;
     }
 
-    // ------------------------ Params -------------------------
-
-//    public boolean containAttribute(String attribute) {
-//        return this.params.containsKey(attribute);
-//    }
-
-//    public GrateParam<T> putParam(String attribute, Object value) {
-//        this.params.put(attribute, value);
-//        return this;
-//    }
 
     // ------------------------ 指定字段 -------------------------
 
