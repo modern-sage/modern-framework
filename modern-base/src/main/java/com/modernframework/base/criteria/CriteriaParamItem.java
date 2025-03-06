@@ -30,10 +30,10 @@ public class CriteriaParamItem implements CriteriaParam<Object>, CriteriaExpress
     /**
      * 查询条件
      */
-    protected ConditionType conditionType;
+    protected String conditionType;
 
     @Override
     public String toString() {
-        return attribute + " " + conditionType.name() + " " + value;
+        return attribute + " " + conditionType + " " + value;
     }
 }

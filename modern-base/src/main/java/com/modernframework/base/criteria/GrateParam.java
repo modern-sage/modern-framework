@@ -1113,7 +1113,7 @@ public class GrateParam<T> implements Serializable {
      * @return QueryParam<T>
      */
     private GrateParam<T> andParam(String attribute, Object value, ConditionType conditionType) {
-        ceb.and(new CriteriaParamItem(attribute, value, conditionType));
+        ceb.and(new CriteriaParamItem(attribute, value, conditionType.name()));
         return this;
     }
 
@@ -1125,7 +1125,7 @@ public class GrateParam<T> implements Serializable {
      * @return QueryParam<T>
      */
     private GrateParam<T> orParam(String attribute, Object value, ConditionType conditionType) {
-        ceb.or(new CriteriaParamItem(attribute, value, conditionType));
+        ceb.or(new CriteriaParamItem(attribute, value, conditionType.name()));
         return this;
     }
 

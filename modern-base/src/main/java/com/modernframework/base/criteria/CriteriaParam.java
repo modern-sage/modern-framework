@@ -18,7 +18,7 @@ public interface CriteriaParam<T> extends CriteriaExpress, Serializable {
      *
      * @return CriteriaType
      */
-    ConditionType getConditionType();
+    String getConditionType();
 
     /**
      * 获取查询条件名称

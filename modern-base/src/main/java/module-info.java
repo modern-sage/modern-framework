@@ -27,5 +27,5 @@ module modern.base {
     exports com.modernframework.base.utils;
     exports com.modernframework.base.vo;
 
-    opens com.modernframework.base.criteria to com.fasterxml.jackson.databind;
+    opens com.modernframework.base.criteria to com.fasterxml.jackson.databind, ezmorph;
 }

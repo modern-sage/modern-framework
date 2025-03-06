@@ -1,10 +1,7 @@
 package com.modernframework.base.criteria;
 
 import com.modernframework.base.criteria.type.ConditionType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,11 +15,8 @@ import static com.modernframework.base.BaseConstant.RELATIONSHIP_AND;
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
-@Getter
-@Accessors(chain = true)
-@NoArgsConstructor
-@AllArgsConstructor
-public class ApiCriteriaItem implements Serializable {
+@Data
+public class CriteriaItem implements Serializable {
 
     /**
      * 连接符号
@@ -40,8 +34,11 @@ public class ApiCriteriaItem implements Serializable {
     /**
      * 查询条件
      */
-    private ConditionType condition;
+    private String condition;
 
-    private List<ApiCriteriaItem> embedded;
+    /**
+     * 内嵌条件
+     */
+    private List<CriteriaItem> embedded;
 
 }

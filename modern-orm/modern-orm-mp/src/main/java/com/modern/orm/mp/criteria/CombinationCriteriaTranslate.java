@@ -22,10 +22,10 @@ import java.util.Map;
  */
 public class CombinationCriteriaTranslate implements ICriteriaTranslate<QueryWrapper<?>> {
 
-    private static final Map<ConditionType, MpCriteriaTranslate> CRITERIA_MAP;
+    private static final Map<String, MpCriteriaTranslate> CRITERIA_MAP;
 
     static {
-        Map<ConditionType, MpCriteriaTranslate> map = new HashMap<>();
+        Map<String, MpCriteriaTranslate> map = new HashMap<>();
         Arrays.asList(
                 new Between(),
                 new Eq(),
@@ -39,7 +39,7 @@ public class CombinationCriteriaTranslate implements ICriteriaTranslate<QueryWra
                 new Like(),
                 new Ne(),
                 new PrimaryKey()
-        ).forEach(c -> map.put(c.getConditionType(), c));
+        ).forEach(c -> map.put(c.getConditionType().name(), c));
         CRITERIA_MAP = Collections.unmodifiableMap(map);
     }
 

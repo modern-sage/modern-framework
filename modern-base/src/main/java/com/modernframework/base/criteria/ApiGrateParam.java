@@ -24,7 +24,7 @@ public class ApiGrateParam implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private List<ApiCriteriaItem> criteria = new LinkedList<>();
+    private List<CriteriaItem> criteria = new LinkedList<>();
 
     private PageParam pageParam = new PageParam();
 
@@ -50,9 +50,9 @@ public class ApiGrateParam implements Serializable {
         return param;
     }
 
-    private <T> void recursionSetParam(GrateParam<T> param, List<ApiCriteriaItem> embedded) {
+    private <T> void recursionSetParam(GrateParam<T> param, List<CriteriaItem> embedded) {
         for (int i = 0; i < embedded.size(); i++) {
-            ApiCriteriaItem c = embedded.get(i);
+            CriteriaItem c = embedded.get(i);
             if(CollectionUtils.isNotEmpty(c.getEmbedded())) {
                 param.ceb.appendNode(new Relationship(c.getLink()));
                 param.ceb.appendNode(EMBEDDED_START);
