@@ -36,7 +36,7 @@ public class GrateParam<T> implements Serializable {
     /**
      * 分页条件
      */
-    private PageParam pageParam = new PageParam();
+    protected PageParam pageParam = new PageParam();
 
     /**
      * 查询条件，数组形式
