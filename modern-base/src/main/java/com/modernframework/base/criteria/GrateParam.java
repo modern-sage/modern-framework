@@ -156,23 +156,20 @@ public class GrateParam<T> implements Serializable {
 
     /**
      * 选择属性
-     *
-     * @return QueryParam<T>
      */
     public GrateParam<T> select(SerialFunction<T, ?>... functions) {
         this.includeAttributes.addAll(Arrays.stream(functions).map(this::getAttributeNameFromMethod).collect(Collectors.toList()));
         return this;
     }
 
-//    /**
-//     * 指定查询字段
-//     *
-//     * @param fields 字段名边长数组
-//     * @return QueryParam<T>
-//     */
-//    public QueryParam<T> select(SerialFunction<T, ?>... fields) {
-//        return includeAttributes(fields);
-//    }
+    /**
+     * 选择属性
+     */
+    public <R> GrateParam<T> select(Class<R> clazz, SerialFunction<R, ?>... functions) {
+        this.includeAttributes.addAll(Arrays.stream(functions).map(this::getAttributeNameFromMethod).collect(Collectors.toList()));
+        return this;
+    }
+
 
 //    /**
 //     * 排除查询字段
@@ -222,6 +219,17 @@ public class GrateParam<T> implements Serializable {
     /**
      * AND 相等查询参数
      *
+     * @param attrFun 参数名
+     * @param value   参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> eq(Class<R> c, SerialFunction<R, ?> attrFun, Object value) {
+        return append(true, c, R_AND, ConditionType.EQ, attrFun, value);
+    }
+
+    /**
+     * AND 相等查询参数
+     *
      * @param ifTrue    是否成立
      * @param attribute 参数名
      * @param value     参数值
@@ -244,6 +252,19 @@ public class GrateParam<T> implements Serializable {
     }
 
     /**
+     * AND 相等查询参数
+     *
+     * @param ifTrue  是否成立
+     * @param attrFun 参数名
+     * @param value   参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> eq(boolean ifTrue, Class<R> c, SerialFunction<R, ?> attrFun, Object value) {
+        return append(ifTrue, c, R_AND, ConditionType.EQ, attrFun, value);
+    }
+
+
+    /**
      * OR 相等查询参数
      *
      * @param attribute 参数名
@@ -263,6 +284,17 @@ public class GrateParam<T> implements Serializable {
      */
     public GrateParam<T> orEq(SerialFunction<T, ?> attrFun, Object value) {
         return append(true, R_OR, ConditionType.EQ, attrFun, value);
+    }
+
+    /**
+     * OR 相等查询参数
+     *
+     * @param attrFun 参数名
+     * @param value   参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> orEq(Class<R> c, SerialFunction<R, ?> attrFun, Object value) {
+        return append(true, c, R_OR, ConditionType.EQ, attrFun, value);
     }
 
     /**
@@ -290,6 +322,18 @@ public class GrateParam<T> implements Serializable {
     }
 
     /**
+     * OR 相等查询参数
+     *
+     * @param ifTrue  是否成立
+     * @param attrFun 参数名
+     * @param value   参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> orEq(boolean ifTrue, Class<R> c, SerialFunction<R, ?> attrFun, Object value) {
+        return append(ifTrue, c, R_OR, ConditionType.EQ, attrFun, value);
+    }
+
+    /**
      * AND 不等参数
      *
      * @param attribute 参数名
@@ -298,6 +342,28 @@ public class GrateParam<T> implements Serializable {
      */
     public GrateParam<T> notEq(String attribute, Object value) {
         return append(true, R_AND, ConditionType.NOT_EQUAL, attribute, value);
+    }
+
+    /**
+     * AND 不等参数
+     *
+     * @param attrFun 参数名
+     * @param value   参数值
+     * @return QueryParam<T>
+     */
+    public GrateParam<T> notEq(SerialFunction<T, ?> attrFun, Object value) {
+        return append(true, R_AND, ConditionType.NOT_EQUAL, attrFun, value);
+    }
+
+    /**
+     * AND 不等参数
+     *
+     * @param attrFun 参数名
+     * @param value   参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> notEq(Class<R> c, SerialFunction<R, ?> attrFun, Object value) {
+        return append(true, c, R_AND, ConditionType.NOT_EQUAL, attrFun, value);
     }
 
     /**
@@ -312,6 +378,30 @@ public class GrateParam<T> implements Serializable {
     }
 
     /**
+     * AND 不等参数
+     *
+     * @param ifTrue  是否成立
+     * @param attrFun 参数名
+     * @param value   参数值
+     * @return QueryParam<T>
+     */
+    public GrateParam<T> notEq(boolean ifTrue, SerialFunction<T, ?> attrFun, Object value) {
+        return append(ifTrue, R_AND, ConditionType.NOT_EQUAL, attrFun, value);
+    }
+
+    /**
+     * AND 不等参数
+     *
+     * @param ifTrue  是否成立
+     * @param attrFun 参数名
+     * @param value   参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> notEq(boolean ifTrue, Class<R> c, SerialFunction<R, ?> attrFun, Object value) {
+        return append(ifTrue, c, R_AND, ConditionType.NOT_EQUAL, attrFun, value);
+    }
+
+    /**
      * OR 不等参数
      *
      * @param attribute 参数名
@@ -322,16 +412,6 @@ public class GrateParam<T> implements Serializable {
         return append(true, R_OR, ConditionType.NOT_EQUAL, attribute, value);
     }
 
-    /**
-     * AND 不等参数
-     *
-     * @param getMethod 参数Get方法函数
-     * @param value     参数值
-     * @return QueryParam<T>
-     */
-    public GrateParam<T> notEq(SerialFunction<T, ?> getMethod, Object value) {
-        return append(true, R_AND, ConditionType.NOT_EQUAL, getMethod, value);
-    }
 
     /**
      * OR 不等参数
@@ -342,6 +422,17 @@ public class GrateParam<T> implements Serializable {
      */
     public GrateParam<T> orNotEq(SerialFunction<T, ?> getMethod, Object value) {
         return append(true, R_OR, ConditionType.NOT_EQUAL, getMethod, value);
+    }
+
+    /**
+     * OR 不等参数
+     *
+     * @param getMethod 参数Get方法函数
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> orNotEq(Class<R> c, SerialFunction<R, ?> getMethod, Object value) {
+        return append(true, c, R_OR, ConditionType.NOT_EQUAL, getMethod, value);
     }
 
     /**
@@ -356,14 +447,14 @@ public class GrateParam<T> implements Serializable {
     }
 
     /**
-     * OR 模糊参数
+     * AND 模糊参数
      *
-     * @param attribute 参数名
+     * @param getMethod 参数Get方法函数
      * @param value     参数值
      * @return QueryParam<T>
      */
-    public GrateParam<T> orLike(String attribute, Object value) {
-        return append(true, R_OR, ConditionType.LIKE, attribute, value);
+    public GrateParam<T> like(SerialFunction<T, ?> getMethod, Object value) {
+        return append(true, R_AND, ConditionType.LIKE, getMethod, value);
     }
 
     /**
@@ -373,8 +464,19 @@ public class GrateParam<T> implements Serializable {
      * @param value     参数值
      * @return QueryParam<T>
      */
-    public GrateParam<T> like(SerialFunction<T, ?> getMethod, Object value) {
-        return append(true, R_AND, ConditionType.LIKE, getMethod, value);
+    public <R> GrateParam<T> like(Class<R> c, SerialFunction<R, ?> getMethod, Object value) {
+        return append(true, c, R_AND, ConditionType.LIKE, getMethod, value);
+    }
+
+    /**
+     * OR 模糊参数
+     *
+     * @param attribute 参数名
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public GrateParam<T> orLike(String attribute, Object value) {
+        return append(true, R_OR, ConditionType.LIKE, attribute, value);
     }
 
     /**
@@ -389,6 +491,17 @@ public class GrateParam<T> implements Serializable {
     }
 
     /**
+     * OR 模糊参数
+     *
+     * @param getMethod 参数Get方法函数
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> orLike(Class<R> c, SerialFunction<R, ?> getMethod, Object value) {
+        return append(true, c, R_OR, ConditionType.LIKE, getMethod, value);
+    }
+
+    /**
      * AND 左模糊参数
      *
      * @param attribute 参数名
@@ -397,17 +510,6 @@ public class GrateParam<T> implements Serializable {
      */
     public GrateParam<T> likeLeft(String attribute, Object value) {
         return append(true, R_AND, ConditionType.LIKE_LEFT, attribute, value);
-    }
-
-    /**
-     * OR 左模糊参数
-     *
-     * @param attribute 参数名
-     * @param value     参数值
-     * @return QueryParam<T>
-     */
-    public GrateParam<T> orLikeLeft(String attribute, Object value) {
-        return append(true, R_OR, ConditionType.LIKE_LEFT, attribute, value);
     }
 
     /**
@@ -422,6 +524,28 @@ public class GrateParam<T> implements Serializable {
     }
 
     /**
+     * AND 左模糊参数
+     *
+     * @param getMethod 参数Get方法函数
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> likeLeft(Class<R> c, SerialFunction<R, ?> getMethod, Object value) {
+        return append(true, c, R_AND, ConditionType.LIKE_LEFT, getMethod, value);
+    }
+
+    /**
+     * OR 左模糊参数
+     *
+     * @param attribute 参数名
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public GrateParam<T> orLikeLeft(String attribute, Object value) {
+        return append(true, R_OR, ConditionType.LIKE_LEFT, attribute, value);
+    }
+
+    /**
      * OR 左模糊参数
      *
      * @param getMethod 参数Get方法函数
@@ -430,6 +554,17 @@ public class GrateParam<T> implements Serializable {
      */
     public GrateParam<T> orLikeLeft(SerialFunction<T, ?> getMethod, Object value) {
         return append(true, R_OR, ConditionType.LIKE_LEFT, getMethod, value);
+    }
+
+    /**
+     * OR 左模糊参数
+     *
+     * @param getMethod 参数Get方法函数
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> orLikeLeft(Class<R> c,SerialFunction<R, ?> getMethod, Object value) {
+        return append(true, c, R_OR, ConditionType.LIKE_LEFT, getMethod, value);
     }
 
 
@@ -467,6 +602,17 @@ public class GrateParam<T> implements Serializable {
     }
 
     /**
+     * AND 右模糊参数
+     *
+     * @param getMethod 参数Get方法函数
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> likeRight(Class<R> c, SerialFunction<R, ?> getMethod, Object value) {
+        return append(true, c, R_AND, ConditionType.LIKE_RIGHT, getMethod, value);
+    }
+
+    /**
      * OR 右模糊参数
      *
      * @param getMethod 参数Get方法函数
@@ -478,6 +624,17 @@ public class GrateParam<T> implements Serializable {
     }
 
     /**
+     * OR 右模糊参数
+     *
+     * @param getMethod 参数Get方法函数
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> orLikeRight(Class<R> c, SerialFunction<R, ?> getMethod, Object value) {
+        return append(true, c, R_OR, ConditionType.LIKE_RIGHT, getMethod, value);
+    }
+
+    /**
      * AND 大于参数
      *
      * @param attribute 参数名
@@ -486,17 +643,6 @@ public class GrateParam<T> implements Serializable {
      */
     public GrateParam<T> gt(String attribute, Object value) {
         return append(true, R_AND, ConditionType.GT, attribute, value);
-    }
-
-    /**
-     * OR 大于参数
-     *
-     * @param attribute 参数名
-     * @param value     参数值
-     * @return QueryParam<T>
-     */
-    public GrateParam<T> orGt(String attribute, Object value) {
-        return append(true, R_OR, ConditionType.GT, attribute, value);
     }
 
     /**
@@ -513,12 +659,35 @@ public class GrateParam<T> implements Serializable {
     /**
      * OR 大于参数
      *
+     * @param attribute 参数名
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public GrateParam<T> orGt(String attribute, Object value) {
+        return append(true, R_OR, ConditionType.GT, attribute, value);
+    }
+
+
+    /**
+     * OR 大于参数
+     *
      * @param getMethod 参数Get方法函数
      * @param value     参数值
      * @return QueryParam<T>
      */
     public GrateParam<T> orGt(SerialFunction<T, ?> getMethod, Object value) {
         return append(true, R_OR, ConditionType.GT, getMethod, value);
+    }
+
+    /**
+     * OR 大于参数
+     *
+     * @param getMethod 参数Get方法函数
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> orGt(Class<R> c, SerialFunction<R, ?> getMethod, Object value) {
+        return append(true, c, R_OR, ConditionType.GT, getMethod, value);
     }
 
 
@@ -1087,6 +1256,18 @@ public class GrateParam<T> implements Serializable {
     /**
      * 添加查询参数
      *
+     * @param ifTrue  是否成立
+     * @param attrFun 参数名
+     * @param value   参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> append(boolean ifTrue, Class<R> c,Relationship relationship, ConditionType conditionType, SerialFunction<R, ?> attrFun, Object value) {
+        return append(ifTrue, relationship, conditionType, getAttributeNameFromMethod(attrFun), value);
+    }
+
+    /**
+     * 添加查询参数
+     *
      * @param ifTrue        是否成立
      * @param attributeName 参数名
      * @param value         参数值
@@ -1135,7 +1316,7 @@ public class GrateParam<T> implements Serializable {
      * @param function 字段属性名称
      * @return String
      */
-    private String getAttributeNameFromMethod(SerialFunction<T, ?> function) {
+    private <R> String getAttributeNameFromMethod(SerialFunction<R, ?> function) {
         return LambdaUtils.getFieldName(function);
     }
 }
