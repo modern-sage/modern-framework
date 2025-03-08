@@ -343,14 +343,13 @@ public abstract class StringUtils {
         if (isBlank(param)) {
             return EMPTY;
         }
-        String temp = param.toLowerCase();
-        int len = temp.length();
+        int len = param.length();
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
-            char c = temp.charAt(i);
+            char c = param.charAt(i);
             if (c == UNDERLINE) {
                 if (++i < len) {
-                    sb.append(Character.toUpperCase(temp.charAt(i)));
+                    sb.append(Character.toUpperCase(param.charAt(i)));
                 }
             } else {
                 sb.append(c);
