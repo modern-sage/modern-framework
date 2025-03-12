@@ -858,6 +858,18 @@ public class GrateParam<T> implements Serializable {
     }
 
     /**
+     * AND 范围参数
+     *
+     * @param getMethod 参数Get方法函数
+     * @param value     参数值
+     * @return QueryParam<T>
+     */
+    public <R> GrateParam<T> in(Class<R> c, SerialFunction<R, ?> getMethod, Collection<?> value) {
+        return append(true, c, R_AND, ConditionType.IN, getMethod, value);
+    }
+
+
+    /**
      * OR 范围参数
      *
      * @param getMethod 参数Get方法函数
