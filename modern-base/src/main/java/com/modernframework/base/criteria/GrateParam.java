@@ -170,29 +170,19 @@ public class GrateParam<T> implements Serializable {
         return this;
     }
 
-
-//    /**
-//     * 排除查询字段
-//     *
-//     * @param attributes 字段名边长数组
-//     * @return QueryParam<T>
-//     */
-//    public QueryParam<T> excludeAttributes(String... attributes) {
-//        this.excludesAttributes.addAll(Arrays.asList(attributes));
-//        return this;
-//    }
-//
-//    /**
-//     * 排除查询字段
-//     *
-//     * @param fields 字段边长数组
-//     * @return QueryParam<T>
-//     */
-//    public QueryParam<T> excludeAttributes(SerialFunction<T, ?>... fields) {
-//        List<SerialFunction<T, ?>> list = Arrays.asList(fields);
-//        this.excludesAttributes.addAll(list.stream().map(this::columnsToString).collect(Collectors.toList()));
-//        return this;
-//    }
+    /**
+     * 排序
+     */
+    public GrateParam<T> setOrderBy(String attribute, boolean isAsc) {
+        if(this.getOrderBys() == null) {
+            this.setOrderBys(new ArrayList<>());
+        }
+        OrderBy orderBy = new OrderBy();
+        orderBy.setAttribute(attribute);
+        orderBy.setAsc(isAsc? BaseConstant.ASC : BaseConstant.DESC);
+        this.getOrderBys().add(orderBy);
+        return this;
+    }
 
     /**
      * AND 相等查询参数
