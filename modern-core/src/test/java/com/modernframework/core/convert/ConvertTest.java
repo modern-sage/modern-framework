@@ -122,7 +122,7 @@ public class ConvertTest {
         list.add(2);
         list.add(true);
         list.add(false);
-        Assert.assertEquals("a,2,true,false", ConvertUtils.convert(list, String.class));
+        Assert.assertEquals("[a,2,true,false]", ConvertUtils.convert(list, String.class));
     }
 
 }
