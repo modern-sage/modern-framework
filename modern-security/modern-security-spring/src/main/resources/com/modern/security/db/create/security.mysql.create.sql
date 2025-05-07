@@ -3,7 +3,7 @@ create table sys_auth_user
     id                     bigint auto_increment comment '主键' primary key,
     username               varchar(127) not null default '' comment '用户登录名',
     password               varchar(127) not null default '' comment '用户密码',
-    permissions            text null comment 'Token值',
+    permissions            text null comment '权限',
     is_enabled             tinyint      not null default 1 comment '是否启用。1：启用，0：未启用',
     is_expired             tinyint      not null default 0 comment '账号是否过期。1：已经过期，0：未过期',
     is_locked              tinyint      not null default 0 comment '账号是否被锁。1：被锁，0：未被锁',
@@ -22,5 +22,6 @@ create table sys_auth_details
     access_token        varchar(511) not null default '' comment '访问凭证Token',
     access_expire_time  bigint       not null default -1 comment '访问凭证过期时间',
     refresh_token       varchar(511) not null default '' comment '访问凭证刷新Token',
-    refresh_expire_time bigint       not null comment '访问凭证刷新过期时间'
+    refresh_expire_time bigint       not null comment '访问凭证刷新过期时间',
+    permissions            text null comment '权限'
 ) comment '存储有关身份验证请求的其他详细信息' collate = utf8mb4_0900_ai_ci;

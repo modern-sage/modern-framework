@@ -48,4 +48,9 @@ public class SysAuthDetails extends IdPo<SysAuthDetails> implements Authenticati
      */
     private Long refreshExpireTime;
 
+    /**
+     * 权限集合
+     */
+    private String permissions;
+
 }

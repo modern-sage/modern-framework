@@ -55,6 +55,7 @@ public class SysAuthDetailsServiceImpl extends AbstractBaseService<SysAuthDetail
         sysAuthDetails.setAccessExpireTime(accessExpireTime);
         sysAuthDetails.setRefreshToken(certificate.getRefreshToken());
         sysAuthDetails.setRefreshExpireTime(refreshExpireTime);
+        sysAuthDetails.setPermissions(certificate.getPermissions());
         return save(sysAuthDetails);
     }
 

@@ -3,6 +3,8 @@ package com.modern.security.spring;
 import com.modernframework.base.security.context.SessionUser;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * DefaultSessionUser
  *
@@ -41,5 +43,10 @@ public class DefaultSessionUser implements SessionUser {
      * 访问凭证刷新过期时间
      */
     private Long refreshExpireTime;
+
+    /**
+     * 权限集合
+     */
+    private List<String> permissions;
 
 }

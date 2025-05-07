@@ -39,4 +39,9 @@ public interface AuthenticationDetails {
      */
     Long getRefreshExpireTime();
 
+    /**
+     * 权限集合
+     */
+    String getPermissions();
+
 }

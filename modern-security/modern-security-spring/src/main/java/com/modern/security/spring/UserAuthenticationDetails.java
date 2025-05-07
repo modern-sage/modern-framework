@@ -48,4 +48,9 @@ public class UserAuthenticationDetails implements AuthenticationDetails, Seriali
      */
     private Long refreshExpireTime;
 
+    /**
+     * 权限集合
+     */
+    private String permissions;
+
 }

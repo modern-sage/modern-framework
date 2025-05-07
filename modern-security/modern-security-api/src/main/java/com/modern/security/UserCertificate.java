@@ -29,6 +29,11 @@ public class UserCertificate {
      */
     private String refreshToken;
 
+    /**
+     * 权限集合
+     */
+    private String permissions;
+
     public UserCertificate() {
     }
 
@@ -62,5 +67,13 @@ public class UserCertificate {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public String getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
     }
 }

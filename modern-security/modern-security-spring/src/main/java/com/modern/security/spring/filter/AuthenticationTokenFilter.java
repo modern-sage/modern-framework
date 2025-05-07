@@ -2,9 +2,10 @@ package com.modern.security.spring.filter;
 
 import com.modern.security.AuthenticationDetails;
 import com.modern.security.AuthenticationDetailsService;
-import com.modern.security.spring.utils.SessionUtils;
+import com.modern.security.spring.DefaultSessionUser;
 import com.modernframework.base.security.context.UserContext;
 import com.modernframework.core.convert.ConvertUtils;
+import com.modernframework.core.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,8 +49,11 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
         String tokenKey = getTokenKey(request);
         final AuthenticationDetails authDetailsByAccessToken = authenticationDetailsService.getAuthDetailsByAccessToken(tokenKey);
         if (authDetailsByAccessToken != null) {
-            //TODO 权限集合
+            String permissions = authDetailsByAccessToken.getPermissions();
             List<String> authoritiesList = Collections.emptyList();
+            if(StringUtils.isNotBlank(permissions)) {
+                authoritiesList = Arrays.asList(permissions.split(","));
+            }
             List<SimpleGrantedAuthority> authorities = authoritiesList.stream().map(String::valueOf)
                     .map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
@@ -59,12 +63,27 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(authDetailsByAccessToken.getUsername(), null, authorities);
             usernamePasswordAuthenticationToken.setDetails(authDetailsByAccessToken);
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            UserContext.setUser(SessionUtils.convertDefaultSessionUser(authDetailsByAccessToken));
+
+            DefaultSessionUser sessionUser = getDefaultSessionUser(authDetailsByAccessToken, authoritiesList);
+            UserContext.setUser(sessionUser);
         } else {
             SecurityContextHolder.clearContext();
             UserContext.clear();
         }
         chain.doFilter(request, response);
+    }
+
+    private DefaultSessionUser getDefaultSessionUser(AuthenticationDetails authDetailsByAccessToken,
+                                                     List<String> authoritiesList) {
+        DefaultSessionUser sessionUser = new DefaultSessionUser();
+        sessionUser.setId(authDetailsByAccessToken.getUserId());
+        sessionUser.setUsername(authDetailsByAccessToken.getUsername());
+        sessionUser.setAccessToken(authDetailsByAccessToken.getAccessToken());
+        sessionUser.setAccessExpireTime(authDetailsByAccessToken.getAccessExpireTime());
+        sessionUser.setRefreshToken(authDetailsByAccessToken.getRefreshToken());
+        sessionUser.setRefreshExpireTime(authDetailsByAccessToken.getRefreshExpireTime());
+        sessionUser.setPermissions(authoritiesList);
+        return sessionUser;
     }
 
     /**

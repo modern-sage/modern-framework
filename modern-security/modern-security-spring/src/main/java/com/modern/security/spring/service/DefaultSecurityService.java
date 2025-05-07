@@ -5,15 +5,18 @@ import com.modern.security.spring.UserDetailsAdapter;
 import com.modern.security.spring.UserAuthenticationDetails;
 import com.modern.security.spring.config.SpringSecurityProperties;
 import com.modern.security.spring.utils.TokenUtils;
+import com.modernframework.core.utils.CollectionUtils;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 授权登录业务实现
@@ -64,16 +67,12 @@ public class DefaultSecurityService implements SecurityService {
         certificate.setUsername(authUser.getUsername());
         certificate.setToken(TokenUtils.createAccessToken());
         certificate.setRefreshToken(TokenUtils.createAccessToken());
+        if(CollectionUtils.isNotEmpty(authentication.getAuthorities())) {
+            certificate.setPermissions(authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.joining(",")));
+        }
 
         // 存储登陆的详细信息（Token等）
-//        UserAuthenticationDetails authDetails = new UserAuthenticationDetails();
-//        authDetails.setUserId(certificate.getUserId());
-//        authDetails.setUsername(certificate.getUsername());
-//        authDetails.setAccessToken(certificate.getToken());
-//        authDetails.setAccessExpireTime(accessExpireTime);
-//        authDetails.setRefreshToken(certificate.getRefreshToken());
-//        authDetails.setRefreshExpireTime(refreshExpireTime);
-//        authenticationDetailsService.saveAuthDetails(authDetails);
         authenticationDetailsService.saveAuthDetails(certificate, accessExpireTime, refreshExpireTime);
         return certificate;
     }
@@ -115,6 +114,10 @@ public class DefaultSecurityService implements SecurityService {
             certificate.setUsername(authUser.getUsername());
             certificate.setToken(TokenUtils.createAccessToken());
             certificate.setRefreshToken(TokenUtils.createAccessToken());
+            if(CollectionUtils.isNotEmpty(authUser.getAuthorities())) {
+                certificate.setPermissions(authUser.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.joining(",")));
+            }
             return certificate;
         } else {
             throw new AccessDeniedException("Token非法");

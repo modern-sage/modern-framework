@@ -55,6 +55,7 @@ public class UseRedisAuthenticationDetailsService implements AuthenticationDetai
         authDetails.setAccessExpireTime(accessExpireTime);
         authDetails.setRefreshToken(certificate.getRefreshToken());
         authDetails.setRefreshExpireTime(refreshExpireTime);
+        authDetails.setPermissions(certificate.getPermissions());
         redisTemplate.opsForValue().set(TOKEN + authDetails.getAccessToken(), authDetails,
                 authDetails.getAccessExpireTime(), TimeUnit.MILLISECONDS);
         return true;
@@ -65,7 +66,7 @@ public class UseRedisAuthenticationDetailsService implements AuthenticationDetai
      */
     @Override
     public boolean removeAuthDetails(String accessToken) {
-        return Boolean.TRUE.equals(redisTemplate.delete(TOKEN + accessToken));
+        return redisTemplate.delete(TOKEN + accessToken);
     }
 
 }
