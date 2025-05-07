@@ -101,4 +101,9 @@ public interface AuthenticationUser {
         return getIsEnabled().equals(YES);
     }
 
+    /**
+     * 是否超管
+     */
+    boolean isSuper();
+
 }

@@ -49,4 +49,8 @@ public class DefaultSessionUser implements SessionUser {
      */
     private List<String> permissions;
 
+    /**
+     * 是否超管
+     */
+    private boolean superAdmin;
 }

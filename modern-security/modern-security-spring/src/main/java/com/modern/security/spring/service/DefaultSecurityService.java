@@ -5,6 +5,7 @@ import com.modern.security.spring.UserDetailsAdapter;
 import com.modern.security.spring.UserAuthenticationDetails;
 import com.modern.security.spring.config.SpringSecurityProperties;
 import com.modern.security.spring.utils.TokenUtils;
+import com.modernframework.core.utils.ClassUtils;
 import com.modernframework.core.utils.CollectionUtils;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -71,6 +72,7 @@ public class DefaultSecurityService implements SecurityService {
             certificate.setPermissions(authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                     .collect(Collectors.joining(",")));
         }
+        certificate.setSuperAdmin(authUser.isSuper());
 
         // 存储登陆的详细信息（Token等）
         authenticationDetailsService.saveAuthDetails(certificate, accessExpireTime, refreshExpireTime);
@@ -117,6 +119,10 @@ public class DefaultSecurityService implements SecurityService {
             if(CollectionUtils.isNotEmpty(authUser.getAuthorities())) {
                 certificate.setPermissions(authUser.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                         .collect(Collectors.joining(",")));
+            }
+            if(ClassUtils.isAssignableFrom(UserDetailsAdapter.class, authUser.getClass())) {
+                UserDetailsAdapter uda = (UserDetailsAdapter) authUser;
+                certificate.setSuperAdmin(uda.isSuper());
             }
             return certificate;
         } else {

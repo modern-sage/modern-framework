@@ -44,4 +44,9 @@ public interface AuthenticationDetails {
      */
     String getPermissions();
 
+    /**
+     * 是否超管
+     */
+    boolean isSuper();
+
 }

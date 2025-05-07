@@ -9,6 +9,9 @@ import lombok.EqualsAndHashCode;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
+
+import static com.modernframework.base.BaseConstant.YES;
 
 /**
  * 内部的认证用户信息
@@ -57,8 +60,14 @@ public class SysAuthUser extends BasePo<SysAuthUser> implements AuthenticationUs
     protected Integer isCredentialsExpired;
 
     /**
+     * 是否超管
+     */
+    protected Integer isSuperAdmin;
+
+    /**
      * 返回权限
      */
+    @Override
     public Collection<String> getPermissions() {
         return StringUtils.isBlank(permissions)? Collections.emptyList() : Arrays.asList(permissions.split(","));
     }
@@ -66,5 +75,10 @@ public class SysAuthUser extends BasePo<SysAuthUser> implements AuthenticationUs
     @Override
     public Long getUserId() {
         return this.getId();
+    }
+
+    @Override
+    public boolean isSuper() {
+        return Objects.equals(isSuperAdmin, YES);
     }
 }

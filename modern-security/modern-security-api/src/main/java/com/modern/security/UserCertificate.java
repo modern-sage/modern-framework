@@ -34,6 +34,11 @@ public class UserCertificate {
      */
     private String permissions;
 
+    /**
+     * 是否超管
+     */
+    private boolean superAdmin;
+
     public UserCertificate() {
     }
 
@@ -75,5 +80,13 @@ public class UserCertificate {
 
     public void setPermissions(String permissions) {
         this.permissions = permissions;
+    }
+
+    public boolean isSuperAdmin() {
+        return superAdmin;
+    }
+
+    public void setSuperAdmin(boolean superAdmin) {
+        this.superAdmin = superAdmin;
     }
 }

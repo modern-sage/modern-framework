@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import static com.modernframework.base.BaseConstant.YES;
+
 
 /**
  * Spring UserDetails 适配器
@@ -102,5 +104,9 @@ public class UserDetailsAdapter implements UserDetails {
     @Override
     public boolean isEnabled() {
         return authUser.isEnabled();
+    }
+
+    public boolean isSuper() {
+        return authUser.isSuper();
     }
 }

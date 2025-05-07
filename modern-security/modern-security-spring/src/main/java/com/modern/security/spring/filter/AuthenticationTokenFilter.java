@@ -83,6 +83,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
         sessionUser.setRefreshToken(authDetailsByAccessToken.getRefreshToken());
         sessionUser.setRefreshExpireTime(authDetailsByAccessToken.getRefreshExpireTime());
         sessionUser.setPermissions(authoritiesList);
+        sessionUser.setSuperAdmin(authDetailsByAccessToken.isSuper());
         return sessionUser;
     }
 

@@ -53,6 +53,7 @@ public class UseMemoryAuthenticationDetailsService implements AuthenticationDeta
         authDetails.setRefreshToken(certificate.getRefreshToken());
         authDetails.setRefreshExpireTime(refreshExpireTime);
         authDetails.setPermissions(certificate.getPermissions());
+        authDetails.setSuperAdmin(certificate.isSuperAdmin());
         return memoryMap.put(authDetails.getAccessToken(), authDetails) != null;
     }
 

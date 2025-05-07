@@ -8,6 +8,9 @@ import com.modern.security.spring.support.mapper.SysAuthDetailsMapper;
 import com.modern.security.spring.support.service.SysAuthDetailsService;
 import com.modernframework.core.utils.StringUtils;
 
+import static com.modernframework.base.BaseConstant.NO;
+import static com.modernframework.base.BaseConstant.YES;
+
 /**
  * SysAuthDetailsServiceImpl
  *
@@ -56,6 +59,7 @@ public class SysAuthDetailsServiceImpl extends AbstractBaseService<SysAuthDetail
         sysAuthDetails.setRefreshToken(certificate.getRefreshToken());
         sysAuthDetails.setRefreshExpireTime(refreshExpireTime);
         sysAuthDetails.setPermissions(certificate.getPermissions());
+        sysAuthDetails.setIsSuperAdmin(certificate.isSuperAdmin()? YES: NO);
         return save(sysAuthDetails);
     }
 

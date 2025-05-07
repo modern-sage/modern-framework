@@ -23,5 +23,6 @@ create table sys_auth_details
     access_expire_time  bigint       not null default -1 comment '访问凭证过期时间',
     refresh_token       varchar(511) not null default '' comment '访问凭证刷新Token',
     refresh_expire_time bigint       not null comment '访问凭证刷新过期时间',
-    permissions            text null comment '权限'
+    permissions            text null comment '权限',
+    is_super_admin            tinyint      not null default 0 comment '是否超管。1：是，0：否'
 ) comment '存储有关身份验证请求的其他详细信息' collate = utf8mb4_0900_ai_ci;

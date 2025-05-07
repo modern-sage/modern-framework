@@ -56,6 +56,7 @@ public class UseRedisAuthenticationDetailsService implements AuthenticationDetai
         authDetails.setRefreshToken(certificate.getRefreshToken());
         authDetails.setRefreshExpireTime(refreshExpireTime);
         authDetails.setPermissions(certificate.getPermissions());
+        authDetails.setSuperAdmin(certificate.isSuperAdmin());
         redisTemplate.opsForValue().set(TOKEN + authDetails.getAccessToken(), authDetails,
                 authDetails.getAccessExpireTime(), TimeUnit.MILLISECONDS);
         return true;

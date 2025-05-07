@@ -53,4 +53,13 @@ public class UserAuthenticationDetails implements AuthenticationDetails, Seriali
      */
     private String permissions;
 
+    /**
+     * 是否超管
+     */
+    private boolean superAdmin;
+
+    @Override
+    public boolean isSuper() {
+        return superAdmin;
+    }
 }

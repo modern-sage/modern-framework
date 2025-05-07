@@ -5,6 +5,10 @@ import com.modern.security.AuthenticationDetails;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Objects;
+
+import static com.modernframework.base.BaseConstant.YES;
+
 
 /**
  * 存储有关身份验证请求的其他详细信息
@@ -53,4 +57,13 @@ public class SysAuthDetails extends IdPo<SysAuthDetails> implements Authenticati
      */
     private String permissions;
 
+    /**
+     * 是否超管
+     */
+    private Integer isSuperAdmin;
+
+    @Override
+    public boolean isSuper() {
+        return Objects.equals(isSuperAdmin, YES);
+    }
 }
