@@ -39,6 +39,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
     public AuthenticationTokenFilter(AuthenticationDetailsService authenticationDetailsService, String tokenKey) {
         this.authenticationDetailsService = authenticationDetailsService;
+        System.out.println(1);
         this.tokenKey = tokenKey;
     }
 
