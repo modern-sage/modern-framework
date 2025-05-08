@@ -1,5 +1,3 @@
-import com.modernframework.core.convert.listconvert.ListConverter;
-
 /**
  * module
  *
@@ -52,9 +50,10 @@ module modern.core {
     exports com.modernframework.core.constant;
     exports com.modernframework.core.convert;
     exports com.modernframework.core.convert.mapconvert;
+    exports com.modernframework.core.convert.listconvert;
+    exports com.modernframework.core.convert.longconvert;
     exports com.modernframework.core.func;
     exports com.modernframework.core.lang;
     exports com.modernframework.core.map;
     exports com.modernframework.core.utils;
-    exports com.modernframework.core.convert.listconvert;
 }

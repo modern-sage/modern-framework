@@ -1,11 +1,14 @@
 package com.modernframework.core.convert;
 
 
+import com.modernframework.core.func.Streams;
 import com.modernframework.core.utils.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.ServiceLoader;
 
 /**
  * 转换器
@@ -34,7 +37,7 @@ public abstract class ConvertUtils {
             return defaultValue;
         }
 
-        Class actualType = targetType;
+        Class<?> actualType = targetType;
         if (targetType.isPrimitive()) {
             actualType = ClassUtils.primitiveToWrapper(targetType);
         }
@@ -46,6 +49,11 @@ public abstract class ConvertUtils {
         Converter converter = Converter.getConverter(source.getClass(), actualType);
         if (converter == null) {
             String error = String.format("未找到对应的转换器, 源: %s, 目标: %s", source.getClass(), actualType);
+            if(log.isDebugEnabled()) {
+                List<String> impls = Streams.stream(ServiceLoader.load(Converter.class)).map(x -> x.getClass().getName())
+                        .toList();
+                log.debug("Convert impl classes: {}", impls);
+            }
             if (ignoreException) {
                 log.error("未找到对应的转换器, 源: {}, 目标: {}", source.getClass(), actualType);
             } else {
