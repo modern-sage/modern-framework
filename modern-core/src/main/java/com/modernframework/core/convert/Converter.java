@@ -1,15 +1,10 @@
 package com.modernframework.core.convert;
 
 
-import com.modernframework.core.func.Streams;
 import com.modernframework.core.lang.Prioritized;
 import com.modernframework.core.utils.ClassUtils;
-import com.modernframework.core.utils.DateUtils;
 import com.modernframework.core.utils.TypeUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.ServiceLoader;
 import java.util.function.Function;
 
 /**
@@ -50,20 +45,6 @@ public interface Converter<S, T> extends Function<S, T>, Prioritized {
      */
     default Class<T> getTargetType() {
         return TypeUtils.findActualTypeArgumentClass(getClass(), Converter.class, true, 1);
-    }
-
-    /**
-     * Get the Converter instance from {@link ServiceLoader} with the specified source and target type
-     *
-     * @param sourceType the source type
-     * @param targetType the target type
-     * @see ServiceLoader#load(Class)
-     */
-    static Converter<?, ?> getConverter(Class<?> sourceType, Class<?> targetType) {
-        return Streams.stream(ServiceLoader.load(Converter.class))
-                .filter(converter -> converter.accept(sourceType, targetType))
-                .findFirst()
-                .orElse(null);
     }
 
 }

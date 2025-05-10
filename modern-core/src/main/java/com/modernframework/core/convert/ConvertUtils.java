@@ -6,9 +6,7 @@ import com.modernframework.core.utils.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.ServiceLoader;
+import java.util.*;
 
 /**
  * 转换器
@@ -19,6 +17,19 @@ import java.util.ServiceLoader;
 public abstract class ConvertUtils {
 
     private static final Logger log = LoggerFactory.getLogger(ConvertUtils.class);
+
+    private static final List<Converter> REGISTORY;
+
+    static {
+        REGISTORY = ServiceLoader.load(Converter.class).stream().map(ServiceLoader.Provider::get).toList();
+    }
+
+    static Converter<?, ?> getConverter(Class<?> sourceType, Class<?> targetType) {
+        return REGISTORY.stream()
+                .filter(x -> x.accept(sourceType, targetType))
+                .findFirst()
+                .orElse(null);
+    }
 
     public static <T> T convertIfPossible(Object source, Class<T> targetType, T defaultValue) {
         return convert(source, targetType, true, defaultValue);
@@ -46,7 +57,7 @@ public abstract class ConvertUtils {
             return (T) source;
         }
         T result = null;
-        Converter converter = Converter.getConverter(source.getClass(), actualType);
+        Converter converter = getConverter(source.getClass(), actualType);
         if (converter == null) {
             String error = String.format("未找到对应的转换器, 源: %s, 目标: %s", source.getClass(), actualType);
             if(log.isDebugEnabled()) {
