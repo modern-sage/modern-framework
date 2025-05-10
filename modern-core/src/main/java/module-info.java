@@ -49,9 +49,17 @@ module modern.core {
     exports com.modernframework.core.anno;
     exports com.modernframework.core.constant;
     exports com.modernframework.core.convert;
-    exports com.modernframework.core.convert.mapconvert;
+    exports com.modernframework.core.convert.bigdecimalconvert;
+    exports com.modernframework.core.convert.booleanconvert;
+    exports com.modernframework.core.convert.byteconvert;
+    exports com.modernframework.core.convert.integerconvert;
     exports com.modernframework.core.convert.listconvert;
+    exports com.modernframework.core.convert.localdatetimeconvert;
     exports com.modernframework.core.convert.longconvert;
+    exports com.modernframework.core.convert.mapconvert;
+    exports com.modernframework.core.convert.multiple;
+    exports com.modernframework.core.convert.shortconvert;
+    exports com.modernframework.core.convert.timestampconvert;
     exports com.modernframework.core.func;
     exports com.modernframework.core.lang;
     exports com.modernframework.core.map;
