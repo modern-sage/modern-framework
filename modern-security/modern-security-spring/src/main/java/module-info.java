@@ -34,6 +34,7 @@ module modern.security.spring {
     opens com.modern.security.spring.config to spring.core;
     opens com.modern.security.spring.support.controller to spring.core;
     opens com.modern.security.spring.support.entity to com.baomidou.mybatis.plus.core;
+    opens com.modern.security.spring.support.service.impl to spring.core;
 
     exports com.modern.security.spring;
     exports com.modern.security.spring.filter;
