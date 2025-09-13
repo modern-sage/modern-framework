@@ -6,6 +6,7 @@ import com.modern.security.spring.support.entity.SysAuthUser;
 import com.modern.security.spring.support.service.impl.DefaultUserDetailsServiceImpl;
 import com.modern.security.spring.support.service.impl.SysAuthDetailsServiceImpl;
 import com.modernframework.base.utils.SchemaInitUtils;
+import com.modernframework.base.utils.SqlReadUtils;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
