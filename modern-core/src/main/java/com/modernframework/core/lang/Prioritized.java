@@ -22,7 +22,7 @@ public interface Prioritized extends Comparable<Prioritized> {
             return -1;
         } else if (b2 && !b1) {
             return 1;
-        } else if (b1 && b2) {
+        } else if (b1) {
             return ((Prioritized) one).compareTo((Prioritized) two);
         } else {
             return PriorityComparator.INSTANCE.compare(one, two);

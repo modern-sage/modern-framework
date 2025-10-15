@@ -1,4 +1,4 @@
-package com.modernframework.base.utils;
+package com.modern.security.spring.utils;
 
 import com.modernframework.core.utils.IOUtils;
 
@@ -11,12 +11,10 @@ import java.util.Map;
 
 /**
  * 数据结构初始化工具
- * @See SqlReadUtils
  *
  * @author <a href="mailto:brucezhang_jjz@163.com">zhangj</a>
  * @since 1.0.0
  */
-@Deprecated
 public class SchemaInitUtils {
 
     public final static String CT = "create table";
@@ -25,7 +23,25 @@ public class SchemaInitUtils {
         Map<String, String> map = new HashMap<>();
         InputStream inputStream = null;
         try {
-            inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcePath);
+            // 方案1：使用类加载器获取资源流
+            inputStream = Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream(resourcePath);
+
+            // 如果为空，尝试其他方式
+            if (inputStream == null) {
+                // 方案2：使用当前类的类加载器
+                inputStream = SchemaInitUtils.class.getClassLoader().getResourceAsStream(resourcePath);
+            }
+
+            if (inputStream == null) {
+                // 方案3：使用当前类相对路径（如果知道具体类）
+                inputStream = SchemaInitUtils.class.getResourceAsStream("/" + resourcePath);
+            }
+
+            if (inputStream == null) {
+                throw new RuntimeException("Resource not found: " + resourcePath);
+            }
+
             byte[] bytes = IOUtils.readInputStream(inputStream);
             String ddlStatements = new String(bytes);
             // 逐行读取

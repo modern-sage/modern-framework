@@ -30,7 +30,7 @@ public class Asserts {
 	 * @throws X if expression is {@code false}
 	 */
 	public static <X extends Throwable> void isTrue(boolean expression, Supplier<? extends X> supplier) throws X {
-		if (false == expression) {
+		if (!expression) {
 			throw supplier.get();
 		}
 	}
