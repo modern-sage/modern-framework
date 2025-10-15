@@ -122,8 +122,32 @@ public abstract class ClassUtils {
      * @param method 方法
      */
     public static void setAccessible(Method method) {
-        if (null != method && !method.isAccessible()) {
+        if (null != method && !isAccessible(method)) {
             method.setAccessible(true);
+        }
+    }
+
+    /**
+     * Check if the given method is accessible.
+     * This method provides compatibility with JDK 9+ module system.
+     * 
+     * @param method The method to check
+     * @return true if the method is accessible, false otherwise
+     */
+    public static boolean isAccessible(Method method) {
+        if (method == null) {
+            return false;
+        }
+        // In JDK 9+, use canAccess for more accurate checking
+        // In JDK 8 and earlier, use isAccessible
+        try {
+            // Try to use JDK 9+'s canAccess method (check existence at runtime)
+            // Use reflection to call canAccess, so it works in JDK 8 environment too
+            java.lang.reflect.Method canAccessMethod = java.lang.reflect.AccessibleObject.class.getMethod("canAccess", Object.class);
+            return (Boolean) canAccessMethod.invoke(method, (Object) null); 
+        } catch (NoSuchMethodException | IllegalAccessException | java.lang.reflect.InvocationTargetException e) {
+            // If canAccess method doesn't exist (JDK 8 or earlier), use isAccessible
+            return method.isAccessible();
         }
     }
 
